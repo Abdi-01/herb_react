@@ -77,7 +77,7 @@ export default function Login() {
             >
               <LockOutlinedIcon fontSize="large" />
             </Avatar>
-            <Typography component="h1" variant="h5" fontWeight="500">
+            <Typography component="h1" variant="h5">
               Herb Login
             </Typography>
             <Box

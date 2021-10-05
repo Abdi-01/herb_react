@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   link: {
     textDecoration: "none",
     display: "block",
-    color: grey[700],
+    marginTop: 4,
     fontWeight: 500,
   },
   iconVerify: {

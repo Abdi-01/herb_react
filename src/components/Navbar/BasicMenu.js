@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   MenuList,
+  Typography,
 } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -79,7 +80,7 @@ export default function BasicMenu() {
               display: "block",
               position: "absolute",
               top: 0,
-              right: 14,
+              right: 19,
               width: 10,
               height: 10,
               bgcolor: "background.paper",
@@ -91,7 +92,17 @@ export default function BasicMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuList sx={{ width: 180, maxWidth: "100%" }}>
+        <MenuList>
+          <Box mb={2} mx={3}>
+            <ListItemText>
+              <Typography fontSize="14px" fontWeight={500}>
+                {userGlobal.username}{" "}
+              </Typography>
+              <Typography fontSize="12px">{userGlobal.email}</Typography>
+            </ListItemText>
+          </Box>
+
+          <Divider />
           {userGlobal.role === "admin" ? (
             <MenuItem dense>
               <Box
@@ -151,7 +162,7 @@ export default function BasicMenu() {
               <ListItemIcon>
                 <SettingsOutlinedIcon fontSize="small" />
               </ListItemIcon>
-              <ListItemText>Settings</ListItemText>
+              <ListItemText>Account Settings</ListItemText>
             </Box>
           </MenuItem>
           <Divider />
