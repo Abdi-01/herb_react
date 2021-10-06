@@ -14,8 +14,9 @@ export default function ButtonPrimary(props) {
     <ColorButton
       variant="contained"
       fullWidth={props.fullWidth}
-      sx={{ mt: 2, mb: 3 }}
+      sx={{ mt: 4, mb: 3 }}
       type="submit"
+      disabled={props.disabled}
     >
       {props.children}
     </ColorButton>

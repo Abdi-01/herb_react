@@ -59,14 +59,43 @@ export const getSession = () => {
           payload: res.data,
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 };
 
 export const loadData = () => {
   return {
     type: "LOAD_DATA",
+  };
+};
+
+export const registerUser = ({ username, email, password }) => {
+  return (dispatch) => {
+    axios
+      .post(`${API}/auth/register`, {
+        username,
+        email,
+        password,
+      })
+      .then((res) => {
+        if (res.data.dataLogin) {
+          delete res.data.dataLogin[0].password;
+          localStorage.setItem("token", JSON.stringify(res.data.token));
+          let dataResult = res.data.dataLogin[0];
+          console.log(dataResult);
+          dispatch({
+            type: "USER_LOGIN",
+            payload: dataResult,
+          });
+        } else {
+          dispatch({
+            type: "USER_LOGIN",
+            payload: res.data,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
