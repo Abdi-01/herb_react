@@ -99,3 +99,23 @@ export const registerUser = ({ username, email, password }) => {
       });
   };
 };
+
+export const forgotPassword = ({ account }) => {
+  return (dispatch) => {
+    axios
+      .get(`${API}/auth/forgot-password`, {
+        params: {
+          account,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: "USER_LOGIN",
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};

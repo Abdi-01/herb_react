@@ -1,10 +1,12 @@
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import { Skeleton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import { makeStyles } from "@mui/styles";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BasicMenu from "./BasicMenu";
@@ -25,6 +27,14 @@ const customTheme = createTheme({
 });
 
 export default function Navbar() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
 
@@ -61,8 +71,12 @@ export default function Navbar() {
                 Order
               </Button>
             </Box>
-            {userGlobal.username ? (
-              <BasicMenu />
+            {loading ? (
+              <Skeleton component="h3" width={83} animation="wave" />
+            ) : userGlobal.username ? (
+              <Box width={83}>
+                <BasicMenu />
+              </Box>
             ) : (
               <Link
                 to="/login"
