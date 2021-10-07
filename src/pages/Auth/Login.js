@@ -1,6 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Alert, Card, CardContent, TextField } from "@mui/material";
+import {
+  Alert,
+  Card,
+  CardContent,
+  CircularProgress,
+  TextField,
+} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -28,16 +34,9 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
-  const onLogin = (data) => {
-    onloginUser(data);
-    setShowAlert(true);
-    reset();
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 3000);
-  };
-
+  const classes = useStyles();
   // States
+  const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   // Redux
@@ -45,13 +44,30 @@ export default function Login() {
   const dispatch = useDispatch();
   const onloginUser = (data) => dispatch(loginUser(data));
 
-  const classes = useStyles();
+  const onLogin = (data) => {
+    setLoading(true);
+    setTimeout(() => {
+      onloginUser(data);
+    }, 800);
+    if (!userGlobal.message) {
+      setShowAlert(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      reset();
+      setTimeout(() => {
+        setShowAlert(false);
+        dispatch({ type: "REMOVE_MESSAGE" });
+      }, 3000);
+    }
+  };
 
   // Logged In
   if (userGlobal.id) {
     return <Redirect to="/" />;
   }
   // Not Logged In
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -80,53 +96,73 @@ export default function Login() {
             <Typography component="h1" variant="h5">
               Herb Login
             </Typography>
-            <Box
-              p={5}
-              component="form"
-              noValidate
-              sx={{ mt: 1, width: 450 }}
-              onSubmit={handleSubmit(onLogin)}
-            >
-              <Alert
-                severity="error"
-                sx={{ marginBottom: "24px" }}
-                style={{ display: showAlert ? "" : "none" }}
+            {loading ? (
+              <Box
+                p={5}
+                component="form"
+                noValidate
+                sx={{ width: 450, height: 412, color: "#3e9c99" }}
+                onSubmit={handleSubmit(onLogin)}
+                display="flex"
+                justifyContent="center"
+                pt={10}
               >
-                {userGlobal?.message}
-              </Alert>
-              <Typography>Email or Username</Typography>
-              <TextField
-                type="text"
-                variant="outlined"
-                margin="dense"
-                fullWidth
-                id="email"
-                name="account"
-                size="small"
-                {...register("account")}
-              />
-              <Typography>Password</Typography>
-              <TextField
-                type="password"
-                variant="outlined"
-                margin="dense"
-                required
-                fullWidth
-                name="password"
-                size="small"
-                {...register("password")}
-                value={register.password}
-              />
-              <ButtonPrimary fullWidth>Sign In</ButtonPrimary>
-              <Box alignItems="center" className={classes.linkContainer} mt={4}>
-                <Link to="#" className={classes.link}>
-                  <Button>Forgot Password</Button>
-                </Link>
-                <Link to="/register" className={classes.link}>
-                  <Button>Sign Up</Button>
-                </Link>
+                <CircularProgress color="inherit" />
               </Box>
-            </Box>
+            ) : (
+              <Box
+                component="form"
+                noValidate
+                sx={{ width: 450, px: 5, py: 2 }}
+                onSubmit={handleSubmit(onLogin)}
+              >
+                <Box sx={{ height: 48, my: 1 }}>
+                  <Alert
+                    severity="error"
+                    sx={{ marginBottom: "24px" }}
+                    style={{ display: showAlert ? "" : "none" }}
+                  >
+                    {userGlobal?.message}
+                  </Alert>
+                </Box>
+                <Typography>Email or Username</Typography>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  margin="dense"
+                  fullWidth
+                  id="email"
+                  name="account"
+                  size="small"
+                  {...register("account")}
+                />
+                <Typography>Password</Typography>
+                <TextField
+                  type="password"
+                  variant="outlined"
+                  margin="dense"
+                  required
+                  fullWidth
+                  name="password"
+                  size="small"
+                  {...register("password")}
+                  value={register.password}
+                />
+                <ButtonPrimary fullWidth>Sign In</ButtonPrimary>
+                <Box
+                  alignItems="center"
+                  className={classes.linkContainer}
+                  mt={4}
+                >
+                  <Link to="/forgot" className={classes.link}>
+                    <Button>Forgot Password?</Button>
+                  </Link>
+                  <Link to="/register" className={classes.link}>
+                    <Button>Sign Up</Button>
+                  </Link>
+                </Box>
+              </Box>
+            )}
           </CardContent>
         </Card>
       </Box>

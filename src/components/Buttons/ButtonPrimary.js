@@ -9,16 +9,23 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export default function ButtonPrimary(props) {
+export default function ButtonPrimary({
+  fullWidth,
+  type = "submit",
+  disabled,
+  children,
+  onClick,
+}) {
   return (
     <ColorButton
       variant="contained"
-      fullWidth={props.fullWidth}
-      sx={{ mt: 4, mb: 3 }}
-      type="submit"
-      disabled={props.disabled}
+      fullWidth={fullWidth}
+      sx={{ mt: 4, mb: 3, px: 4 }}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
     >
-      {props.children}
+      {children}
     </ColorButton>
   );
 }

@@ -25,6 +25,8 @@ export default (state = init_state, action) => {
       return init_state;
     case "LOAD_DATA":
       return { ...state, isChecked: true };
+    case "REMOVE_MESSAGE":
+      return { ...state, message: "" };
     default:
       return state;
   }
