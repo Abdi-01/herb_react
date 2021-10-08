@@ -66,6 +66,96 @@ const Admin = () => {
     fetchProducts();
   };
 
+  const editProducts = (editData) => {
+    setEditProduct({
+      ...editProduct,
+      editId: editData.product_id,
+      editProductName: editData.product_name,
+      editProductDesc: editData.product_desc,
+      editProductStock: editData.stock,
+      editProductNetto: editData.netto,
+      editProductNettoTotal: editData.netto_total,
+      editProductUnit: editData.unit,
+      editProductPricePerUnit: editData.price_per_unit,
+      editProductPricePerStock: editData.price_per_stock,
+      editProductBrand: editData.brand_id,
+      editProductCategory: editData.category_id,
+    });
+  };
+
+  const cancelEdit = () => {
+    setEditProduct({ ...editProduct, editId: 0 });
+  };
+
+  const saveBtnHandler = () => {
+    if (addImage.addFile) {
+      let formData = new FormData();
+
+      formData.append('file', addImage.addFile);
+
+      formData.append(
+        'data',
+        JSON.stringify({
+          product_name: editProduct.editProductName,
+          product_desc: editProduct.editProductDesc,
+          stock: editProduct.editProductStock,
+          netto: editProduct.editProductNetto,
+          netto_total: editProduct.editProductNettoTotal,
+          unit: editProduct.editProductUnit,
+          price_per_unit: editProduct.editProductPricePerUnit,
+          price_per_stock: editProduct.editProductPricePerStock,
+          brand_id: editProduct.editProductBrand,
+          category_id: editProduct.editProductCategory,
+        })
+      );
+
+      Axios.patch(`${API_URL}/products/update/${editProduct.editId}`, formData)
+        .then((res) => {
+          alert(res.data.message);
+          fetchProducts();
+          cancelEdit();
+        })
+        .catch(() => {
+          alert(`Terjadi Kesalahan`);
+        });
+    } else if (!addImage.addFile) {
+      Axios.patch(`${API_URL}/products/update/${editProduct.editId}`, {
+        product_name: editProduct.editProductName,
+        product_desc: editProduct.editProductDesc,
+        product_img: productFetch.productDataList.product_img,
+        stock: editProduct.editProductStock,
+        netto: editProduct.editProductNetto,
+        netto_total: editProduct.editProductNettoTotal,
+        unit: editProduct.editProductUnit,
+        price_per_unit: editProduct.editProductPricePerUnit,
+        price_per_stock: editProduct.editProductPricePerStock,
+        brand_id: editProduct.editProductBrand,
+        category_id: editProduct.editProductCategory,
+      })
+        .then((res) => {
+          alert(res.data.message);
+          fetchProducts();
+          cancelEdit();
+        })
+        .catch(() => {
+          alert(`Terjadi Kesalahan`);
+        });
+    }
+  };
+
+  const btnAddImage = (e) => {
+    if (e.target.files[0]) {
+      setAddImage({
+        ...addImage,
+        addFileName: e.target.files[0].name,
+        addFile: e.target.files[0],
+      });
+
+      let preview = document.getElementById('imgpreview');
+      preview.src = URL.createObjectURL(e.target.files[0]);
+    }
+  };
+
   // render products
   const renderProducts = () => {
     const productPagination =
@@ -79,6 +169,150 @@ const Admin = () => {
     );
 
     return itemPerPage.map((product) => {
+      if (product.product_id === editProduct.editId) {
+        return (
+          <tr>
+            <td>{product.product_id}</td>
+            <td>
+              <input
+                value={editProduct.editProductName}
+                onChange={inputHandler}
+                type="text"
+                className="form-control"
+                name="editProductName"
+              />
+            </td>
+            <td>
+              <textarea
+                value={editProduct.editProductDesc}
+                onChange={inputHandler}
+                type="text"
+                className="form-control"
+                name="editProductDesc"
+              />
+            </td>
+            <td>
+              <div>
+                <img id="imgpreview" alt="" width="100%" />
+              </div>
+              <input
+                onChange={btnAddImage}
+                type="file"
+                className="form-control"
+                id="img"
+              />
+            </td>
+            <td>
+              <input
+                value={editProduct.editProductStock}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductStock"
+              />
+            </td>
+            <td>
+              <input
+                value={editProduct.editProductNetto}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductNetto"
+              />
+            </td>
+            <td>
+              <input
+                value={editProduct.editProductNettoTotal}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductNettoTotal"
+              />
+            </td>
+            <td>
+              <select
+                value={editProduct.editProductUnit}
+                onChange={inputHandler}
+                type="text"
+                className="form-control"
+                name="editProductUnit"
+              >
+                <option value="ml">ml</option>
+                <option value="mg">mg</option>
+                <option value="tablet">tablet</option>
+              </select>
+            </td>
+            <td>
+              <input
+                value={editProduct.editProductPricePerUnit}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductPricePerUnit"
+              />
+            </td>
+            <td>
+              <input
+                value={editProduct.editProductPricePerStock}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductPricePerStock"
+              />
+            </td>
+            <td>
+              <select
+                value={editProduct.editProductBrand}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductBrand"
+              >
+                <option value="1">Kalbe Farma</option>
+                <option value="2">Sanbe Farma</option>
+                <option value="3">Dexa Medica</option>
+                <option value="4">Pharos Indonesia</option>
+                <option value="5">Kimia Farma</option>
+                <option value="6">Biofarma</option>
+                <option value="7">Novartis</option>
+                <option value="8">PT. Sido Muncul Tbk.</option>
+                <option value="9">Blackmores Limited</option>
+                <option value="10">H&H Group</option>
+              </select>
+            </td>
+            <td>
+              <select
+                value={editProduct.editProductCategory}
+                onChange={inputHandler}
+                type="number"
+                className="form-control"
+                name="editProductCategory"
+              >
+                <option value="1">Antibiotics</option>
+                <option value="2">Antibacterials</option>
+                <option value="3">Antacids</option>
+                <option value="4">Antidepressants</option>
+                <option value="5">Antiarrhythmics</option>
+                <option value="6">Suplement</option>
+                <option value="7">Anti-Inflammatories</option>
+                <option value="8">Antipyretics</option>
+                <option value="9">Paracetamol</option>
+                <option value="10">Immunosuppressives</option>
+              </select>
+            </td>
+            <td>
+              <button onClick={saveBtnHandler} className="btn btn-secondary">
+                Save
+              </button>
+            </td>
+            <td>
+              <button onClick={cancelEdit} className="btn btn-danger">
+                Cancel
+              </button>
+            </td>
+          </tr>
+        );
+      }
       return (
         <tr>
           <td>{product.product_id}</td>
@@ -95,6 +329,17 @@ const Admin = () => {
           <td>{product.price_per_stock}</td>
           <td>{product.products_brands}</td>
           <td>{product.products_category}</td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              data-toggle="modal"
+              data-target="#editModal"
+              onClick={() => editProducts(product)}
+            >
+              Edit
+            </button>
+          </td>
         </tr>
       );
     });
@@ -116,6 +361,11 @@ const Admin = () => {
         pagination: productFetch.pagination - 1,
       });
     }
+  };
+
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setEditProduct({ ...editProduct, [name]: value });
   };
 
   useEffect(() => {
