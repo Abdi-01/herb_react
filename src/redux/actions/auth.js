@@ -119,3 +119,11 @@ export const forgotPassword = ({ account }) => {
       });
   };
 };
+
+export const changePassword = ({ password }) => {
+  return (dispatch) => {
+    axios.patch(`${API}/auth/change-password`, {
+      password: password,
+    });
+  };
+};

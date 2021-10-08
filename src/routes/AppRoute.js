@@ -10,7 +10,9 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import RegisterSuccess from "../pages/Auth/RegisterSuccess";
 import Verify from "../pages/Auth/Verify";
+import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home";
+import Profile from "../pages/Profile";
 
 function AppRoute() {
   return (
@@ -30,6 +32,12 @@ function AppRoute() {
           />
           <Route exact path="/forgot/verify/:token" component={ForgotVerify} />
           <Route exact path="/admin" component={Admin} />
+          <Route
+            exact
+            path="/profiles/:username/password/change"
+            component={ChangePassword}
+          />
+          <Route exact path="/profiles/:username" component={Profile} />
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>
