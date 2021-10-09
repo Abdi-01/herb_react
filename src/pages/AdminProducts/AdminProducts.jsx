@@ -143,6 +143,23 @@ const Admin = () => {
     }
   };
 
+  const deleteBtnHandler = (deleteId) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete this products?`
+    );
+    if (confirmDelete) {
+      Axios.delete(`${API_URL}/products/delete/${deleteId}`)
+        .then(() => {
+          fetchProducts();
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    } else {
+      alert(`Cancelled to delete product.`);
+    }
+  };
+
   const btnAddImage = (e) => {
     if (e.target.files[0]) {
       setAddImage({
@@ -338,6 +355,14 @@ const Admin = () => {
               onClick={() => editProducts(product)}
             >
               Edit
+            </button>
+          </td>
+          <td>
+            <button
+              className="btn btn-danger"
+              onClick={() => deleteBtnHandler(product.product_id)}
+            >
+              Delete
             </button>
           </td>
         </tr>
