@@ -13,6 +13,7 @@ import Verify from "../pages/Auth/Verify";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import { LandingPage, AdminProducts } from './pages';
 
 function AppRoute() {
   return (
@@ -31,7 +32,9 @@ function AppRoute() {
             component={ForgotVerifySuccess}
           />
           <Route exact path="/forgot/verify/:token" component={ForgotVerify} />
-          <Route exact path="/admin" component={Admin} />
+          {/* <Route exact path="/admin" component={Admin} /> */}
+          <Route component={AdminProducts} path="/admin" />
+          {/* <Route component={LandingPage} path="/" /> */}
           <Route
             exact
             path="/profiles/:username/password/change"
