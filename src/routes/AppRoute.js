@@ -1,19 +1,19 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Layout from "../components/Layout";
-import Admin from "../pages/Admin";
-import Forgot from "../pages/Auth/Forgot";
-import ForgotSuccess from "../pages/Auth/ForgotSuccess";
-import ForgotVerify from "../pages/Auth/ForgotVerify";
-import ForgotVerifySuccess from "../pages/Auth/ForgotVerifySuccess";
-import Login from "../pages/Auth/Login";
-import Register from "../pages/Auth/Register";
-import RegisterSuccess from "../pages/Auth/RegisterSuccess";
-import Verify from "../pages/Auth/Verify";
-import ChangePassword from "../pages/ChangePassword";
-import Home from "../pages/Home";
-import Profile from "../pages/Profile";
-import { LandingPage, AdminProducts } from './pages';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from '../components/Layout';
+import Admin from '../pages/Admin';
+import Forgot from '../pages/Auth/Forgot';
+import ForgotSuccess from '../pages/Auth/ForgotSuccess';
+import ForgotVerify from '../pages/Auth/ForgotVerify';
+import ForgotVerifySuccess from '../pages/Auth/ForgotVerifySuccess';
+import Login from '../pages/Auth/Login';
+import Register from '../pages/Auth/Register';
+import RegisterSuccess from '../pages/Auth/RegisterSuccess';
+import Verify from '../pages/Auth/Verify';
+import ChangePassword from '../pages/ChangePassword';
+import Home from '../pages/Home/Home';
+import Profile from '../pages/Profile';
+import { AdminProducts, ProductDetail } from '../pages';
 
 function AppRoute() {
   return (
@@ -32,9 +32,8 @@ function AppRoute() {
             component={ForgotVerifySuccess}
           />
           <Route exact path="/forgot/verify/:token" component={ForgotVerify} />
-          {/* <Route exact path="/admin" component={Admin} /> */}
           <Route component={AdminProducts} path="/admin" />
-          {/* <Route component={LandingPage} path="/" /> */}
+          <Route component={ProductDetail} path="/productdetail/:product_id" />
           <Route
             exact
             path="/profiles/:username/password/change"
