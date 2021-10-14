@@ -39,7 +39,7 @@ const CustomOrder = () => {
         })
       );
       formData.append('file', addImage.addFile);
-      Axios.post(`${API_URL}/products/customorder`, formData)
+      Axios.post(`${API_URL}/transaction/post`, formData)
         .then((res) => {
           alert(res.data.message);
           setCustomProduct({
