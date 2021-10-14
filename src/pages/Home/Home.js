@@ -39,22 +39,20 @@ const SidebarWrap = styled.div`
 const Products = () => {
   const [productsFetch, setProductsFetch] = useState({
     productList: [],
-    page: 1,
-    maxPage: 0,
     itemPerPage: 10,
   });
 
-  // const [productsFilter, setProductsFilter] = useState({
-  //   filteredProducts: [],
-  //   page: 1,
-  //   maxPage: 0,
-  //   sortBy: '',
-  // });
+  const [productsFilter, setProductsFilter] = useState({
+    filteredProducts: [],
+    page: 1,
+    maxPage: 0,
+    sortBy: '',
+  });
 
-  // const [searchProduct, setSearchProduct] = useState({
-  //   searchProductName: '',
-  //   searchProductCategory: '',
-  // });
+  const [searchProduct, setSearchProduct] = useState({
+    searchProductName: '',
+    searchProductCategory: '',
+  });
 
   const fetchProducts = () => {
     Axios.get(`${API_URL}/products/get`)
@@ -62,13 +60,12 @@ const Products = () => {
         setProductsFetch({
           ...productsFetch,
           productList: res.data,
+        });
+        setProductsFilter({
+          ...productsFilter,
+          filteredProducts: res.data,
           maxPage: Math.ceil(res.data.length / productsFetch.itemPerPage),
         });
-        // setProductsFilter({
-        //   ...productsFilter,
-        //   filteredProducts: res.data,
-        //   maxPage: Math.ceil(res.data.length / productsFetch.itemPerPage),
-        // });
       })
       .catch((err) => {
         console.log(err);
@@ -77,10 +74,10 @@ const Products = () => {
 
   const renderProducts = () => {
     const productPagination =
-      (productsFetch.page - 1) * productsFetch.itemPerPage;
+      (productsFilter.page - 1) * productsFetch.itemPerPage;
 
     // unfiltered data = all the available data
-    let rawData = [...productsFetch.productList];
+    let rawData = [...productsFilter.filteredProducts];
 
     const compareItem = (a, b) => {
       if (a.product_name < b.product_name) {
@@ -92,23 +89,23 @@ const Products = () => {
       return 0;
     };
 
-    // switch (productsFilter.sortBy) {
-    //   case 'lowestPrice':
-    //     rawData.sort((a, b) => a.price_per_stock - b.price_per_stock);
-    //     break;
-    //   case 'highestPrice':
-    //     rawData.sort((a, b) => b.price_per_stock - a.price_per_stock);
-    //     break;
-    //   case 'az':
-    //     rawData.sort(compareItem);
-    //     break;
-    //   case 'za':
-    //     rawData.sort((a, b) => compareItem(b, a));
-    //     break;
-    //   default:
-    //     rawData = [...productsFilter.filteredProducts];
-    //     break;
-    // }
+    switch (productsFilter.sortBy) {
+      case 'lowestPrice':
+        rawData.sort((a, b) => a.price_per_stock - b.price_per_stock);
+        break;
+      case 'highestPrice':
+        rawData.sort((a, b) => b.price_per_stock - a.price_per_stock);
+        break;
+      case 'az':
+        rawData.sort(compareItem);
+        break;
+      case 'za':
+        rawData.sort((a, b) => compareItem(b, a));
+        break;
+      default:
+        rawData = [...productsFilter.filteredProducts];
+        break;
+    }
 
     const currentData = rawData.slice(
       productPagination,
@@ -125,44 +122,43 @@ const Products = () => {
   };
 
   const nextPageHandler = () => {
-    if (productsFetch.page < productsFetch.maxPage) {
-      setProductsFetch({ ...productsFetch, page: productsFetch.page + 1 });
+    if (productsFilter.page < productsFilter.maxPage) {
+      setProductsFilter({ ...productsFilter, page: productsFilter.page + 1 });
     }
   };
 
   const prevPageHandler = () => {
-    if (productsFetch.page > 1) {
-      setProductsFetch({
-        ...productsFetch,
-        page: productsFetch.page - 1,
-      });
+    if (productsFilter.page > 1) {
+      setProductsFilter({ ...productsFilter, page: productsFilter.page - 1 });
     }
   };
 
-  // const inputHandler = (e) => {
-  //   const value = e.target.value;
-  //   const name = e.target.name;
-  //   setProductsFilter({ ...productsFilter, [name]: value });
-  //   setProductsFetch({ ...productsFetch, [name]: value });
-  //   setSearchProduct({ ...searchProduct, [name]: value });
-  // };
+  const inputHandler = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setProductsFilter({ ...productsFilter, [name]: value });
+    setProductsFetch({ ...productsFetch, [name]: value });
+    setSearchProduct({ ...searchProduct, [name]: value });
+  };
 
-  // const searchBtnHandler = () => {
-  //   const filteredProducts = productsFetch.productList.filter((val) => {
-  //     return (
-  //       val.product_name
-  //         .toLowerCase()
-  //         .includes(searchProduct.searchProductName) &&
-  //       val.products_category.includes(searchProduct.searchProductCategory)
-  //     );
-  //   });
-  //   setProductsFilter({
-  //     ...productsFilter,
-  //     filteredProducts,
-  //     maxPage: Math.ceil(filteredProducts.length / productsFetch.itemPerPage),
-  //     page: 1,
-  //   });
-  // };
+  console.log(searchProduct.searchProductCategory);
+
+  const searchBtnHandler = () => {
+    const filteredProducts = productsFetch.productList.filter((val) => {
+      return (
+        val.product_name
+          .toLowerCase()
+          .includes(searchProduct.searchProductName) &&
+        val.products_category.includes(searchProduct.searchProductCategory)
+      );
+    });
+    setProductsFilter({
+      ...productsFilter,
+      filteredProducts,
+      maxPage: Math.ceil(filteredProducts.length / productsFetch.itemPerPage),
+      page: 1,
+    });
+  };
 
   const classes = useStyles();
 
@@ -176,7 +172,7 @@ const Products = () => {
         <Nav>
           <SidebarNav>
             <SidebarWrap>
-              {/* <div className="input_search">
+              <div className="input_search">
                 <label htmlFor="searchProductName" className="text-white">
                   Product Name
                 </label>
@@ -230,22 +226,22 @@ const Products = () => {
                   <option value="az">A-Z</option>
                   <option value="za">Z-A</option>
                 </select>
-              </div> */}
+              </div>
 
               <div className="mt-3">
                 <div className="d-flex flex-row justify-content-between align-items-center my-4">
                   <button
-                    disabled={productsFetch.page === 1}
+                    disabled={productsFilter.page === 1}
                     onClick={prevPageHandler}
                     className="btn btn-dark"
                   >
                     {'<'}
                   </button>
                   <div className="text-center text-white">
-                    Page {productsFetch.page} of {productsFetch.maxPage}
+                    Page {productsFilter.page} of {productsFilter.maxPage}
                   </div>
                   <button
-                    disabled={productsFetch.page === productsFetch.maxPage}
+                    disabled={productsFilter.page === productsFilter.maxPage}
                     onClick={nextPageHandler}
                     className="btn btn-dark"
                   >
