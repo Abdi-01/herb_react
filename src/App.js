@@ -2,8 +2,9 @@ import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSession } from "./redux/actions/auth";
+import { fetchCart } from "./redux/actions/cart";
 import AppRoute from "./routes/AppRoute";
 
 const theme = createTheme({
@@ -17,12 +18,17 @@ const theme = createTheme({
 function App() {
   useEffect(() => {
     getSessions();
+
+    fetchCarts();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Redux
   const getSessions = (data) => dispatch(getSession(data));
+  const fetchCarts = (data) => dispatch(fetchCart(data));
   const dispatch = useDispatch();
+  const userGlobal = useSelector((state) => state.userGlobal);
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,6 +38,6 @@ function App() {
       </div>
     </ThemeProvider>
   );
-};
+}
 
 export default App;

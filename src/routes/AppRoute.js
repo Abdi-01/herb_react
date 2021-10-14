@@ -13,7 +13,9 @@ import Verify from "../pages/Auth/Verify";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
-import { LandingPage, AdminProducts } from './pages';
+import { LandingPage, AdminProducts } from "../pages";
+import Transaction from "../pages/Transaction";
+import Cart from "../pages/Cart";
 
 function AppRoute() {
   return (
@@ -41,6 +43,8 @@ function AppRoute() {
             component={ChangePassword}
           />
           <Route exact path="/profiles/:username" component={Profile} />
+          <Route exact path="/transaction" component={Transaction} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>

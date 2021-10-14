@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import { API_URL } from '../../helper';
-import { AddModal } from './ModalAddProduct/ModalAddProduct';
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import { API_URL } from "../../helper";
+import { AddModal } from "./ModalAddProduct/ModalAddProduct";
 
-import styled from 'styled-components';
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const Button = styled.button`
   min-width: 100px;
@@ -25,24 +27,26 @@ const Admin = () => {
 
   const [editProduct, setEditProduct] = useState({
     editId: 0,
-    editProductName: '',
-    editProductDesc: '',
+    editProductName: "",
+    editProductDesc: "",
     editProductStock: null,
     editProductNetto: null,
     editProductNettoTotal: null,
     editProductUnit: null,
     editProductPricePerUnit: null,
     editProductPricePerStock: null,
-    editProductBrand: '',
-    editProductCategory: '',
+    editProductBrand: "",
+    editProductCategory: "",
   });
 
   const [addImage, setAddImage] = useState({
-    addFile: '',
-    addFileName: '',
+    addFile: "",
+    addFileName: "",
   });
 
   const [showModal, setShowModal] = useState(false);
+  // Global State
+  const userGlobal = useSelector((state) => state.userGlobal);
 
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -91,10 +95,10 @@ const Admin = () => {
     if (addImage.addFile) {
       let formData = new FormData();
 
-      formData.append('file', addImage.addFile);
+      formData.append("file", addImage.addFile);
 
       formData.append(
-        'data',
+        "data",
         JSON.stringify({
           product_name: editProduct.editProductName,
           product_desc: editProduct.editProductDesc,
@@ -168,7 +172,7 @@ const Admin = () => {
         addFile: e.target.files[0],
       });
 
-      let preview = document.getElementById('imgpreview');
+      let preview = document.getElementById("imgpreview");
       preview.src = URL.createObjectURL(e.target.files[0]);
     }
   };
@@ -397,6 +401,10 @@ const Admin = () => {
     fetchProducts();
   }, []);
 
+  if (userGlobal?.role !== "admin") {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className="p-5r">
       <div className="col-12 text-center">
@@ -441,7 +449,7 @@ const Admin = () => {
                 onClick={() => prevHandler()}
                 className="btn btn-dark"
               >
-                {'<'}
+                {"<"}
               </button>
               <div className="text-center">
                 Page {productFetch.pagination} of {productFetch.maximumPage}
@@ -451,7 +459,7 @@ const Admin = () => {
                 onClick={() => nextHandler()}
                 className="btn btn-dark"
               >
-                {'>'}
+                {">"}
               </button>
             </div>
           </div>
