@@ -16,7 +16,7 @@ import {
   AdminDashboard,
   AdminProducts,
   ProductDetail,
-  CustomOrder,
+  // CustomOrder,
 } from '../pages';
 
 function AppRoute() {
@@ -47,7 +47,7 @@ function AppRoute() {
           <Route component={AdminProducts} path="/adminproducts" />
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
-          <Route component={CustomOrder} path="/customorder" />
+          {/* <Route component={CustomOrder} path="/customorder" /> */}
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>
