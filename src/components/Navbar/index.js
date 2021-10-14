@@ -69,7 +69,7 @@ export default function Navbar() {
               </Button>
               <Button
                 component={Link}
-                to="/customproduct"
+                to="/customorder"
                 size="small"
                 color="inherit"
               >

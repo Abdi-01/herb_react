@@ -2,17 +2,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   root: {
-    maxWidth: '100%',
-    maxHeight: '550px',
+    height: '500px',
+    maxWidth: '400px',
+    maxHeight: '100%',
   },
   media: {
-    height: '300px',
-    width: '300px',
+    height: '250px',
+    width: '250px',
     display: 'block',
-    maxHeight: '100%',
+    padding: '20px',
+    maxHeight: '90%',
+    maxWidth: '100%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    maxWidth: '100%',
   },
   cardActions: {
     display: 'flex',

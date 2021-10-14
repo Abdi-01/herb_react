@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from '../components/Layout';
-import Admin from '../pages/Admin';
 import Forgot from '../pages/Auth/Forgot';
 import ForgotSuccess from '../pages/Auth/ForgotSuccess';
 import ForgotVerify from '../pages/Auth/ForgotVerify';
@@ -13,7 +12,12 @@ import Verify from '../pages/Auth/Verify';
 import ChangePassword from '../pages/ChangePassword';
 import Home from '../pages/Home/Home';
 import Profile from '../pages/Profile';
-import { AdminProducts, ProductDetail } from '../pages';
+import {
+  AdminDashboard,
+  AdminProducts,
+  ProductDetail,
+  CustomOrder,
+} from '../pages';
 
 function AppRoute() {
   return (
@@ -32,14 +36,18 @@ function AppRoute() {
             component={ForgotVerifySuccess}
           />
           <Route exact path="/forgot/verify/:token" component={ForgotVerify} />
-          <Route component={AdminProducts} path="/admin" />
-          <Route component={ProductDetail} path="/productdetail/:product_id" />
           <Route
             exact
             path="/profiles/:username/password/change"
             component={ChangePassword}
           />
           <Route exact path="/profiles/:username" component={Profile} />
+          {/* ADMIN ROUTING */}
+          <Route component={AdminDashboard} path="/admin" />
+          <Route component={AdminProducts} path="/adminproducts" />
+          {/* PRODUCTS ROUTING */}
+          <Route component={ProductDetail} path="/productdetail/:product_id" />
+          <Route component={CustomOrder} path="/customorder" />
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>
