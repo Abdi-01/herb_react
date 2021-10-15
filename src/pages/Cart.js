@@ -79,6 +79,7 @@ function Cart() {
           onIncrement={() => qtyHandler("increment", item.id, item.quantity)}
           onDecrement={() => qtyHandler("decrement", item.id, item.quantity)}
           onDelete={() => onDelete(item.id)}
+          detail={`/productdetail/${item.product_id}`}
         />
       );
     });
@@ -185,7 +186,7 @@ function Cart() {
                   py={2}
                 >
                   <Typography>Payment Method</Typography>
-                  <Typography>Transfer</Typography>
+                  <Typography fontWeight={700}>Transfer</Typography>
                 </Box>
               </CardContent>
               <Box display="flex" flexDirection="column" px={6}>

@@ -49,7 +49,7 @@ function CartItem(props) {
           justifyContent="space-between"
           p={2}
         >
-          <Button LinkComponent={Link} to="/">
+          <Button LinkComponent={Link} to={props.detail}>
             View product details
           </Button>
           <Box display="flex" alignItems="center">
