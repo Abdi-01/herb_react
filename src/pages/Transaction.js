@@ -6,8 +6,11 @@ import React, { useEffect, useState } from "react";
 import TransactionItem from "../components/TransactionItem";
 import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
 import { API } from "../constants/api";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 function Transaction() {
+  const userGlobal = useSelector((state) => state.userGlobal);
   const [transactionData, setTransactionData] = useState({
     transaction: [],
   });
@@ -48,6 +51,11 @@ function Transaction() {
       );
     });
   };
+
+  // Logged In
+  if (!userGlobal.id) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container>
