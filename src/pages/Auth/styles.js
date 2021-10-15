@@ -18,6 +18,9 @@ const useStyles = makeStyles(() => ({
   iconVerify: {
     fontSize: "100px",
   },
+  textInput: {
+    height: 100,
+  },
 }));
 
 export { useStyles };

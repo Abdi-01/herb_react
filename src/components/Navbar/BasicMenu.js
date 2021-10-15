@@ -151,7 +151,14 @@ export default function BasicMenu() {
           </MenuItem>
           <Divider />
           <MenuItem dense onClick={handleLogout}>
-            <Box display="flex" alignItems="center">
+            <Box
+              display="flex"
+              alignItems="center"
+              component={Link}
+              to="/"
+              sx={{ textDecoration: "none" }}
+              color="inherit"
+            >
               <ListItemIcon>
                 <LogoutOutlinedIcon fontSize="small" />
               </ListItemIcon>

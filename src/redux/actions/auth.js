@@ -39,6 +39,9 @@ export const logoutUser = () => {
     dispatch({
       type: "USER_LOGOUT",
     });
+    dispatch({
+      type: "DELETE_CART",
+    });
   };
 };
 

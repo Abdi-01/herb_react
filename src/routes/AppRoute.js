@@ -13,11 +13,16 @@ import ChangePassword from '../pages/ChangePassword';
 import Home from '../pages/Home/Home';
 import Profile from '../pages/Profile';
 import {
+  LandingPage, 
   AdminDashboard,
   AdminProducts,
   ProductDetail,
   // CustomOrder,
 } from '../pages';
+import Transaction from "../pages/Transaction";
+import Cart from "../pages/Cart";
+import Admin from "../pages/Admin";
+
 
 function AppRoute() {
   return (
@@ -48,6 +53,8 @@ function AppRoute() {
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
           {/* <Route component={CustomOrder} path="/customorder" /> */}
+<Route exact path="/transaction" component={Transaction} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>

@@ -1,5 +1,5 @@
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import { Skeleton } from '@mui/material';
+import { IconButton, Skeleton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,9 +7,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import BasicMenu from './BasicMenu';
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
+import { fetchCart } from "../../redux/actions/cart";
+
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -37,6 +40,9 @@ export default function Navbar() {
 
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
+
+  const dispatch = useDispatch();
+  const fetchCarts = (data) => dispatch(fetchCart(data));
 
   const classes = useStyles();
   return (
@@ -76,28 +82,42 @@ export default function Navbar() {
                 Order
               </Button>
             </Box>
-            {loading ? (
-              <Skeleton component="h3" width={83} animation="wave" />
-            ) : userGlobal.username ? (
-              <Box width={83}>
-                <BasicMenu />
-              </Box>
-            ) : (
-              <Link
-                to="/login"
-                style={{
-                  textDecoration: 'none',
-                  color: 'white',
-                }}
-              >
-                <Button
-                  style={{ color: '#FFFF' }}
-                  startIcon={<LoginOutlinedIcon />}
+            <Box display="flex" alignItems="center">
+              <Box component={Link} to="/cart">
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  style={{ color: "#FFFF", marginRight: 10 }}
+                  onClick={() => fetchCarts()}
                 >
-                  Login
-                </Button>
-              </Link>
-            )}
+                  <LocalMallOutlinedIcon />
+                </IconButton>
+              </Box>
+              {loading ? (
+                <Skeleton component="h3" width={83} animation="wave" />
+              ) : userGlobal.username ? (
+                <Box width={83}>
+                  <BasicMenu />
+                </Box>
+              ) : (
+                <Link
+                  to="/login"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                  }}
+                >
+                  <Button
+                    style={{ color: "#FFFF" }}
+                    startIcon={<LoginOutlinedIcon />}
+                  >
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </Box>
           </Toolbar>
         </AppBar>
       </ThemeProvider>
