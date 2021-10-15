@@ -540,7 +540,7 @@ const Admin = () => {
         </div>
         <div>
           <div className="mt-4">
-            {/* <div className="d-flex flex-row justify-content-center align-items-center mx-4">
+            <div className="d-flex flex-row justify-content-center align-items-center mx-4">
               <button
                 disabled={productFetch.pagination === 1}
                 onClick={() => prevHandler()}
@@ -558,7 +558,7 @@ const Admin = () => {
               >
                 {">"}
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
