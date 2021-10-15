@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../../helper';
 import Axios from 'axios';
 import './modaladdproduct.css';
+import { Card, Container } from '@material-ui/core';
 
 export const AddModal = ({ showModal }) => {
   const [productFetch, setProductFetch] = useState({
@@ -123,21 +124,22 @@ export const AddModal = ({ showModal }) => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
   return (
     <>
       {showModal ? (
-        <div className="modal_container">
-          <div className="m-5">
+        <Card className="modal_container">
+          <div>
             <div className="modal-content">
               <div className="modal-header">
-                <h2>Form</h2>
+                <h3>Please fill all the form:</h3>
               </div>
               <div className="modal-body">
                 <div>
                   <div>
                     <img id="imgpreview" alt="" width="100%" />
                   </div>
-                  <label for="img" className="text-xl-left">
+                  <label htmlFor="img" className="text-xl-left">
                     Add image
                   </label>
                   <input
@@ -148,7 +150,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productname" className="text-xl-left">
+                  <label htmlFor="productname" className="text-xl-left">
                     Product Name
                   </label>
                   <input
@@ -162,7 +164,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productdescription" className="text-xl-left">
+                  <label htmlFor="productdescription" className="text-xl-left">
                     Product Description
                   </label>
                   <textarea
@@ -176,7 +178,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productstock" className="text-xl-left">
+                  <label htmlFor="productstock" className="text-xl-left">
                     Product Stock
                   </label>
                   <input
@@ -190,7 +192,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productnetto" className="text-xl-left">
+                  <label htmlFor="productnetto" className="text-xl-left">
                     Product Netto
                   </label>
                   <input
@@ -204,7 +206,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productnettototal" className="text-xl-left">
+                  <label htmlFor="productnettototal" className="text-xl-left">
                     Product Netto Total
                   </label>
                   <input
@@ -218,7 +220,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productunit" className="text-xl-left">
+                  <label htmlFor="productunit" className="text-xl-left">
                     Product Unit
                   </label>
                   <select
@@ -237,7 +239,7 @@ export const AddModal = ({ showModal }) => {
                   </select>
                 </div>
                 <div>
-                  <label for="productpriceperunit" className="text-xl-left">
+                  <label htmlFor="productpriceperunit" className="text-xl-left">
                     Price Per Unit
                   </label>
                   <input
@@ -251,7 +253,10 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productpriceperstock" className="text-xl-left">
+                  <label
+                    htmlFor="productpriceperstock"
+                    className="text-xl-left"
+                  >
                     Price Per Stock
                   </label>
                   <input
@@ -265,7 +270,7 @@ export const AddModal = ({ showModal }) => {
                   />
                 </div>
                 <div>
-                  <label for="productbrand" className="text-xl-left">
+                  <label htmlFor="productbrand" className="text-xl-left">
                     Product Brand
                   </label>
                   <select
@@ -290,7 +295,7 @@ export const AddModal = ({ showModal }) => {
                   </select>
                 </div>
                 <div>
-                  <label for="productcategory" className="text-xl-left">
+                  <label htmlFor="productcategory" className="text-xl-left">
                     Product Category
                   </label>
                   <select
@@ -328,7 +333,7 @@ export const AddModal = ({ showModal }) => {
               </div>
             </div>
           </div>
-        </div>
+        </Card>
       ) : null}
     </>
   );
