@@ -1,18 +1,13 @@
-import { MenuItem, Select, TextareaAutosize } from "@material-ui/core";
+import * as React from "react";
 import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
-import {
-  Card,
-  CardContent,
-  Container,
-  Divider,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import ButtonPrimary from "../components/Buttons/ButtonPrimary";
+import { Box } from "@mui/system";
 import CartItem from "../components/CartItem";
 import { API } from "../constants/api";
 import getCurrentDate from "../helper/getDate";
@@ -22,17 +17,37 @@ import {
   emptyCart,
   updateQty,
 } from "../redux/actions/cart";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Container,
+  Divider,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-function Cart() {
+export default function AlertDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const userGlobal = useSelector((state) => state.userGlobal);
   const cartGlobal = useSelector((state) => state.cartGlobal);
 
-  const [recipient, setRecipient] = useState({
+  const [recipient, setRecipient] = React.useState({
     name: userGlobal.fullname,
     address: userGlobal.address,
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     console.log(cartGlobal);
   }, []);
 
@@ -52,8 +67,15 @@ function Cart() {
     deleteHandler(id);
   };
   const onCheckout = (userData, totalPrice, cartList, recipent) => {
+    if (userGlobal.user_status === "unverified") {
+      return setOpen(true);
+      // alert(
+      //   "You can't make any transactions without verifying you account first"
+      // );
+    }
+
     let date = getCurrentDate();
-    console.log(date);
+
     checkoutHandler(userData, totalPrice, cartList, recipent, date);
     onEmptyCart(userGlobal.id);
   };
@@ -202,6 +224,28 @@ function Cart() {
                 >
                   Checkout
                 </ButtonPrimary>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Oops, you cant do that"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      You cannot do any transactions without verifying your
+                      account first!
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    {/* <Button onClick={handleClose}>Okay</Button> */}
+                    <Button onClick={handleClose} autoFocus>
+                      Okay
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </Box>
             </Card>
           </Box>
@@ -210,5 +254,3 @@ function Cart() {
     </Container>
   );
 }
-
-export default Cart;

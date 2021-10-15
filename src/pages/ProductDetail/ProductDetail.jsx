@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
-import { API_URL } from '../../helper';
-import { Grid, Card, Container } from '@material-ui/core';
-import './productdetailstyles.css';
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
+import { API_URL } from "../../helper";
+import {
+  Grid,
+  Card,
+  Container,
+  IconButton,
+  Typography,
+} from "@material-ui/core";
+import "./productdetailstyles.css";
+import ButtonPrimary from "../../components/Buttons/ButtonPrimary";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
+import { Box } from "@mui/system";
 
 const ProductDetail = (props) => {
   const [product, setProduct] = useState({
@@ -27,12 +37,12 @@ const ProductDetail = (props) => {
   };
 
   const qtyBtnHandler = (action) => {
-    if (action === 'increment') {
+    if (action === "increment") {
       setProduct({
         ...product,
         quantity: product.quantity + 1,
       });
-    } else if (action === 'decrement' && product.quantity > 1) {
+    } else if (action === "decrement" && product.quantity > 1) {
       setProduct({
         ...product,
         quantity: product.quantity - 1,
@@ -71,27 +81,30 @@ const ProductDetail = (props) => {
           <div className="my-2 mx-4">
             <strong>Atur Jumlah Barang</strong>
           </div>
-          <div className="d-flex flex-row align-items-center mx-1">
-            <button
-              onClick={() => qtyBtnHandler('decrement')}
-              className="btn btn-primary mx-4"
+          <Box display="flex" alignItems="center">
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+              width={120}
+              mr={6}
             >
-              -
-            </button>
-            <h6
-              style={{
-                marginLeft: '20px',
-              }}
-            >
-              {product.quantity}
-            </h6>
-            <button
-              onClick={() => qtyBtnHandler('increment')}
-              className="btn btn-primary mx-4"
-            >
-              +
-            </button>
-          </div>
+              <IconButton
+                size="large"
+                onClick={() => qtyBtnHandler("decrement")}
+              >
+                <RemoveCircleOutlineOutlinedIcon color="success" />
+              </IconButton>
+              <Typography>{product.quantity}</Typography>
+              <IconButton
+                size="large"
+                onClick={() => qtyBtnHandler("increment")}
+              >
+                <AddCircleOutlineOutlinedIcon color="success" />
+              </IconButton>
+            </Box>
+            <ButtonPrimary>Add to Cart</ButtonPrimary>
+          </Box>
         </Container>
       </Grid>
       <Grid>
@@ -114,28 +127,28 @@ const ProductDetail = (props) => {
             </div>
             <div>
               <h6>
-                <strong>Netto</strong>: {product.productData.netto}{' '}
+                <strong>Netto</strong>: {product.productData.netto}{" "}
                 {product.productData.unit}
               </h6>
               <hr />
             </div>
             <div>
               <h6>
-                <strong>Total Netto</strong>:{product.productData.netto_total}{' '}
+                <strong>Total Netto</strong>:{product.productData.netto_total}{" "}
                 {product.productData.unit}
               </h6>
               <hr />
             </div>
             <div>
               <h6>
-                <strong>Manufacturer</strong>:{' '}
+                <strong>Manufacturer</strong>:{" "}
                 {product.productData.products_brands}
               </h6>
               <hr />
             </div>
             <div>
               <h6>
-                <strong>Category</strong>:{' '}
+                <strong>Category</strong>:{" "}
                 {product.productData.products_category}
               </h6>
               <hr />

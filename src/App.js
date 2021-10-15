@@ -1,8 +1,7 @@
 import { CssBaseline } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getSession } from "./redux/actions/auth";
 import { fetchCart } from "./redux/actions/cart";
 import AppRoute from "./routes/AppRoute";

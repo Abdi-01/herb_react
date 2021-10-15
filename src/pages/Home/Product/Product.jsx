@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardMedia,
@@ -6,23 +6,28 @@ import {
   CardActions,
   Typography,
   IconButton,
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { AddShoppingCart } from '@material-ui/icons';
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { AddShoppingCart } from "@material-ui/icons";
 
-import { API_URL } from '../../../helper';
+import { API_URL } from "../../../helper";
 
-import useStyles from './productstyles';
+import useStyles from "./productstyles";
+import { useSelector } from "react-redux";
 
 const Product = ({ product }) => {
   const classes = useStyles();
+
+  const userGlobal = useSelector((state) => state.userGlobal);
+
+  const onAddToCart = () => {};
 
   return (
     <Card className={classes.root}>
       <div>
         <Link
           to={`/productdetail/${product.product_id}`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
+          style={{ textDecoration: "none", color: "inherit" }}
         >
           <CardMedia
             className={classes.media}
@@ -49,12 +54,12 @@ const Product = ({ product }) => {
               component="p"
             /> */}
           </CardContent>
-          <CardActions disableSpacing className={classes.cardActions}>
-            <IconButton aria-label="Add to Cart">
-              <AddShoppingCart />
-            </IconButton>
-          </CardActions>
         </Link>
+        <CardActions disableSpacing className={classes.cardActions}>
+          <IconButton aria-label="Add to Cart">
+            <AddShoppingCart color="primary" onClick={onAddToCart} />
+          </IconButton>
+        </CardActions>
       </div>
     </Card>
   );

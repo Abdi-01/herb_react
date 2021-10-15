@@ -75,13 +75,16 @@ export const checkoutCart = (
   currentDate
 ) => {
   return (dispatch) => {
-    axios.post(`${API}/transactions`, {
-      userId: userData.id,
-      recipent: recipent.name,
-      address: recipent.address,
-      totalPrice: totalPrice,
-      transactionItems: cartList,
-      currentDate: currentDate,
-    });
+    axios
+      .post(`${API}/transactions`, {
+        userId: userData.id,
+        recipent: recipent.name,
+        address: recipent.address,
+        totalPrice: totalPrice,
+        transactionItems: cartList,
+        currentDate: currentDate,
+      })
+      .then((res) => {})
+      .catch((err) => {});
   };
 };
