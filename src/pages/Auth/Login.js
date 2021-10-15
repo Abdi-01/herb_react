@@ -79,7 +79,7 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <Card variant="elevation">
+        <Card variant="elevation" elevation={1}>
           <CardContent
             sx={{
               display: "flex",

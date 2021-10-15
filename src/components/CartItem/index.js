@@ -6,6 +6,7 @@ import {
   CardMedia,
   Checkbox,
   Divider,
+  FormControl,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -25,7 +26,6 @@ function CartItem(props) {
           py={2}
         >
           <Box display="flex" alignItem="center">
-            <Checkbox />
             <CardMedia
               component="img"
               image={props.image}
@@ -42,19 +42,6 @@ function CartItem(props) {
               <Typography>Rp. {props.price * props.quantity}</Typography>
             </Box>
           </Box>
-          <Box display="flex" alignItems="center">
-            <IconButton size="large">
-              <DeleteOutlineOutlinedIcon color="error" />
-            </IconButton>
-            <Divider variant="middle" />
-            <IconButton size="large" onClick={props.decrement}>
-              <RemoveCircleOutlineOutlinedIcon color="success" />
-            </IconButton>
-            <Typography px={2}>{props.quantity}</Typography>
-            <IconButton size="large" onClick={props.increment}>
-              <AddCircleOutlineOutlinedIcon color="success" />
-            </IconButton>
-          </Box>
         </Box>
         <Box
           display="flex"
@@ -65,6 +52,22 @@ function CartItem(props) {
           <Button LinkComponent={Link} to="/">
             View product details
           </Button>
+          <Box display="flex" alignItems="center">
+            <IconButton size="large">
+              <DeleteOutlineOutlinedIcon
+                color="error"
+                onClick={props.onDelete}
+              />
+            </IconButton>
+            <Divider variant="middle" />
+            <IconButton size="large" onClick={props.onDecrement}>
+              <RemoveCircleOutlineOutlinedIcon color="success" />
+            </IconButton>
+            <Typography px={2}>{props.quantity}</Typography>
+            <IconButton size="large" onClick={props.onIncrement}>
+              <AddCircleOutlineOutlinedIcon color="success" />
+            </IconButton>
+          </Box>
         </Box>
       </Card>
     </>

@@ -1,5 +1,5 @@
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import { IconButton, Skeleton } from "@mui/material";
+import { Badge, IconButton, Skeleton } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -39,6 +39,7 @@ export default function Navbar() {
 
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
+  const cartGlobal = useSelector((state) => state.cartGlobal);
 
   const dispatch = useDispatch();
   const fetchCarts = (data) => dispatch(fetchCart(data));
@@ -47,7 +48,7 @@ export default function Navbar() {
   return (
     <Box>
       <ThemeProvider theme={customTheme}>
-        <AppBar position="static" elevation={1}>
+        <AppBar position="static" elevation={0}>
           <Toolbar className={classes.title} variant="dense">
             <Box
               display="flex"
@@ -84,9 +85,19 @@ export default function Navbar() {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   style={{ color: "#FFFF", marginRight: 10 }}
-                  onClick={() => fetchCarts()}
                 >
-                  <LocalMallOutlinedIcon />
+                  {userGlobal.id ? (
+                    cartGlobal.length ? (
+                      <LocalMallOutlinedIcon />
+                    ) : (
+                      <Badge
+                        badgeContent={cartGlobal.cartList.length}
+                        color="info"
+                      >
+                        <LocalMallOutlinedIcon />
+                      </Badge>
+                    )
+                  ) : null}
                 </IconButton>
               </Box>
 

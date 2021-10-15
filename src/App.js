@@ -10,7 +10,7 @@ import AppRoute from "./routes/AppRoute";
 const theme = createTheme({
   palette: {
     background: {
-      default: "#FAFAFA",
+      default: "#FFFF",
     },
   },
 });
@@ -28,7 +28,6 @@ function App() {
   const getSessions = (data) => dispatch(getSession(data));
   const fetchCarts = (data) => dispatch(fetchCart(data));
   const dispatch = useDispatch();
-  const userGlobal = useSelector((state) => state.userGlobal);
 
   return (
     <ThemeProvider theme={theme}>
