@@ -1,7 +1,19 @@
-import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import { API_URL } from "../../helper";
-import { AddModal } from "./ModalAddProduct/ModalAddProduct";
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
+import { API_URL } from '../../helper';
+import { AddModal } from './ModalAddProduct/ModalAddProduct';
+import {
+  Card,
+  Container,
+  Grid,
+  CardHeader,
+  CardMedia,
+  Typography,
+  Divider,
+  CardContent,
+} from '@material-ui/core';
+import Avatar from '@mui/material/Avatar';
+
 
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -22,7 +34,7 @@ const Admin = () => {
     productDataList: [],
     pagination: 1,
     maximumPage: 0,
-    dataPerPage: 5,
+    dataPerPage: 6,
   });
 
   const [editProduct, setEditProduct] = useState({
@@ -192,184 +204,276 @@ const Admin = () => {
     return itemPerPage.map((product) => {
       if (product.product_id === editProduct.editId) {
         return (
-          <tr>
-            <td>{product.product_id}</td>
-            <td>
-              <input
-                value={editProduct.editProductName}
-                onChange={inputHandler}
-                type="text"
-                className="form-control"
-                name="editProductName"
-              />
-            </td>
-            <td>
-              <textarea
-                value={editProduct.editProductDesc}
-                onChange={inputHandler}
-                type="text"
-                className="form-control"
-                name="editProductDesc"
-              />
-            </td>
-            <td>
-              <div>
-                <img id="imgpreview" alt="" width="100%" />
-              </div>
-              <input
-                onChange={btnAddImage}
-                type="file"
-                className="form-control"
-                id="img"
-              />
-            </td>
-            <td>
-              <input
-                value={editProduct.editProductStock}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductStock"
-              />
-            </td>
-            <td>
-              <input
-                value={editProduct.editProductNetto}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductNetto"
-              />
-            </td>
-            <td>
-              <input
-                value={editProduct.editProductNettoTotal}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductNettoTotal"
-              />
-            </td>
-            <td>
-              <select
-                value={editProduct.editProductUnit}
-                onChange={inputHandler}
-                type="text"
-                className="form-control"
-                name="editProductUnit"
-              >
-                <option value="ml">ml</option>
-                <option value="mg">mg</option>
-                <option value="tablet">tablet</option>
-              </select>
-            </td>
-            <td>
-              <input
-                value={editProduct.editProductPricePerUnit}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductPricePerUnit"
-              />
-            </td>
-            <td>
-              <input
-                value={editProduct.editProductPricePerStock}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductPricePerStock"
-              />
-            </td>
-            <td>
-              <select
-                value={editProduct.editProductBrand}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductBrand"
-              >
-                <option value="1">Kalbe Farma</option>
-                <option value="2">Sanbe Farma</option>
-                <option value="3">Dexa Medica</option>
-                <option value="4">Pharos Indonesia</option>
-                <option value="5">Kimia Farma</option>
-                <option value="6">Biofarma</option>
-                <option value="7">Novartis</option>
-                <option value="8">PT. Sido Muncul Tbk.</option>
-                <option value="9">Blackmores Limited</option>
-                <option value="10">H&H Group</option>
-              </select>
-            </td>
-            <td>
-              <select
-                value={editProduct.editProductCategory}
-                onChange={inputHandler}
-                type="number"
-                className="form-control"
-                name="editProductCategory"
-              >
-                <option value="1">Antibiotics</option>
-                <option value="2">Antibacterials</option>
-                <option value="3">Antacids</option>
-                <option value="4">Antidepressants</option>
-                <option value="5">Antiarrhythmics</option>
-                <option value="6">Suplement</option>
-                <option value="7">Anti-Inflammatories</option>
-                <option value="8">Antipyretics</option>
-                <option value="9">Paracetamol</option>
-                <option value="10">Immunosuppressives</option>
-              </select>
-            </td>
-            <td>
-              <button onClick={saveBtnHandler} className="btn btn-secondary">
-                Save
-              </button>
-            </td>
-            <td>
-              <button onClick={cancelEdit} className="btn btn-danger">
-                Cancel
-              </button>
-            </td>
-          </tr>
+          <div>
+            <div className="m-4">
+              <Card>
+                <div className="modal-header">
+                  <h2>Product No: {product.product_id}</h2>
+                </div>
+                <div className="modal-body">
+                  <div>
+                    <div>
+                      <img id="imgpreview" alt="" width="100%" />
+                    </div>
+                    <label for="img" className="text-xl-left">
+                      Add image
+                    </label>
+                    <input
+                      onChange={btnAddImage}
+                      type="file"
+                      className="form-control"
+                      id="img"
+                    />
+                  </div>
+                  <div>
+                    <label for="productname" className="text-xl-left">
+                      Product Name
+                    </label>
+                    <input
+                      value={editProduct.editProductName}
+                      onChange={inputHandler}
+                      type="text"
+                      className="form-control"
+                      name="editProductName"
+                    />
+                  </div>
+                  <div>
+                    <label for="productdescription" className="text-xl-left">
+                      Product Description
+                    </label>
+                    <textarea
+                      value={editProduct.editProductDesc}
+                      onChange={inputHandler}
+                      type="text"
+                      className="form-control"
+                      name="editProductDesc"
+                    />
+                  </div>
+                  <div>
+                    <label for="productstock" className="text-xl-left">
+                      Product Stock
+                    </label>
+                    <input
+                      value={editProduct.editProductStock}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductStock"
+                    />
+                  </div>
+                  <div>
+                    <label for="productnetto" className="text-xl-left">
+                      Product Netto
+                    </label>
+                    <input
+                      value={editProduct.editProductNetto}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductNetto"
+                    />
+                  </div>
+                  <div>
+                    <label for="productnettototal" className="text-xl-left">
+                      Product Netto Total
+                    </label>
+                    <input
+                      value={editProduct.editProductNettoTotal}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductNettoTotal"
+                    />
+                  </div>
+                  <div>
+                    <label for="productunit" className="text-xl-left">
+                      Product Unit
+                    </label>
+                    <select
+                      value={editProduct.editProductUnit}
+                      onChange={inputHandler}
+                      type="text"
+                      className="form-control"
+                      name="editProductUnit"
+                    >
+                      <option value="ml">ml</option>
+                      <option value="mg">mg</option>
+                      <option value="tablet">tablet</option>
+                      <option value="kaplet">kaplet</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="productpriceperunit" className="text-xl-left">
+                      Price Per Unit
+                    </label>
+                    <input
+                      value={editProduct.editProductPricePerUnit}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductPricePerUnit"
+                    />
+                  </div>
+                  <div>
+                    <label for="productpriceperstock" className="text-xl-left">
+                      Product Price Per Stock
+                    </label>
+                    <input
+                      value={editProduct.editProductPricePerStock}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductPricePerStock"
+                    />
+                  </div>
+                  <div>
+                    <label for="productbrand" className="text-xl-left">
+                      Product Brand
+                    </label>
+                    <select
+                      value={editProduct.editProductBrand}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductBrand"
+                    >
+                      <option value="1">Kalbe Farma</option>
+                      <option value="2">Sanbe Farma</option>
+                      <option value="3">Dexa Medica</option>
+                      <option value="4">Pharos Indonesia</option>
+                      <option value="5">Kimia Farma</option>
+                      <option value="6">Biofarma</option>
+                      <option value="7">Novartis</option>
+                      <option value="8">PT. Sido Muncul Tbk.</option>
+                      <option value="9">Blackmores Limited</option>
+                      <option value="10">H&H Group</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="productcategory" className="text-xl-left">
+                      Product Category
+                    </label>
+                    <select
+                      value={editProduct.editProductCategory}
+                      onChange={inputHandler}
+                      type="number"
+                      className="form-control"
+                      name="editProductCategory"
+                    >
+                      <option value="1">Antibiotics</option>
+                      <option value="2">Antibacterials</option>
+                      <option value="3">Antacids</option>
+                      <option value="4">Antidepressants</option>
+                      <option value="5">Antiarrhythmics</option>
+                      <option value="6">Suplement</option>
+                      <option value="7">Anti-Inflammatories</option>
+                      <option value="8">Antipyretics</option>
+                      <option value="9">Paracetamol</option>
+                      <option value="10">Immunosuppressives</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    onClick={saveBtnHandler}
+                    className="btn btn-secondary"
+                  >
+                    Save
+                  </button>
+                  <button onClick={cancelEdit} className="btn btn-danger">
+                    Cancel
+                  </button>
+                </div>
+              </Card>
+            </div>
+          </div>
         );
       }
       return (
-        <tr>
-          <td>{product.product_id}</td>
-          <td>{product.product_name}</td>
-          <td>{product.product_desc}</td>
-          <td>
-            <img src={API_URL + product.product_img} width="100%" alt="" />
-          </td>
-          <td>{product.stock}</td>
-          <td>{product.netto}</td>
-          <td>{product.netto_total}</td>
-          <td>{product.unit}</td>
-          <td>{product.price_per_unit}</td>
-          <td>{product.price_per_stock}</td>
-          <td>{product.products_brands}</td>
-          <td>{product.products_category}</td>
-          <td>
+        <Card
+          className="col-4"
+          style={{
+            width: '100%',
+            maxWidth: '700px',
+            maxHeight: '100%',
+            margin: '20px',
+            display: 'block',
+          }}
+        >
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: 'red'[500] }} aria-label="index">
+                {product.product_id}
+              </Avatar>
+            }
+            title={<h6>{product.product_name}</h6>}
+            color="inherit"
+          />
+          <Divider color="textSecondary" />
+          <CardMedia
+            style={{ maxHeight: '200px', maxWidth: '200px' }}
+            component="img"
+            height="100%"
+            image={API_URL + product.product_img}
+            alt=""
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Description: </strong>
+              {product.product_desc}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Available Stock: </strong>
+              {product.stock}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Netto: </strong>
+              {product.netto}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Netto Total: </strong>
+              {product.netto_total}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Unit: </strong>
+              {product.unit}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Price Per Unit: </strong>
+              Rp.{product.price_per_unit}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Price Per Stock: </strong>
+              Rp.{product.price_per_stock}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Brands: </strong>
+              {product.products_brands}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              <strong>Category: </strong>
+              {product.products_category}
+            </Typography>
+          </CardContent>
+          <Divider color="textSecondary" />
+          <CardContent disable spacing className="d-flex flex-row-reverse">
+            <button
+              className="btn btn-danger mx-2"
+              onClick={() => deleteBtnHandler(product.product_id)}
+            >
+              Delete
+            </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-secondary mx-2"
               data-toggle="modal"
               data-target="#editModal"
               onClick={() => editProducts(product)}
             >
               Edit
             </button>
-          </td>
-          <td>
-            <button
-              className="btn btn-danger"
-              onClick={() => deleteBtnHandler(product.product_id)}
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
+          </CardContent>
+        </Card>
       );
     });
   };
@@ -406,58 +510,51 @@ const Admin = () => {
   }
 
   return (
-    <div className="p-5r">
-      <div className="col-12 text-center">
-        <h1>Manage Products</h1>
-        <button onClick={refreshPage}>
-          <img
-            src="https://img.icons8.com/ios-glyphs/30/000000/refresh--v2.png"
-            alt=""
-          />
-        </button>
-        <div>
-          <Button onClick={openModal}>Add New Product</Button>
+    <div>
+      <div>
+        <Container gutterBottom align="center" className="my-3">
+          <Grid spacing={2} container justifyContent="center">
+            <h3 className="mx-4 my-3">Manage Products</h3>
+            <button onClick={refreshPage}>
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/000000/refresh--v2.png"
+                alt=""
+              />
+            </button>
+          </Grid>
+          <div>
+            <Button onClick={openModal}>Add New Product</Button>
+          </div>
+          <div>
+            <AddModal showModal={showModal} setShowModal={setShowModal} />
+          </div>
+        </Container>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <Grid container justifyContent="center" spacing={4}>
+            {renderProducts()}
+          </Grid>
         </div>
         <div>
-          <AddModal showModal={showModal} setShowModal={setShowModal} />
-        </div>
-        <div className="row">
-          <table className="table mt-6">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Stock</th>
-                <th>Netto</th>
-                <th>Total Netto</th>
-                <th>Unit</th>
-                <th>Price Per Unit</th>
-                <th>Price Per Stock</th>
-                <th>Brand</th>
-                <th>Category</th>
-                <th colSpan="2">Action</th>
-              </tr>
-            </thead>
-            <tbody>{renderProducts()}</tbody>
-          </table>
-          <div className="mt-3">
-            <div className="d-flex flex-row justify-content-between align-items-center">
+          <div className="mt-4">
+            <div className="d-flex flex-row justify-content-center align-items-center mx-4">
               <button
                 disabled={productFetch.pagination === 1}
                 onClick={() => prevHandler()}
-                className="btn btn-dark"
+                className="btn btn-dark mx-2"
               >
                 {"<"}
               </button>
-              <div className="text-center">
+              <div className="text-center mx-2">
                 Page {productFetch.pagination} of {productFetch.maximumPage}
               </div>
               <button
                 disabled={productFetch.pagination === productFetch.maximumPage}
                 onClick={() => nextHandler()}
-                className="btn btn-dark"
+                className="btn btn-dark mx-2"
               >
                 {">"}
               </button>

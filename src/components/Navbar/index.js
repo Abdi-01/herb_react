@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BasicMenu from "./BasicMenu";
+
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import { fetchCart } from "../../redux/actions/cart";
 
@@ -73,7 +74,12 @@ export default function Navbar() {
               <Button size="small" color="inherit">
                 Products
               </Button>
-              <Button size="small" color="inherit">
+              <Button
+                component={Link}
+                to="/customorder"
+                size="small"
+                color="inherit"
+              >
                 Order
               </Button>
             </Box>
@@ -100,7 +106,6 @@ export default function Navbar() {
                   ) : null}
                 </IconButton>
               </Box>
-
               {loading ? (
                 <Skeleton component="h3" width={83} animation="wave" />
               ) : userGlobal.username ? (
