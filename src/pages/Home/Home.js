@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { API_URL } from "../../helper";
+import Grid from "@material-ui/core/Grid";
 import Axios from "axios";
-
-// file directory
-import Product from "./Product/Product";
-
+import "boxicons";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { API_URL } from "../../helper";
+import { fetchCart } from "../../redux/actions/cart";
 //styling
 import useStyles from "./homestyles";
 import "./homestyles.css";
-import styled from "styled-components";
-import Grid from "@material-ui/core/Grid";
-import "boxicons";
-import { useDispatch } from "react-redux";
-import { fetchCart } from "../../redux/actions/cart";
+// file directory
+import Product from "./Product/Product";
 
 const Nav = styled.div`
   display: flex;

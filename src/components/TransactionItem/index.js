@@ -55,7 +55,7 @@ function TransactionItem(props) {
               alignItems="center"
             >
               <Typography>Doctor Prescription</Typography>
-              <Button>View Image</Button>
+              {props.hasPrescription ? <Button>View Image</Button> : null}
             </Box>
             <Box display="flex" alignItems="center">
               <Typography> Payment Proof</Typography>
@@ -69,7 +69,7 @@ function TransactionItem(props) {
           p={2}
         >
           <Button LinkComponent={Link} to={props.detail}>
-            View transaction details
+            Transaction details
           </Button>
           <Box display="flex" alignItems="center">
             <ButtonPrimary>Confirm Payment</ButtonPrimary>

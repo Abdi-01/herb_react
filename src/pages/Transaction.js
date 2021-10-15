@@ -47,6 +47,7 @@ function Transaction() {
           recipent={item.recipent}
           address={item.address}
           totalPrice={item.total_price}
+          hasPrescription={item.prescription_img}
         />
       );
     });
@@ -62,11 +63,13 @@ function Transaction() {
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
           <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6">Transactions</Typography>
+            <Typography variant="h6" style={{ textAlign: "center" }}>
+              Ongoing transactions
+            </Typography>
             {transactionData.transaction.length ? (
               <>
                 <CardContent>
-                  <Box px={2}>{renderTransactionData()}</Box>
+                  <Box px={4}>{renderTransactionData()}</Box>
                 </CardContent>
               </>
             ) : (

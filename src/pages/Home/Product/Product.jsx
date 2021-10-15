@@ -1,26 +1,61 @@
-import React from "react";
 import {
   Card,
-  CardMedia,
-  CardContent,
   CardActions,
-  Typography,
+  CardContent,
+  CardMedia,
   IconButton,
+  Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import { AddShoppingCart } from "@material-ui/icons";
-
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { API } from "../../../constants/api";
 import { API_URL } from "../../../helper";
-
+import { fetchCart } from "../../../redux/actions/cart";
 import useStyles from "./productstyles";
-import { useSelector } from "react-redux";
 
 const Product = ({ product }) => {
-  const classes = useStyles();
-
   const userGlobal = useSelector((state) => state.userGlobal);
+  const dispatch = useDispatch();
+  const fetchCarts = (data) => dispatch(fetchCart(data));
+  const [qty, setQty] = useState(1);
 
-  const onAddToCart = () => {};
+  const classes = useStyles();
+  const onAddToCart = () => {
+    axios
+      .get(`${API}/carts/${userGlobal.id}`, {
+        params: {
+          userId: userGlobal.id,
+          productId: product.product_id,
+        },
+      })
+      .then((res) => {
+        if (res.data.length) {
+          axios
+            .patch(`${API}/carts/${res.data[0].id}`, {
+              qty: res.data[0].quantity + qty,
+            })
+            .then((res) => {
+              fetchCarts();
+            })
+            .catch();
+        } else {
+          axios
+            .post(`${API}/carts`, {
+              userId: userGlobal.id,
+              quantity: 1,
+              productId: product.product_id,
+            })
+            .then((res) => {
+              fetchCarts();
+            })
+            .catch((err) => {});
+        }
+      })
+      .catch((err) => {});
+  };
 
   return (
     <Card className={classes.root}>

@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { Container, Grid } from "@material-ui/core";
+import axios from "axios";
 import Axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { API } from "../../../constants/api";
+import { fetchCart } from "../../../redux/actions/cart";
 import { API_URL } from "../../helper";
-import { Grid, Card, Container } from "@material-ui/core";
 import "./productdetailstyles.css";
 
 const ProductDetail = (props) => {
@@ -30,12 +34,12 @@ const ProductDetail = (props) => {
     if (action === "increment") {
       setProduct({
         ...product,
-        quantity: product.quantity + 1,
+        qty: product.quantity + 1,
       });
     } else if (action === "decrement" && product.quantity > 1) {
       setProduct({
         ...product,
-        quantity: product.quantity - 1,
+        qty: product.quantity - 1,
       });
     }
   };

@@ -13,6 +13,10 @@ import ButtonPrimary from "../../components/Buttons/ButtonPrimary";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import { Box } from "@mui/system";
+import { API } from "../../constants/api";
+import axios from "axios";
+import { fetchCart } from "../../redux/actions/cart";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductDetail = (props) => {
   const [product, setProduct] = useState({
@@ -20,6 +24,44 @@ const ProductDetail = (props) => {
     productStatus: false,
     quantity: 1,
   });
+
+  const userGlobal = useSelector((state) => state.userGlobal);
+  const dispatch = useDispatch();
+  const fetchCarts = (data) => dispatch(fetchCart(data));
+
+  const onAddToCart = () => {
+    axios
+      .get(`${API}/carts/${userGlobal.id}`, {
+        params: {
+          userId: userGlobal.id,
+          productId: props.match.params.product_id,
+        },
+      })
+      .then((res) => {
+        if (res.data.length) {
+          axios
+            .patch(`${API}/carts/${res.data[0].id}`, {
+              qty: res.data[0].quantity + product.quantity,
+            })
+            .then((res) => {
+              fetchCarts();
+            })
+            .catch();
+        } else {
+          axios
+            .post(`${API}/carts`, {
+              userId: userGlobal.id,
+              quantity: product.quantity,
+              productId: props.match.params.product_id,
+            })
+            .then((res) => {
+              fetchCarts();
+            })
+            .catch((err) => {});
+        }
+      })
+      .catch((err) => {});
+  };
 
   const fetchProducts = () => {
     const productId = props.match.params.product_id;
@@ -103,7 +145,7 @@ const ProductDetail = (props) => {
                 <AddCircleOutlineOutlinedIcon color="success" />
               </IconButton>
             </Box>
-            <ButtonPrimary>Add to Cart</ButtonPrimary>
+            <ButtonPrimary onClick={onAddToCart}>Add to Cart</ButtonPrimary>
           </Box>
         </Container>
       </Grid>
