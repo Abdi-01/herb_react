@@ -3,6 +3,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
+import HistoryEduOutlinedIcon from "@mui/icons-material/HistoryEduOutlined";
 import {
   Divider,
   IconButton,
@@ -147,6 +148,21 @@ export default function BasicMenu() {
                 <ReceiptOutlinedIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Transactions</ListItemText>
+            </Box>
+          </MenuItem>
+          <MenuItem dense>
+            <Box
+              display="flex"
+              alignItems="center"
+              component={Link}
+              sx={{ textDecoration: "none" }}
+              color="inherit"
+              to="/transaction-history"
+            >
+              <ListItemIcon>
+                <HistoryEduOutlinedIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Transactions History</ListItemText>
             </Box>
           </MenuItem>
           <Divider />
