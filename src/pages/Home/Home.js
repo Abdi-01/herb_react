@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { API_URL } from '../../helper';
-import Axios from 'axios';
-
-// file directory
-import Product from './Product/Product';
-
+import Grid from "@material-ui/core/Grid";
+import Axios from "axios";
+import "boxicons";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { API_URL } from "../../helper";
+import { fetchCart } from "../../redux/actions/cart";
 //styling
-import useStyles from './homestyles';
-import './homestyles.css';
-import styled from 'styled-components';
-import Grid from '@material-ui/core/Grid';
-import 'boxicons';
+import useStyles from "./homestyles";
+import "./homestyles.css";
+// file directory
+import Product from "./Product/Product";
 
 const Nav = styled.div`
   display: flex;
@@ -37,6 +37,13 @@ const SidebarWrap = styled.div`
 `;
 
 const Products = () => {
+  useEffect(() => {
+    fetchCarts();
+  }, []);
+
+  const dispatch = useDispatch();
+  const fetchCarts = (data) => dispatch(fetchCart(data));
+
   const [productsFetch, setProductsFetch] = useState({
     productList: [],
     itemPerPage: 10,
@@ -46,12 +53,12 @@ const Products = () => {
     filteredProducts: [],
     page: 1,
     maxPage: 0,
-    sortBy: '',
+    sortBy: "",
   });
 
   const [searchProduct, setSearchProduct] = useState({
-    searchProductName: '',
-    searchProductCategory: '',
+    searchProductName: "",
+    searchProductCategory: "",
   });
 
   const fetchProducts = () => {
@@ -90,16 +97,16 @@ const Products = () => {
     };
 
     switch (productsFilter.sortBy) {
-      case 'lowestPrice':
+      case "lowestPrice":
         rawData.sort((a, b) => a.price_per_stock - b.price_per_stock);
         break;
-      case 'highestPrice':
+      case "highestPrice":
         rawData.sort((a, b) => b.price_per_stock - a.price_per_stock);
         break;
-      case 'az':
+      case "az":
         rawData.sort(compareItem);
         break;
-      case 'za':
+      case "za":
         rawData.sort((a, b) => compareItem(b, a));
         break;
       default:
@@ -177,7 +184,7 @@ const Products = () => {
                   Product Name
                 </label>
                 <input
-                  style={{ borderRadius: '25px' }}
+                  style={{ borderRadius: "25px" }}
                   onChange={inputHandler}
                   name="searchProductName"
                   type="text"
@@ -235,7 +242,7 @@ const Products = () => {
                     onClick={prevPageHandler}
                     className="btn btn-dark"
                   >
-                    {'<'}
+                    {"<"}
                   </button>
                   <div className="text-center text-white">
                     Page {productsFilter.page} of {productsFilter.maxPage}
@@ -245,7 +252,7 @@ const Products = () => {
                     onClick={nextPageHandler}
                     className="btn btn-dark"
                   >
-                    {'>'}
+                    {">"}
                   </button>
                 </div>
               </div>

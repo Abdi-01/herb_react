@@ -2,7 +2,6 @@ import { Box } from "@mui/system";
 import React from "react";
 import Footer from "../Footer";
 import Navbar from "../Navbar";
-
 import "./layout.css";
 
 export default function Layout(props) {

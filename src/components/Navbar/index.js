@@ -1,30 +1,30 @@
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import { IconButton, Skeleton } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Toolbar from '@mui/material/Toolbar';
-import { makeStyles } from '@mui/styles';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import BasicMenu from './BasicMenu';
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import { Badge, IconButton, Skeleton } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
+import { makeStyles } from "@mui/styles";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import BasicMenu from "./BasicMenu";
+
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import { fetchCart } from "../../redux/actions/cart";
 
-
 const useStyles = makeStyles((theme) => ({
   title: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
 const customTheme = createTheme({
   palette: {
     primary: {
-      main: '#8ccfcd',
+      main: "#8ccfcd",
     },
   },
 });
@@ -40,6 +40,7 @@ export default function Navbar() {
 
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
+  const cartGlobal = useSelector((state) => state.cartGlobal);
 
   const dispatch = useDispatch();
   const fetchCarts = (data) => dispatch(fetchCart(data));
@@ -48,7 +49,7 @@ export default function Navbar() {
   return (
     <Box>
       <ThemeProvider theme={customTheme}>
-        <AppBar position="static" elevation={1}>
+        <AppBar position="static" elevation={0}>
           <Toolbar className={classes.title} variant="dense">
             <Box
               display="flex"
@@ -90,9 +91,19 @@ export default function Navbar() {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   style={{ color: "#FFFF", marginRight: 10 }}
-                  onClick={() => fetchCarts()}
                 >
-                  <LocalMallOutlinedIcon />
+                  {userGlobal.id ? (
+                    cartGlobal.length ? (
+                      <LocalMallOutlinedIcon />
+                    ) : (
+                      <Badge
+                        badgeContent={cartGlobal.cartList.length}
+                        color="info"
+                      >
+                        <LocalMallOutlinedIcon />
+                      </Badge>
+                    )
+                  ) : null}
                 </IconButton>
               </Box>
               {loading ? (
