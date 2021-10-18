@@ -11,8 +11,10 @@ import RegisterSuccess from "../pages/Auth/RegisterSuccess";
 import Verify from "../pages/Auth/Verify";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home/Home";
-import Profile from "../pages/Profile";
+// import Profile from "../pages/Profile";
 import {
+  Profile,
+  EditModal,
   LandingPage,
   AdminDashboard,
   AdminProducts,
@@ -59,6 +61,8 @@ function AppRoute() {
             path="/transaction-history"
             component={TransactionHistory}
           />
+          <Route exact path="/profiles/:username" component={Profile} />
+          <Route exact path="/profiles/:username/profile/change" component={EditModal} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>
