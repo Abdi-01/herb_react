@@ -5,7 +5,6 @@ import ButtonPrimary from "../../../components/Buttons/ButtonPrimary";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import { API_URL } from '../../../helper';
-// import { AddBoxOutlined } from "@material-ui/icons";
 
 function EditModal() {
   const userGlobal = useSelector((state) => state.userGlobal);
