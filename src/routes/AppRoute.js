@@ -21,6 +21,7 @@ import {
 } from "../pages";
 import Transaction from "../pages/Transaction";
 import Cart from "../pages/Cart";
+import TransactionHistory from "../pages/TransactionHistory";
 
 function AppRoute() {
   return (
@@ -53,6 +54,11 @@ function AppRoute() {
           <Route component={CustomOrder} path="/customorder" />
           {/* <Route component={CustomOrder} path="/customorder" /> */}
           <Route exact path="/transaction" component={Transaction} />
+          <Route
+            exact
+            path="/transaction-history"
+            component={TransactionHistory}
+          />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>
