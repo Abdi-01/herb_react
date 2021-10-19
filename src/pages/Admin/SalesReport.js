@@ -12,6 +12,10 @@ const SalesReport = () => {
   const [salesFetch, setSalesFetch] = useState({
     salesDataList: []
   });
+
+  const [revenueFetch, setRevenueFetch] = useState({
+    revenueData: {}
+  });
   
   const fetchSales = () => {
     Axios.get(`${API_URL}/admin`)
@@ -25,9 +29,17 @@ const SalesReport = () => {
       });
   };
 
-  useEffect(() => {
-    fetchSales();
-  }, []);
+  const fetchRevenue = () => {
+    Axios.get(`${API_URL}/admin/revenue`)
+      .then((res) => {
+        if (res.data.length) {
+          setRevenueFetch({ ...revenueFetch, revenueData: res.data[0] });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const renderReports = () => {
     let salesDataList = [...salesFetch.salesDataList];
@@ -43,6 +55,24 @@ const SalesReport = () => {
       )
     })
   }
+
+  const renderRevenue = () => {
+    let revenueData = revenueFetch.revenueData; 
+      return(
+        <tr>
+          <td><strong>Revenue</strong></td>
+          <td></td>
+          <td></td>
+          <td>Rp. {revenueData.Revenue}</td>
+        </tr>
+      )
+  }
+
+  useEffect(() => {
+    fetchSales();
+    fetchRevenue();
+  }, []);
+
 
   if (userGlobal?.role !== "admin") {
     return <Redirect to="/" />;
@@ -66,6 +96,7 @@ const SalesReport = () => {
               {renderReports()}
             </tbody>
             <tfoot>
+              {renderRevenue()}
             </tfoot>
           </table>
         </div>
