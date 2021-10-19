@@ -54,6 +54,14 @@ function Admin() {
                     Manage Products
                   </Link>
                 </h6>
+                <h6 className="my-2">
+                  <Link
+                    to="/salesreport"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Sales Report
+                  </Link>
+                </h6>
                 <h6 className="text-white my-4">Transactions</h6>
                 <h6 className="text-white my-4">Manage Account</h6>
               </div>
