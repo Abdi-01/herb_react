@@ -5,7 +5,7 @@ const dateFormat = (date) => {
   let getMonth = d.getUTCMonth();
   let getDate = d.getUTCDate();
 
-  let dateFormated = `${getYear}-${getMonth}-${getDate}`;
+  let dateFormated = `${getDate}-${getMonth}-${getYear}`;
   return dateFormated;
 };
 

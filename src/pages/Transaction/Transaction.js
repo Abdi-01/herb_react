@@ -52,7 +52,10 @@ function Transaction() {
           hasPrescription={item.prescription_img}
           detail={item.transaction_id}
           imgproof={item.payment_proof}
+          imgprescription={item.prescription_img}
           notes={item.notes_payment}
+          prescnotes={item.notes}
+          status={item.payment_status}
         />
       );
     });

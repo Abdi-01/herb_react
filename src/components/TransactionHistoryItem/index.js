@@ -19,10 +19,9 @@ function TransactionHistoryItem(props) {
   const userGlobal = useSelector((state) => state.userGlobal);
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  const [message, setMessage] = React.useState({
-    title: "",
-    desc: "",
-  });
+
+  const [open4, setOpen4] = React.useState(false);
+
   const [transDetail, setTransDetail] = useState();
 
   const handleClose = () => {
@@ -39,6 +38,13 @@ function TransactionHistoryItem(props) {
 
   const handleClose2 = () => {
     setOpen2(false);
+  };
+
+  const handleConfirm4 = () => {
+    setOpen4(true);
+  };
+  const handleClose4 = () => {
+    setOpen4(false);
   };
 
   const fetchTranscDetail = () => {
@@ -120,7 +126,47 @@ function TransactionHistoryItem(props) {
               alignItems="center"
             >
               <Typography>Doctor Prescription</Typography>
-              {props.hasPrescription ? <Button>View Image</Button> : null}
+              {props.imgprescription ? (
+                <>
+                  <Button onClick={handleConfirm4}>View</Button>
+                  <Dialog
+                    open={open4}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <Typography px={2} mt={4}>
+                      Prescription : Transaction ID - {props.transactionID}
+                    </Typography>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <Box>
+                          <Box>
+                            <>
+                              <div className="image_preview mb-5">
+                                <img
+                                  id="imgpreview"
+                                  src={`${API}/${props.imgproof}`}
+                                  alt=""
+                                  width="100%"
+                                />
+                              </div>
+                              <Typography mb={1}>Prescription Notes</Typography>
+                              <Card variant="outlined" sx={{ padding: 2 }}>
+                                <Typography>{props.prescnotes}</Typography>
+                              </Card>
+                            </>
+                          </Box>
+                        </Box>
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose4} autoFocus>
+                        Close
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </>
+              ) : null}
             </Box>
             <Box
               display="flex"
@@ -134,9 +180,9 @@ function TransactionHistoryItem(props) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
-                <DialogTitle id="alert-dialog-title">
-                  {message.title}
-                </DialogTitle>
+                <Typography px={2} mt={4}>
+                  Payment Proof : Transaction ID - {props.transactionID}
+                </Typography>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
                     <Box>
