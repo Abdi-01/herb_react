@@ -10,7 +10,6 @@ import ButtonPrimary from "../components/Buttons/ButtonPrimary";
 import { Box } from "@mui/system";
 import CartItem from "../components/CartItem";
 import { API } from "../constants/api";
-import getCurrentDate from "../helper/getDate";
 import {
   checkoutCart,
   deleteCart,
@@ -73,7 +72,7 @@ export default function AlertDialog() {
       setMessage({
         ...message,
         title: "Oops, you cant do that",
-        desc: "You don't have any products on your cart",
+        desc: "You can't make any transactions without verifying you account first",
       });
 
       // alert(
@@ -86,9 +85,8 @@ export default function AlertDialog() {
         title: "Checkout Success",
         desc: "Please Confirm the transaction by upload the payment proof",
       });
-      let date = getCurrentDate();
 
-      checkoutHandler(userData, totalPrice, cartList, recipent, date);
+      checkoutHandler(userData, totalPrice, cartList, recipent);
     }
   };
 
