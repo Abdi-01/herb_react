@@ -1,15 +1,15 @@
 import { CardContent, Typography } from "@material-ui/core";
-import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
 import { Card, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import TransactionHistoryItem from "../components/TransactionHistoryItem/index.js";
-import { API } from "../constants/api";
+import TransactionItem from "../../components/TransactionItem";
+import { API } from "../../constants/api";
 
-function TransactionHistory() {
+function Transaction() {
   const userGlobal = useSelector((state) => state.userGlobal);
   const [transactionData, setTransactionData] = useState({
     transaction: [],
@@ -22,7 +22,7 @@ function TransactionHistory() {
   const fetchTransaction = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     axios
-      .get(`${API}/transactions/history`, {
+      .get(`${API}/transactions`, {
         params: {
           token: token,
         },
@@ -40,14 +40,22 @@ function TransactionHistory() {
 
   const renderTransactionData = () => {
     return transactionData.transaction.map((item) => {
+      console.log(item.payment_proof);
       return (
-        <TransactionHistoryItem
+        <TransactionItem
+          key={item.transaction_id}
           transactionID={item.transaction_id}
           transactionDate={item.transaction_date}
           recipent={item.recipent}
           address={item.address}
           totalPrice={item.total_price}
           hasPrescription={item.prescription_img}
+          detail={item.transaction_id}
+          imgproof={item.payment_proof}
+          imgprescription={item.prescription_img}
+          notes={item.notes_payment}
+          prescnotes={item.notes}
+          status={item.payment_status}
         />
       );
     });
@@ -64,7 +72,7 @@ function TransactionHistory() {
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
           <Card variant="outlined" sx={{ width: 700 }}>
             <Typography variant="h6" style={{ textAlign: "center" }}>
-              Transactions history
+              Ongoing transactions
             </Typography>
             {transactionData.transaction.length ? (
               <>
@@ -85,7 +93,7 @@ function TransactionHistory() {
                     <DoDisturbOutlinedIcon fontSize="large" color="disabled" />
                   </Box>
                   <Typography>
-                    You don't have any history transaction
+                    You don't have any ongoing transaction
                   </Typography>
                 </Box>
               </CardContent>
@@ -97,4 +105,4 @@ function TransactionHistory() {
   );
 }
 
-export default TransactionHistory;
+export default Transaction;

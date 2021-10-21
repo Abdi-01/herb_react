@@ -1,15 +1,15 @@
 import { CardContent, Typography } from "@material-ui/core";
+import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
 import { Card, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import TransactionItem from "../components/TransactionItem";
-import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
-import { API } from "../constants/api";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import TransactionHistoryItem from "../../components/TransactionHistoryItem";
+import { API } from "../../constants/api";
 
-function Transaction() {
+function TransactionHistory() {
   const userGlobal = useSelector((state) => state.userGlobal);
   const [transactionData, setTransactionData] = useState({
     transaction: [],
@@ -22,7 +22,7 @@ function Transaction() {
   const fetchTransaction = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     axios
-      .get(`${API}/transactions`, {
+      .get(`${API}/transactions/history`, {
         params: {
           token: token,
         },
@@ -41,13 +41,15 @@ function Transaction() {
   const renderTransactionData = () => {
     return transactionData.transaction.map((item) => {
       return (
-        <TransactionItem
+        <TransactionHistoryItem
+          key={item.transaction_id}
           transactionID={item.transaction_id}
           transactionDate={item.transaction_date}
           recipent={item.recipent}
           address={item.address}
           totalPrice={item.total_price}
           hasPrescription={item.prescription_img}
+          imgproof={item.payment_proof}
         />
       );
     });
@@ -64,7 +66,7 @@ function Transaction() {
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
           <Card variant="outlined" sx={{ width: 700 }}>
             <Typography variant="h6" style={{ textAlign: "center" }}>
-              Ongoing transactions
+              Transactions history
             </Typography>
             {transactionData.transaction.length ? (
               <>
@@ -85,7 +87,7 @@ function Transaction() {
                     <DoDisturbOutlinedIcon fontSize="large" color="disabled" />
                   </Box>
                   <Typography>
-                    You don't have any ongoing transaction
+                    You don't have any history transaction
                   </Typography>
                 </Box>
               </CardContent>
@@ -97,4 +99,4 @@ function Transaction() {
   );
 }
 
-export default Transaction;
+export default TransactionHistory;

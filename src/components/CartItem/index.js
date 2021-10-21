@@ -4,9 +4,7 @@ import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOut
 import {
   Card,
   CardMedia,
-  Checkbox,
   Divider,
-  FormControl,
   IconButton,
   Typography,
 } from "@mui/material";

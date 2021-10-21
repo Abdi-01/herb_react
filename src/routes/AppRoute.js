@@ -21,9 +21,9 @@ import {
   ProductDetail,
   CustomOrder,
 } from "../pages";
-import Transaction from "../pages/Transaction";
 import Cart from "../pages/Cart";
-import TransactionHistory from "../pages/TransactionHistory";
+import Transaction from "../pages/Transaction/Transaction";
+import TransactionHistoryItem from "../pages/Transaction/TransactionHistory";
 
 function AppRoute() {
   return (
@@ -59,7 +59,7 @@ function AppRoute() {
           <Route
             exact
             path="/transaction-history"
-            component={TransactionHistory}
+            component={TransactionHistoryItem}
           />
           <Route exact path="/profiles/:username" component={Profile} />
           <Route exact path="/profiles/:username/profile/change" component={EditModal} />
