@@ -24,6 +24,7 @@ import {
 import Cart from "../pages/Cart";
 import Transaction from "../pages/Transaction/Transaction";
 import TransactionHistoryItem from "../pages/Transaction/TransactionHistory";
+import AdminTransactons from "../pages/AdminTransactions";
 
 function AppRoute() {
   return (
@@ -49,8 +50,9 @@ function AppRoute() {
           />
           <Route exact path="/profiles/:username" component={Profile} />
           {/* ADMIN ROUTING */}
-          <Route component={AdminDashboard} path="/admin" />
+          <Route component={AdminTransactons} path="/admin/transactions" />
           <Route component={AdminProducts} path="/adminproducts" />
+          <Route component={AdminDashboard} path="/admin" />
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
           <Route component={CustomOrder} path="/customorder" />
@@ -62,7 +64,11 @@ function AppRoute() {
             component={TransactionHistoryItem}
           />
           <Route exact path="/profiles/:username" component={Profile} />
-          <Route exact path="/profiles/:username/profile/change" component={EditModal} />
+          <Route
+            exact
+            path="/profiles/:username/profile/change"
+            component={EditModal}
+          />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>

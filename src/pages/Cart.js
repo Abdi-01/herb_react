@@ -134,41 +134,57 @@ export default function AlertDialog() {
     <Container>
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
-          <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6" px={6} py={2}>
-              My Cart
-            </Typography>
-            {cartGlobal.cartList.length ? (
-              <>
+          <Card
+            variant="elevation"
+            sx={{ width: 700, borderRadius: 6 }}
+            elevation={0}
+          >
+            <Box p={4}>
+              <Typography px={6} py={2} fontSize={24}>
+                My Cart
+              </Typography>
+              {cartGlobal.cartList.length ? (
+                <>
+                  <CardContent>
+                    <Box px={4}>{renderCart()}</Box>
+                  </CardContent>
+                </>
+              ) : (
                 <CardContent>
-                  <Box px={4}>{renderCart()}</Box>
-                </CardContent>
-              </>
-            ) : (
-              <CardContent>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  px={4}
-                  pb={14}
-                >
-                  <Box p={4}>
-                    <DoDisturbOutlinedIcon fontSize="large" color="disabled" />
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    px={4}
+                    pb={14}
+                  >
+                    <Box p={4}>
+                      <DoDisturbOutlinedIcon
+                        fontSize="large"
+                        color="disabled"
+                      />
+                    </Box>
+                    <Typography color="GrayText">
+                      You don't have any products on your cart
+                    </Typography>
                   </Box>
-                  <Typography color="GrayText">
-                    You don't have any products on your cart
-                  </Typography>
-                </Box>
-              </CardContent>
-            )}
+                </CardContent>
+              )}
+            </Box>
           </Card>
         </Box>
         {cartGlobal.cartList.length ? (
-          <Box my={4} pl={2}>
+          <Box my={4} pl={2} ml={6}>
             <Card
-              variant="outlined"
-              sx={{ width: 500, position: "sticky", top: 0, padding: 2 }}
+              variant="elevation"
+              elevation={0}
+              sx={{
+                width: 500,
+                position: "sticky",
+                top: 0,
+                padding: 4,
+                borderRadius: 6,
+              }}
             >
               <CardContent>
                 <Typography fontWeight={700}>Order Summary</Typography>

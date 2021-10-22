@@ -53,7 +53,7 @@ function CartItem(props) {
           <Box display="flex" alignItems="center">
             <IconButton size="large">
               <DeleteOutlineOutlinedIcon
-                color="error"
+                color="warning"
                 onClick={props.onDelete}
               />
             </IconButton>

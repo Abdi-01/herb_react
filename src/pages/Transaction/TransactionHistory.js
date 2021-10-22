@@ -64,10 +64,12 @@ function TransactionHistory() {
     <Container>
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
-          <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6" style={{ textAlign: "center" }}>
-              Transactions history
-            </Typography>
+          <Card
+            variant="elevation"
+            sx={{ width: 700, borderRadius: 6, padding: 4 }}
+            elevation={0}
+          >
+            <Typography>Transactions history</Typography>
             {transactionData.transaction.length ? (
               <>
                 <CardContent>
@@ -80,7 +82,6 @@ function TransactionHistory() {
                   display="flex"
                   flexDirection="column"
                   alignItems="center"
-                  px={4}
                   pb={14}
                 >
                   <Box p={4}>
