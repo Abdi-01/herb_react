@@ -6,6 +6,7 @@ import { API_URL } from '../../helper';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 // styling
 import {
@@ -17,7 +18,6 @@ import {
   Grid,
 } from '@material-ui/core';
 import Avatar from '@mui/material/Avatar';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 import './adminstyles.css';
 import styled from 'styled-components';
@@ -35,7 +35,7 @@ const SidebarNav = styled.nav`
   flex-direction: column;
   justify-content: flex-start;
   position: block;
-  padding: 10% 5% 270%;
+  padding: 10% 5% 320%;
   left: 0;
   top: 100px;
   transition: 350ms;
@@ -55,6 +55,10 @@ function Admin() {
     productsList: [],
   });
 
+  const [transactionList, setTransactionList] = useState({
+    transactionLists: [],
+  });
+
   const fetchProducts = () => {
     Axios.get(`${API_URL}/products/get`)
       .then((res) => {
@@ -65,7 +69,17 @@ function Admin() {
       });
   };
 
+  const fetchTransactions = () => {
+    Axios.get(`${API_URL}/transaction/get`)
+      .then((res) => {
+        setTransactionList({ ...transactionList, transactionLists: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
+    fetchTransactions();
     fetchProducts();
   }, []);
 
@@ -73,182 +87,164 @@ function Admin() {
     return <Redirect to="/" />;
   }
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <div>
-        <div>
-          <Nav>
-            <SidebarNav>
-              <SidebarWrap>
-                <div>
-                  <h6 className="text-white my-4">
-                    <Link
-                      className="text-decoration-none text-white"
-                      to="/admin"
-                    >
-                      Dashboard
-                    </Link>
-                  </h6>
-                  <h6 className="my-4">
-                    <Link
-                      to="/adminproducts"
-                      className="text-decoration-none text-white"
-                    >
-                      Manage Products
-                    </Link>
-                  </h6>
-                  <h6 className="text-white my-4">
-                    <Link
-                      className="text-decoration-none text-white"
-                      to="/transaction"
-                    >
-                      Transactions
-                    </Link>
-                  </h6>
-                  <h6 className="text-white my-4">
-                    <Link
-                      className="text-decoration-none text-white"
-                      to={`/profiles/${userGlobal.username}`}
-                    >
-                      Manage Account
-                    </Link>
-                  </h6>
-                </div>
-              </SidebarWrap>
-            </SidebarNav>
-          </Nav>
-        </div>
-        {/* ANALYTICS DASHBOARD */}
-
-        {/* DASHBOARD HEADER */}
-        <Container className="p-4" style={{ marginLeft: '20%' }}>
-          <Card className="p-4">
-            <h4>Welcome back, {userGlobal.fullname}!</h4>
-            <p>Analytics Dashboard</p>
-          </Card>
-        </Container>
-
-        {/* MAIN ANALYTICS DASHBOARD */}
-        <Container className="p-4" style={{ marginLeft: '20%' }}>
-          <Card style={{ background: '#8ccfcd' }}>
-            <CardHeader
-              avatar={
-                <Avatar>
-                  <AnalyticsIcon />
-                </Avatar>
-              }
-              className="p-4 text-white"
-              title={<h4>Portfolio Performance</h4>}
-            ></CardHeader>
-            <Divider color="textSecondary" />
-            <CardContent>
-              <Grid container className="d-flex justify-content-center">
-                <Card
-                  item
-                  className="mx-4 p-2"
-                  style={{ width: '250px', height: '120px' }}
-                >
-                  <AssessmentIcon className="mb-3" />
-                  <h6>Total Available Item:</h6>
-                  <h4>
-                    <strong>{products.productsList.length} Products</strong>
-                  </h4>
-                </Card>
-                <Card
-                  item
-                  className="mx-4 p-2"
-                  style={{ width: '250px', height: '120px' }}
-                >
-                  <ShowChartIcon className="mb-3" />
-                  <h6>Unpaid Transactions:</h6>
-                  <h4>
-                    <strong>Rp.5.000.000</strong>
-                  </h4>
-                </Card>
-                <Card
-                  item
-                  className="mx-4 p-2"
-                  style={{ width: '250px', height: '120px' }}
-                >
-                  <BarChartRoundedIcon className="mb-3" />
-                  <h6>Capital Gains:</h6>
-                  <h4>
-                    <strong>Rp.-200.000</strong>
-                  </h4>
-                </Card>
-              </Grid>
-            </CardContent>
-            <Divider color="textSecondary" />
-          </Card>
-        </Container>
-
-        {/* DASHBOARD LINK TO SPECIFIC PAGE */}
-        <Container>
-          <Grid
-            container
-            spacing={2}
-            className="col-4"
-            style={{ marginLeft: '14%', paddingTop: '2%' }}
-          >
-            <Grid item xs={5} className="mx-2 my-2">
-              <Card elevation={7} className="p-2">
-                <h6 className="mb-3">Manage Products</h6>
-                <Divider color="textSecondary" />
-                <h6>Lorem Ipsum Dolor it self</h6>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here,
-                </p>
-              </Card>
-            </Grid>
-            <Grid item xs={5} className="mx-4 my-2">
-              <Card elevation={7} className="p-2">
-                <h6 className="mb-3">Ongoing Transaction:</h6>
-                <Divider color="textSecondary" />
-                <h6>Lorem Ipsum Dolor it self</h6>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here,
-                </p>
-              </Card>
-            </Grid>
-            <Grid item xs={5} className="mx-2 my-2">
-              <Card elevation={7} className="p-2">
-                <h6 className="mb-3">Custom Order:</h6>
-                <Divider color="textSecondary" />
-                <h6>Lorem Ipsum Dolor it self</h6>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here,
-                </p>
-              </Card>
-            </Grid>
-            <Grid item xs={5} className="mx-4 my-2">
-              <Card elevation={7} className="p-2">
-                <h6 className="mb-3">Transactions:</h6>
-                <Divider color="textSecondary" />
-                <h6>Lorem Ipsum Dolor it self</h6>
-                <p>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here,
-                </p>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
+        <Nav>
+          <SidebarNav>
+            <SidebarWrap>
+              <div>
+                <h6 className="text-white my-4">
+                  <Link className="text-decoration-none text-white" to="/admin">
+                    Dashboard
+                  </Link>
+                </h6>
+                <h6 className="my-4">
+                  <Link
+                    to="/adminproducts"
+                    className="text-decoration-none text-white"
+                  >
+                    Manage Products
+                  </Link>
+                </h6>
+                <h6 className="text-white my-4">
+                  <Link
+                    className="text-decoration-none text-white"
+                    to="/transactions"
+                  >
+                    Transactions
+                  </Link>
+                </h6>
+                <h6 className="text-white my-4">
+                  <Link
+                    className="text-decoration-none text-white"
+                    to={`/profiles/${userGlobal.username}`}
+                  >
+                    Manage Account
+                  </Link>
+                </h6>
+              </div>
+            </SidebarWrap>
+          </SidebarNav>
+        </Nav>
       </div>
-    </>
+      {/* ANALYTICS DASHBOARD */}
+
+      {/* DASHBOARD HEADER */}
+      <Container
+        className="p-4"
+        style={{ marginLeft: '20%', background: 'transparent' }}
+      >
+        <Card className="p-2">
+          <h4>Welcome back, {userGlobal.fullname}!</h4>
+          <p>Analytics Dashboard</p>
+        </Card>
+      </Container>
+
+      {/* MAIN ANALYTICS DASHBOARD */}
+      <Container className="p-2" style={{ marginLeft: '20%' }}>
+        <Card style={{ background: '#8ccfcd' }}>
+          <CardHeader
+            avatar={
+              <Avatar>
+                <AnalyticsIcon />
+              </Avatar>
+            }
+            className="p-4 text-white d-flex justify-content-start"
+            title={<h4>Portfolio Performance</h4>}
+          ></CardHeader>
+          <Divider color="textSecondary" />
+          <CardContent>
+            <Grid container className="d-flex justify-content-center pb-4">
+              <Card
+                item
+                className="mx-4 p-2"
+                style={{
+                  width: '250px',
+                  height: '120px',
+                  background: '#FEF1E6',
+                }}
+              >
+                <AssessmentIcon className="mb-3" />
+                <h6>Total Available Item:</h6>
+                <h4>
+                  <strong>{products.productsList.length} Products</strong>
+                </h4>
+              </Card>
+              <Card
+                item
+                className="mx-4 p-2"
+                style={{
+                  width: '250px',
+                  height: '120px',
+                  color: 'darkgreen',
+                  background: '#FEF1E6',
+                }}
+              >
+                <ShowChartIcon className="mb-3" />
+                <h6>Unpaid Transactions:</h6>
+                <h4>
+                  <strong>Rp.5.000.000</strong>
+                </h4>
+              </Card>
+              <Card
+                item
+                className="mx-4 p-2"
+                style={{
+                  width: '250px',
+                  height: '120px',
+                  color: 'red',
+                  background: '#FEF1E6',
+                }}
+              >
+                <BarChartRoundedIcon className="mb-3" />
+                <h6>Capital Gains:</h6>
+                <h4>
+                  <strong>Rp.-200.000</strong>
+                </h4>
+              </Card>
+            </Grid>
+          </CardContent>
+          <Divider color="textSecondary" />
+        </Card>
+      </Container>
+
+      {/* DASHBOARD LINK TO SPECIFIC PAGE */}
+      <Container style={{ marginLeft: '25%', paddingTop: '2%' }}>
+        <h4>Link to page</h4>
+        <Grid container spacing={2} className="col-4">
+          <Grid item xs={5} className="mx-2 my-2">
+            <Card elevation={7} className="p-2">
+              <h5 className="mb-3">
+                <Link
+                  className="text-decoration-none"
+                  color="inherit"
+                  to="/adminproducts"
+                >
+                  <strong>Manage Products</strong>
+                </Link>
+              </h5>
+              <Divider color="textSecondary" />
+              <h6>Product List: {products.productsList.length}</h6>
+            </Card>
+          </Grid>
+
+          <Grid item xs={5} className="mx-4 my-2">
+            <Card elevation={7} className="p-2">
+              <h5 className="mb-3">
+                <Link className="text-decoration-none" to="/transactions">
+                  <strong>Transactions</strong>
+                </Link>
+              </h5>
+              <Divider color="textSecondary" />
+              <h6>
+                You have a total of {transactionList.transactionLists.length}{' '}
+                Transactions
+              </h6>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </div>
   );
 }
 

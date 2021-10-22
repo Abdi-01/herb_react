@@ -1,13 +1,13 @@
-import { CardContent, Typography } from "@material-ui/core";
-import { Card, Container } from "@mui/material";
-import { Box } from "@mui/system";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import TransactionItem from "../components/TransactionItem";
-import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
-import { API } from "../constants/api";
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { CardContent, Typography } from '@material-ui/core';
+import { Card, Container } from '@mui/material';
+import { Box } from '@mui/system';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import TransactionItem from '../components/TransactionItem';
+import DoDisturbOutlinedIcon from '@mui/icons-material/DoDisturbOutlined';
+import { API } from '../constants/api';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 function Transaction() {
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -20,7 +20,7 @@ function Transaction() {
   }, []);
 
   const fetchTransaction = () => {
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = JSON.parse(localStorage.getItem('token'));
     axios
       .get(`${API}/transactions`, {
         params: {
@@ -28,7 +28,7 @@ function Transaction() {
         },
       })
       .then((res) => {
-        console.log("fetch Trans : ", res.data);
+        console.log('fetch Trans : ', res.data);
         let dataTrans = res.data;
         setTransactionData({
           ...transactionData,
@@ -63,7 +63,7 @@ function Transaction() {
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
           <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6" style={{ textAlign: "center" }}>
+            <Typography variant="h6" style={{ textAlign: 'center' }}>
               Ongoing transactions
             </Typography>
             {transactionData.transaction.length ? (

@@ -5,16 +5,16 @@ import {
   CardMedia,
   IconButton,
   Typography,
-} from "@material-ui/core";
-import { AddShoppingCart } from "@material-ui/icons";
-import axios from "axios";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { API } from "../../../constants/api";
-import { API_URL } from "../../../helper";
-import { fetchCart } from "../../../redux/actions/cart";
-import useStyles from "./productstyles";
+} from '@material-ui/core';
+import { AddShoppingCart } from '@material-ui/icons';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { API } from '../../../constants/api';
+import { API_URL } from '../../../helper';
+import { fetchCart } from '../../../redux/actions/cart';
+import useStyles from './productstyles';
 
 const Product = ({ product }) => {
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -62,7 +62,7 @@ const Product = ({ product }) => {
       <div>
         <Link
           to={`/productdetail/${product.product_id}`}
-          style={{ textDecoration: "none", color: "inherit" }}
+          style={{ textDecoration: 'none', color: 'inherit' }}
         >
           <CardMedia
             className={classes.media}
@@ -75,19 +75,13 @@ const Product = ({ product }) => {
                 {product.product_name}
               </Typography>
               <Typography gutterBottom variant="h6" component="h2">
-                Rp.{product.price_per_stock}
+                Rp.{product.price_per_stock.toLocaleString()}
               </Typography>
               <br />
             </div>
             <Typography variant="body2" color="textSecondary" component="p">
               {product.products_category}
             </Typography>
-            {/* <Typography
-              dangerouslySetInnerHTML={{ __html: product.product_desc }}
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            /> */}
           </CardContent>
         </Link>
         <CardActions disableSpacing className={classes.cardActions}>

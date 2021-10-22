@@ -1,5 +1,6 @@
 const getCurrentDate = () => {
-  let separator = "-";
+  let colon = ':';
+  let separator = '-';
   let newDate = new Date();
   let date = newDate.getDate();
   let month = newDate.getMonth() + 1;
@@ -9,7 +10,7 @@ const getCurrentDate = () => {
 
   return `${year}${separator}${
     month < 10 ? `0${month}` : `${month}`
-  }${separator}${date}${separator}${hour}${separator}${minutes}`;
+  }${separator}${date} at ${hour}${colon}${minutes}`;
 };
 
 export default getCurrentDate;

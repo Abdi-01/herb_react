@@ -35,11 +35,11 @@ const CustomOrder = () => {
         'data',
         JSON.stringify({
           custom_product_name: customProduct.addProductName,
-          custom_product_desc: customProduct.addProductDesc,
+          notes: customProduct.addProductDesc,
         })
       );
       formData.append('file', addImage.addFile);
-      Axios.post(`${API_URL}/transaction/post`, formData)
+      Axios.post(`${API_URL}/transactions/custom`, formData)
         .then((res) => {
           alert(res.data.message);
           setCustomProduct({
