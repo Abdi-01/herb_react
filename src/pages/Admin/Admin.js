@@ -63,6 +63,14 @@ function Admin() {
                     Sales Report
                   </Link>
                 </h6>
+                <h6 className="my-4">
+                  <Link
+                    to="/customrecord"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Custom Record
+                  </Link>
+                </h6>
                 <h6 className="text-white my-4">Manage Account</h6>
               </div>
             </SidebarWrap>
