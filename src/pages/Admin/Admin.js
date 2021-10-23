@@ -54,14 +54,6 @@ function Admin() {
                     Manage Products
                   </Link>
                 </h6>
-                <h6 className="my-2">
-                  <Link
-                    to="/customproducts"
-                    className="text-decoration-none text-white link_to"
-                  >
-                    Custom Products
-                  </Link>
-                </h6>
                 <h6 className="text-white my-4">Transactions</h6>
                 <h6 className="my-4">
                   <Link
