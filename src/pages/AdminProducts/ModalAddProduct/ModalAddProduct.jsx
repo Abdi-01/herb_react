@@ -235,6 +235,7 @@ export const AddModal = ({ showModal }) => {
                     <option value="ml">ml</option>
                     <option value="mg">mg</option>
                     <option value="tablet">tablet</option>
+                    <option value="botol">botol</option>
                     <option value="kaplet">kaplet</option>
                   </select>
                 </div>

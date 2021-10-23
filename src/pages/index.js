@@ -5,3 +5,4 @@ export { default as ProductDetail } from './ProductDetail/ProductDetail';
 export { default as CustomOrder } from './CustomOrder/CustomOrder';
 export { default as Profile } from './User/Profile';
 export { default as EditModal } from './User/ModalEditUserProfile/ModalEditUser';
+export { default as SalesReport } from './Admin/SalesReport';

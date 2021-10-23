@@ -18,6 +18,7 @@ import {
   LandingPage,
   AdminDashboard,
   AdminProducts,
+  SalesReport,
   ProductDetail,
   CustomOrder,
 } from "../pages";
@@ -65,11 +66,9 @@ function AppRoute() {
             component={TransactionHistoryItem}
           />
           <Route exact path="/profiles/:username" component={Profile} />
-          <Route
-            exact
-            path="/profiles/:username/profile/change"
-            component={EditModal}
-          />
+          <Route exact path="/profiles/:username/profile/change" component={EditModal} />
+          <Route exact path="/salesreport" component={SalesReport} />
+
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>
