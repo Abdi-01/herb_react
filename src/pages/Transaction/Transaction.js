@@ -40,7 +40,7 @@ function Transaction() {
 
   const renderTransactionData = () => {
     return transactionData.transaction.map((item) => {
-      console.log(item.payment_proof);
+      console.log(item.prescription_img);
       return (
         <TransactionItem
           key={item.transaction_id}
@@ -70,14 +70,17 @@ function Transaction() {
     <Container>
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
-          <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6" style={{ textAlign: "center" }}>
-              Ongoing transactions
-            </Typography>
+          <Card
+            variant="elevation"
+            sx={{ width: 700, borderRadius: 6, padding: 4 }}
+            elevation={0}
+          >
+            <Typography variant="h6">Ongoing transactions</Typography>
             {transactionData.transaction.length ? (
               <>
                 <CardContent>
-                  <Box px={4}>{renderTransactionData()}</Box>
+                  <Box p={4}>{renderTransactionData()}</Box>
+
                 </CardContent>
               </>
             ) : (

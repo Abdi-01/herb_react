@@ -212,7 +212,7 @@ function TransactionItem(props) {
                               <div className="image_preview mb-5">
                                 <img
                                   id="imgpreview"
-                                  src={`${API}/${props.imgproof}`}
+                                  src={`${API}/${props.hasPrescription}`}
                                   alt=""
                                   width="100%"
                                 />

@@ -70,7 +70,7 @@ export const emptyCart = (userId) => {
 export const checkoutCart = (userData, totalPrice, cartList, recipent) => {
   return (dispatch) => {
     axios
-      .post(`${API}/transactions`, {
+      .post(`${API}/transactions/`, {
         userId: userData.id,
         recipent: recipent.name,
         address: recipent.address,

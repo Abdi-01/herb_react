@@ -20,7 +20,7 @@ export default function ButtonPrimary({
     <ColorButton
       variant="contained"
       fullWidth={fullWidth}
-      sx={{ mt: 4, mb: 3, px: 4 }}
+      sx={{ mt: 4, mb: 3, px: 4, borderRadius: 4 }}
       type={type}
       disabled={disabled}
       onClick={onClick}
