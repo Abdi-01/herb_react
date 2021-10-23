@@ -70,6 +70,7 @@ function TransactionHistory() {
             elevation={0}
           >
             <Typography>Transactions history</Typography>
+
             {transactionData.transaction.length ? (
               <>
                 <CardContent>

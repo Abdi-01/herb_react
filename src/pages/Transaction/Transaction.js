@@ -80,6 +80,7 @@ function Transaction() {
               <>
                 <CardContent>
                   <Box p={4}>{renderTransactionData()}</Box>
+
                 </CardContent>
               </>
             ) : (
