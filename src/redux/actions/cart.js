@@ -57,7 +57,7 @@ export const deleteCart = (id) => {
 export const emptyCart = (userId) => {
   return (dispatch) => {
     axios
-      .delete(`${API}/carts/${userId}`)
+      .delete(`${API}/carts/all/${userId}`)
       .then((res) => {
         dispatch(fetchCart());
       })
@@ -67,22 +67,15 @@ export const emptyCart = (userId) => {
   };
 };
 
-export const checkoutCart = (
-  userData,
-  totalPrice,
-  cartList,
-  recipent,
-  currentDate
-) => {
+export const checkoutCart = (userData, totalPrice, cartList, recipent) => {
   return (dispatch) => {
     axios
-      .post(`${API}/transactions`, {
+      .post(`${API}/transactions/`, {
         userId: userData.id,
         recipent: recipent.name,
         address: recipent.address,
         totalPrice: totalPrice,
         transactionItems: cartList,
-        currentDate: currentDate,
       })
       .then((res) => {})
       .catch((err) => {});

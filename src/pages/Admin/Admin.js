@@ -1,10 +1,10 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
-import AdminProducts from '../AdminProducts/AdminProducts';
+import React from "react";
+import { useSelector } from "react-redux";
+import { Redirect, Link } from "react-router-dom";
+import AdminProducts from "../AdminProducts/AdminProducts";
 
-import './adminstyles.css';
-import styled from 'styled-components';
+import "./adminstyles.css";
+import styled from "styled-components";
 
 // custom styling
 const Nav = styled.div`
@@ -63,6 +63,14 @@ function Admin() {
                   </Link>
                 </h6>
                 <h6 className="text-white my-4">Transactions</h6>
+                <h6 className="text-white my-4">
+                  <Link
+                    to="/admin/transactions"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Transactions
+                  </Link>
+                </h6>
                 <h6 className="text-white my-4">Manage Account</h6>
               </div>
             </SidebarWrap>
