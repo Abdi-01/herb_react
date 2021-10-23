@@ -34,9 +34,9 @@ const SidebarWrap = styled.div`
 function Admin() {
   const userGlobal = useSelector((state) => state.userGlobal);
 
-  // if (userGlobal?.role !== 'admin') {
-  //   return <Redirect to="/" />;
-  // }
+  if (userGlobal?.role !== 'admin') {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>
@@ -46,7 +46,7 @@ function Admin() {
             <SidebarWrap>
               <div>
                 <h6 className="text-white my-4">Dashboard</h6>
-                <h6 className="my-2">
+                <h6 className="my-4">
                   <Link
                     to="/adminproducts"
                     className="text-decoration-none text-white link_to"
@@ -54,7 +54,8 @@ function Admin() {
                     Manage Products
                   </Link>
                 </h6>
-                <h6 className="my-2">
+                <h6 className="text-white my-4">Transactions</h6>
+                <h6 className="my-4">
                   <Link
                     to="/salesreport"
                     className="text-decoration-none text-white link_to"
@@ -62,7 +63,6 @@ function Admin() {
                     Sales Report
                   </Link>
                 </h6>
-                <h6 className="text-white my-4">Transactions</h6>
                 <h6 className="text-white my-4">
                   <Link
                     to="/admin/transactions"
