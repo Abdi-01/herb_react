@@ -1,13 +1,13 @@
-import { CardContent, Typography } from '@material-ui/core';
-import { Card, Container } from '@mui/material';
-import { Box } from '@mui/system';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import TransactionItem from '../components/TransactionItem';
-import DoDisturbOutlinedIcon from '@mui/icons-material/DoDisturbOutlined';
-import { API } from '../constants/api';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { CardContent, Typography } from "@material-ui/core";
+import { Card, Container } from "@mui/material";
+import { Box } from "@mui/system";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import TransactionItem from "../../components/TransactionItem";
+import { API } from "../../constants/api";
 
 function Transaction() {
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -20,7 +20,7 @@ function Transaction() {
   }, []);
 
   const fetchTransaction = () => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = JSON.parse(localStorage.getItem("token"));
     axios
       .get(`${API}/transactions`, {
         params: {
@@ -35,7 +35,7 @@ function Transaction() {
           transaction: dataTrans,
         });
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   const renderTransactionData = () => {
@@ -80,7 +80,6 @@ function Transaction() {
               <>
                 <CardContent>
                   <Box p={4}>{renderTransactionData()}</Box>
-
                 </CardContent>
               </>
             ) : (
