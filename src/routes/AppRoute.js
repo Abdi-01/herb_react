@@ -22,9 +22,11 @@ import {
   ProductDetail,
   CustomReport
 } from "../pages";
-import Transaction from "../pages/Transaction";
 import Cart from "../pages/Cart";
-import TransactionHistory from "../pages/TransactionHistory";
+import Transaction from "../pages/Transaction/Transaction";
+import TransactionHistoryItem from "../pages/Transaction/TransactionHistory";
+import AdminTransactons from "../pages/AdminTransactions";
+
 
 function AppRoute() {
   return (
@@ -50,8 +52,9 @@ function AppRoute() {
           />
           <Route exact path="/profiles/:username" component={Profile} />
           {/* ADMIN ROUTING */}
-          <Route component={AdminDashboard} path="/admin" />
+          <Route component={AdminTransactons} path="/admin/transactions" />
           <Route component={AdminProducts} path="/adminproducts" />
+          <Route component={AdminDashboard} path="/admin" />
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
           {/* <Route component={CustomOrder} path="/customorder" /> */}
@@ -59,7 +62,7 @@ function AppRoute() {
           <Route
             exact
             path="/transaction-history"
-            component={TransactionHistory}
+            component={TransactionHistoryItem}
           />
           <Route exact path="/profiles/:username" component={Profile} />
           <Route exact path="/profiles/:username/profile/change" component={EditModal} />
