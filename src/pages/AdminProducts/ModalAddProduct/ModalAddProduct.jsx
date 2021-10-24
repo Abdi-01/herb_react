@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../../helper';
 import Axios from 'axios';
 import './modaladdproduct.css';
-import { Card, Container } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 
 export const AddModal = ({ showModal }) => {
   const [productFetch, setProductFetch] = useState({

@@ -1,272 +1,226 @@
-import Grid from "@material-ui/core/Grid";
-import Axios from "axios";
-import "boxicons";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { API_URL } from "../../helper";
-import { fetchCart } from "../../redux/actions/cart";
-//styling
-import useStyles from "./homestyles";
-import "./homestyles.css";
-// file directory
-import Product from "./Product/Product";
+import React from 'react';
+import { Box, Container, Divider } from '@material-ui/core';
+import styled from 'styled-components';
+import Carousel from 'react-elastic-carousel';
+import happy_fam from '../../assets/images/happy_fam.jpeg';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import hipster from '../../assets/images/hipster.png';
+import hoody from '../../assets/images/hoody.png';
+import old from '../../assets/images/old.png';
+import mom from '../../assets/images/mom.png';
+import slow1 from '../../assets/images/slow1.jpeg';
+import slow2 from '../../assets/images/slow2.jpeg';
+import slow5 from '../../assets/images/slow5.jpeg';
+import slow4 from '../../assets/images/slow4.jpeg';
+import earth from '../../assets/images/earth.jpg';
+import organic from '../../assets/images/organic.png';
+
+import './home.css';
 
 const Nav = styled.div`
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
 `;
 
-const SidebarNav = styled.nav`
+const MainContainer = styled.nav`
   background: #8ccfcd;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  padding: 5% 1% 25%;
-  top: 90px;
-  left: 0;
-  transition: 350ms;
-  z-index: 1;
-`;
-
-const SidebarWrap = styled.div`
   width: 100%;
+  position: block;
+  height: 56vh;
+  top: 50px;
+  transition: 350ms;
+  z-index: -5;
+  box-shadow: 5px #888888;
 `;
 
-const Products = () => {
-  useEffect(() => {
-    fetchCarts();
-  }, []);
+const CarouselItem = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 80vw;
+  background-color: wheat;
+  color: #fff;
+  margin: 0 15px;
+  font-size: 4em;
+`;
 
-  const dispatch = useDispatch();
-  const fetchCarts = (data) => dispatch(fetchCart(data));
-
-  const [productsFetch, setProductsFetch] = useState({
-    productList: [],
-    itemPerPage: 10,
-  });
-
-  const [productsFilter, setProductsFilter] = useState({
-    filteredProducts: [],
-    page: 1,
-    maxPage: 0,
-    sortBy: "",
-  });
-
-  const [searchProduct, setSearchProduct] = useState({
-    searchProductName: "",
-    searchProductCategory: "",
-  });
-
-  const fetchProducts = () => {
-    Axios.get(`${API_URL}/products/get`)
-      .then((res) => {
-        setProductsFetch({
-          ...productsFetch,
-          productList: res.data,
-        });
-        setProductsFilter({
-          ...productsFilter,
-          filteredProducts: res.data,
-          maxPage: Math.ceil(res.data.length / productsFetch.itemPerPage),
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const renderProducts = () => {
-    const productPagination =
-      (productsFilter.page - 1) * productsFetch.itemPerPage;
-
-    // unfiltered data = all the available data
-    let rawData = [...productsFilter.filteredProducts];
-
-    const compareItem = (a, b) => {
-      if (a.product_name < b.product_name) {
-        return -1;
-      }
-      if (a.product_name > b.product_name) {
-        return 1;
-      }
-      return 0;
-    };
-
-    switch (productsFilter.sortBy) {
-      case "lowestPrice":
-        rawData.sort((a, b) => a.price_per_stock - b.price_per_stock);
-        break;
-      case "highestPrice":
-        rawData.sort((a, b) => b.price_per_stock - a.price_per_stock);
-        break;
-      case "az":
-        rawData.sort(compareItem);
-        break;
-      case "za":
-        rawData.sort((a, b) => compareItem(b, a));
-        break;
-      default:
-        rawData = [...productsFilter.filteredProducts];
-        break;
-    }
-
-    const currentData = rawData.slice(
-      productPagination,
-      productPagination + productsFetch.itemPerPage
-    );
-
-    return currentData.map((product) => {
-      return (
-        <Grid key={product.id} item xs={3}>
-          <Product product={product} />
-        </Grid>
-      );
-    });
-  };
-
-  const nextPageHandler = () => {
-    if (productsFilter.page < productsFilter.maxPage) {
-      setProductsFilter({ ...productsFilter, page: productsFilter.page + 1 });
-    }
-  };
-
-  const prevPageHandler = () => {
-    if (productsFilter.page > 1) {
-      setProductsFilter({ ...productsFilter, page: productsFilter.page - 1 });
-    }
-  };
-
-  const inputHandler = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setProductsFilter({ ...productsFilter, [name]: value });
-    setProductsFetch({ ...productsFetch, [name]: value });
-    setSearchProduct({ ...searchProduct, [name]: value });
-  };
-
-  console.log(searchProduct.searchProductCategory);
-
-  const searchBtnHandler = () => {
-    const filteredProducts = productsFetch.productList.filter((val) => {
-      return (
-        val.product_name
-          .toLowerCase()
-          .includes(searchProduct.searchProductName) &&
-        val.products_category.includes(searchProduct.searchProductCategory)
-      );
-    });
-    setProductsFilter({
-      ...productsFilter,
-      filteredProducts,
-      maxPage: Math.ceil(filteredProducts.length / productsFetch.itemPerPage),
-      page: 1,
-    });
-  };
-
-  const classes = useStyles();
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
+const Home = () => {
+  const breakPoints = [
+    { width: 10000, itemsToShow: 1 },
+    { width: 10000, itemsToShow: 2 },
+    { width: 10000, itemsToShow: 3 },
+    { width: 10000, itemsToShow: 4 },
+  ];
   return (
-    <>
-      <main className={classes.content}>
-        <Nav>
-          <SidebarNav>
-            <SidebarWrap>
-              <div className="input_search">
-                <label htmlFor="searchProductName" className="text-white">
-                  Product Name
-                </label>
-                <input
-                  style={{ borderRadius: "25px" }}
-                  onChange={inputHandler}
-                  name="searchProductName"
-                  type="text"
-                  placeholder="Search..."
-                  className="form-control mb-3"
-                />
-                <label htmlFor="searchProductCategory" className="text-white">
-                  Product Category
-                </label>
-                <select
-                  onChange={inputHandler}
-                  name="searchProductCategory"
-                  className="form-control"
-                >
-                  <option value="">All Items</option>
-                  <option value="Antibiotics">Antibiotics</option>
-                  <option value="Antibacterials">Antibacterials</option>
-                  <option value="Antacids">Antacids</option>
-                  <option value="Antidepressants">Antidepressants</option>
-                  <option value="Antiarrhythmics">Antiarrhythmics</option>
-                  <option value="Suplement">Suplement</option>
-                  <option value="Anti-Inflammatories">
-                    Anti-Inflammatories
-                  </option>
-                  <option value="Antipyretics">Antipyretics</option>
-                  <option value="Paracetamol">Paracetamol</option>
-                  <option value="Immunosuppressives">Immunosuppressives</option>
-                </select>
-                <button
-                  onClick={searchBtnHandler}
-                  className="btn btn-primary my-3 button-search"
-                >
-                  Search
-                </button>
-                <label htmlFor="sortBy" className="text-white">
-                  Sort Product
-                </label>
-                <select
-                  onChange={inputHandler}
-                  name="sortBy"
-                  className="form-control"
-                >
-                  <option value="">Default</option>
-                  <option value="lowestPrice">Lowest Price</option>
-                  <option value="highestPrice">Highest Price</option>
-                  <option value="az">A-Z</option>
-                  <option value="za">Z-A</option>
-                </select>
-              </div>
+    <Nav>
+      <MainContainer>
+        <div className="p-4">
+          <img className="earth_img" src={happy_fam} alt="" />
+          <img className="organic_img" src={organic} alt="" />
+        </div>
+        <Container>
+          <h1 className="h1_main"> The next generation of care for families</h1>
+        </Container>
+      </MainContainer>
 
-              <div className="mt-3">
-                <div className="d-flex flex-row justify-content-between align-items-center my-4">
-                  <button
-                    disabled={productsFilter.page === 1}
-                    onClick={prevPageHandler}
-                    className="btn btn-dark"
-                  >
-                    {"<"}
-                  </button>
-                  <div className="text-center text-white">
-                    Page {productsFilter.page} of {productsFilter.maxPage}
-                  </div>
-                  <button
-                    disabled={productsFilter.page === productsFilter.maxPage}
-                    onClick={nextPageHandler}
-                    className="btn btn-dark"
-                  >
-                    {">"}
-                  </button>
-                </div>
-              </div>
-            </SidebarWrap>
-          </SidebarNav>
-        </Nav>
-      </main>
-      <div className="products_container">
-        <Grid container justifyContent="center" spacing={4}>
-          {renderProducts()}
-        </Grid>
+      <div className="second_container">
+        <Container>
+          <h1 className="h2_main">
+            Herb's pioneering Pharmaceutical care model is built around adults,
+            teenagers, and families, delivering better service in serving
+            e-pharmacy and doctor's prescriptions for everyone.
+          </h1>
+          <h5 className="h5_main col-6 d-flex justify-content-sm-center">
+            We’re setting a new standard of care for families across
+            geographies, cultures, and backgrounds.
+          </h5>
+        </Container>
+        <Container className="d-flex justify-content-between mt-4 mb-4">
+          <Container className="icon_container">
+            <FavoriteBorderIcon className="icon" />
+            <h5>Whole-hearted care</h5>
+            <p>Exceptional service for you & your loved ones.</p>
+          </Container>
+          <Container className="icon_container">
+            <ConnectWithoutContactIcon className="icon" />
+            <h5>Contactless app</h5>
+            <p>
+              Dedicated app for anyone, at any age, at, any needs. outcomes.
+            </p>
+          </Container>
+          <Container className="icon_container">
+            <AccessibilityNewIcon className="icon" />
+            <h5>Friendly for anyone, any age.</h5>
+            <p>
+              Advocates and data-driven insights deliver better accessibilty for
+              everyone.
+            </p>
+          </Container>
+          <Container className="icon_container">
+            <AllInclusiveIcon className="icon" />
+            <h5>All Inclusive</h5>
+            <p>covering all the services, facilities, or delivery.</p>
+          </Container>
+        </Container>
+        <Divider />
+        <Container className="sub_third_container mb-4">
+          <Container className="d-flex flex-row justify-content-center">
+            <div className="sub_third">
+              <img className="img_third" src={earth} alt="" />
+            </div>
+            <div className="d-flex flex-column sub_sub_third">
+              <h2 className="h2_main">Herb, in brief</h2>
+              <p>
+                Herb is a platform that works with trusted partners to provide
+                medicines, health and beauty products, as well as various needs
+                of doctor's prescriptions, so that users of the can buy them
+                easily and safely.
+              </p>
+            </div>
+          </Container>
+          <Container className="d-flex flex-row mt-4 justify-content-center">
+            <div className="d-flex flex-column sub_sub_third">
+              <h2 className="h2_main">Pharmaceutical</h2>
+              <p>
+                Antibiotics, Daily Suplement, Antacids, Immunosuppressives, and
+                manyany many other medicines are available in one application.
+              </p>
+            </div>
+            <div className="sub_third">
+              <img className="img_third" src={earth} alt="" />
+            </div>
+          </Container>
+          <Container className="d-flex flex-row mt-4 justify-content-center">
+            <div className="sub_third">
+              <img className="img_third" src={earth} alt="" />
+            </div>
+            <div className="d-flex flex-column sub_sub_third">
+              <h2 className="h2_main">Need to buy doctor's prescription?</h2>
+              <p>
+                Upload your prescription's image and we will help you getting
+                your medicine, immediately.
+              </p>
+            </div>
+          </Container>
+        </Container>
+        <Divider />
+        <Container className="sub_second_container mb-4">
+          <h1 className="h2_main">
+            Ongoing care, for anyone, at any age, whenever you need. We've got
+            you covered.
+          </h1>
+          <Container className="d-flex justify-content-between mt-4">
+            <Container className="icon_container">
+              <img className="image_icon" src={mom} alt="" />
+              <h5>Moms</h5>
+            </Container>
+            <Container className="icon_container">
+              <img className="image_icon" src={hoody} alt="" />
+              <h5>Teens</h5>
+            </Container>
+            <Container className="icon_container">
+              <img className="image_icon" src={old} alt="" />
+              <h5>Mature</h5>
+            </Container>
+            <Container className="icon_container">
+              <img className="image_icon" src={hipster} alt="" />
+              <h5>Adults</h5>
+            </Container>
+          </Container>
+        </Container>
       </div>
-    </>
+      <Divider />
+      <Box className="third_container">
+        <Container className="col-6 d-flex justify-content-sm-center">
+          <h1 className="h2_secondary">Hear what they say</h1>
+        </Container>
+        <div className="carousel_container col-12 d-flex justify-content-center">
+          <Carousel breakPoints={breakPoints}>
+            <CarouselItem>
+              <img className="img_carousel" src={slow1} alt="" />
+              <Container>
+                <h6 className="h6_main">
+                  Works everytime i need to buy my prescriptions.
+                </h6>
+                <p className="p_main">-Maria Ozawa</p>
+              </Container>
+            </CarouselItem>
+            <CarouselItem>
+              <Container>
+                <h6 className="h6_main">
+                  Now I'm able to restock my medicines without going out of
+                  home.
+                </h6>
+                <p className="p_main">-Sisca Kohl</p>
+              </Container>
+              <img className="img_carousel" src={slow2} alt="" />
+            </CarouselItem>
+            <CarouselItem>
+              <img className="img_carousel" src={slow5} alt="" />
+              <Container>
+                <h6 className="h6_main">
+                  Thank you HERB, my orders always delivered on time.
+                </h6>
+                <p className="p_main">-Asep Cobra</p>
+              </Container>
+            </CarouselItem>
+            <CarouselItem>
+              <Container>
+                <h6 className="h6_main">
+                  I can easily find any medicines that i needed.
+                </h6>
+                <p className="p_main">-Dadang Konelo</p>
+              </Container>
+              <img className="img_carousel" src={slow4} alt="" />
+            </CarouselItem>
+          </Carousel>
+        </div>
+      </Box>
+    </Nav>
   );
 };
 
-export default Products;
+export default Home;
