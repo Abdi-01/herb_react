@@ -4,9 +4,7 @@ import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOut
 import {
   Card,
   CardMedia,
-  Checkbox,
   Divider,
-  FormControl,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -55,7 +53,7 @@ function CartItem(props) {
           <Box display="flex" alignItems="center">
             <IconButton size="large">
               <DeleteOutlineOutlinedIcon
-                color="error"
+                color="warning"
                 onClick={props.onDelete}
               />
             </IconButton>

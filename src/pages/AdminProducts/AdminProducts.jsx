@@ -13,6 +13,8 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { API_URL } from '../../helper';
 import { AddModal } from './ModalAddProduct/ModalAddProduct';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import SyncIcon from '@mui/icons-material/Sync';
 
 const Button = styled.button`
   min-width: 100px;
@@ -34,21 +36,21 @@ const Admin = () => {
 
   const [editProduct, setEditProduct] = useState({
     editId: 0,
-    editProductName: "",
-    editProductDesc: "",
+    editProductName: '',
+    editProductDesc: '',
     editProductStock: null,
     editProductCapacityPerPackage: null,
     editProductNettoTotal: null,
     editProductUnit: null,
     editProductPricePerUnit: null,
     editProductPricePerStock: null,
-    editProductBrand: "",
-    editProductCategory: "",
+    editProductBrand: '',
+    editProductCategory: '',
   });
 
   const [addImage, setAddImage] = useState({
-    addFile: "",
-    addFileName: "",
+    addFile: '',
+    addFileName: '',
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -105,16 +107,13 @@ const Admin = () => {
     if (addImage.addFile) {
       let formData = new FormData();
 
-      formData.append("file", addImage.addFile);
+      formData.append('file', addImage.addFile);
 
       formData.append(
-        "data",
+        'data',
         JSON.stringify({
           product_name: editProduct.editProductName,
           product_desc: editProduct.editProductDesc,
-          // stock: editProduct.editProductStock,
-          // netto: editProduct.editProductNetto,
-          // netto_total: editProduct.editProductNettoTotal,
           unit: editProduct.editProductUnit,
           price_per_unit: editProduct.editProductPricePerUnit,
           price_per_stock: editProduct.editProductPricePerStock,
@@ -137,9 +136,6 @@ const Admin = () => {
         product_name: editProduct.editProductName,
         product_desc: editProduct.editProductDesc,
         product_img: productFetch.productDataList.product_img,
-        // stock: editProduct.editProductStock,
-        // netto: editProduct.editProductNetto,
-        // netto_total: editProduct.editProductNettoTotal,
         unit: editProduct.editProductUnit,
         price_per_unit: editProduct.editProductPricePerUnit,
         price_per_stock: editProduct.editProductPricePerStock,
@@ -161,10 +157,8 @@ const Admin = () => {
   const quantityHandler = (action) => {
     if (action === "increment") {
       setQuantity(quantity + 1)
-      // netto_total = capacity_per_package  * stock
     }else if (action === "decrement" && quantity > 1) {
       setQuantity(quantity - 1)
-      // netto_total = capacity_per_package  * stock
     }
   }
 
@@ -209,7 +203,7 @@ const Admin = () => {
         addFile: e.target.files[0],
       });
 
-      let preview = document.getElementById("imgpreview");
+      let preview = document.getElementById('imgpreview');
       preview.src = URL.createObjectURL(e.target.files[0]);
     }
   };
@@ -584,25 +578,27 @@ const Admin = () => {
     fetchProducts();
   }, []);
 
-  if (userGlobal?.role !== "admin") {
+  if (userGlobal?.role !== 'admin') {
     return <Redirect to="/" />;
   }
 
   return (
     <div>
       <div>
-        <Container gutterBottom align="center" className="my-3">
+        <Container align="center" className="my-3">
           <Grid spacing={2} container justifyContent="center">
             <h3 className="mx-4 my-3">Manage Products</h3>
-            <button onClick={refreshPage}>
-              <img
-                src="https://img.icons8.com/ios-glyphs/30/000000/refresh--v2.png"
-                alt=""
-              />
+            <button
+              style={{ backgroundColor: 'transparent', border: 'none' }}
+              onClick={refreshPage}
+            >
+              <SyncIcon />
             </button>
           </Grid>
           <div>
-            <Button onClick={openModal}>Add New Product</Button>
+            <button className="btn btn-primary" onClick={openModal}>
+              <ControlPointIcon /> New Product
+            </button>
           </div>
           <div>
             <AddModal showModal={showModal} setShowModal={setShowModal} />
@@ -625,7 +621,7 @@ const Admin = () => {
                 onClick={() => prevHandler()}
                 className="btn btn-dark mx-2"
               >
-                {"<"}
+                {'<'}
               </button>
               <div className="text-center mx-2">
                 Page {productFetch.pagination} of {productFetch.maximumPage}
@@ -635,7 +631,7 @@ const Admin = () => {
                 onClick={() => nextHandler()}
                 className="btn btn-dark mx-2"
               >
-                {">"}
+                {'>'}
               </button>
             </div>
           </div>

@@ -1,6 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Layout from "../components/Layout";
+import TransactionHistoryItem from "../components/TransactionHistoryItem";
+// import Profile from "../pages/Profile";
+import {
+  AdminDashboard,
+  AdminProducts,
+  CustomOrder,
+  CustomReport,
+  EditModal,
+  ProductDetail,
+  Products,
+  Profile,
+  Sale,
+  SalesReport,
+  TransactionDetail,
+  UserTransactions,
+} from "../pages";
+import AdminTransactons from "../pages/AdminTransactions";
 import Forgot from "../pages/Auth/Forgot";
 import ForgotSuccess from "../pages/Auth/ForgotSuccess";
 import ForgotVerify from "../pages/Auth/ForgotVerify";
@@ -9,22 +26,11 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import RegisterSuccess from "../pages/Auth/RegisterSuccess";
 import Verify from "../pages/Auth/Verify";
+import Cart from "../pages/Cart";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home/Home";
-// import Profile from "../pages/Profile";
-import {
-  Profile,
-  EditModal,
-  LandingPage,
-  AdminDashboard,
-  AdminProducts,
-  SalesReport,
-  ProductDetail,
-  CustomReport
-} from "../pages";
-import Transaction from "../pages/Transaction";
-import Cart from "../pages/Cart";
-import TransactionHistory from "../pages/TransactionHistory";
+import Transaction from "../pages/Transaction/Transaction";
+import TransactionHistory from "../pages/Transaction/TransactionHistory";
 
 function AppRoute() {
   return (
@@ -50,11 +56,20 @@ function AppRoute() {
           />
           <Route exact path="/profiles/:username" component={Profile} />
           {/* ADMIN ROUTING */}
-          <Route component={AdminDashboard} path="/admin" />
+          <Route component={AdminTransactons} path="/admin/transactions" />
           <Route component={AdminProducts} path="/adminproducts" />
+          <Route component={AdminDashboard} path="/admin" />
+          <Route component={ProductDetail} path="/productdetail/:product_id" />
+          <Route component={UserTransactions} path="/transactions" />
+          <Route
+            component={TransactionDetail}
+            path="/transactiondetail/:transactiondetail_id"
+          />
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
-          {/* <Route component={CustomOrder} path="/customorder" /> */}
+          <Route component={CustomOrder} path="/customorder" />
+          <Route component={Sale} path="/sale" />
+          <Route exact path="/products" component={Products} />
           <Route exact path="/transaction" component={Transaction} />
           <Route
             exact
@@ -62,7 +77,11 @@ function AppRoute() {
             component={TransactionHistory}
           />
           <Route exact path="/profiles/:username" component={Profile} />
-          <Route exact path="/profiles/:username/profile/change" component={EditModal} />
+          <Route
+            exact
+            path="/profiles/:username/profile/change"
+            component={EditModal}
+          />
           <Route exact path="/salesreport" component={SalesReport} />
           <Route exact path="/customrecord" component={CustomReport} />
           <Route exact path="/cart" component={Cart} />

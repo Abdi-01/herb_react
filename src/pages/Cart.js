@@ -10,7 +10,6 @@ import ButtonPrimary from "../components/Buttons/ButtonPrimary";
 import { Box } from "@mui/system";
 import CartItem from "../components/CartItem";
 import { API } from "../constants/api";
-import getCurrentDate from "../helper/getDate";
 import {
   checkoutCart,
   deleteCart,
@@ -73,7 +72,7 @@ export default function AlertDialog() {
       setMessage({
         ...message,
         title: "Oops, you cant do that",
-        desc: "You don't have any products on your cart",
+        desc: "You can't make any transactions without verifying you account first",
       });
 
       // alert(
@@ -86,9 +85,8 @@ export default function AlertDialog() {
         title: "Checkout Success",
         desc: "Please Confirm the transaction by upload the payment proof",
       });
-      let date = getCurrentDate();
 
-      checkoutHandler(userData, totalPrice, cartList, recipent, date);
+      checkoutHandler(userData, totalPrice, cartList, recipent);
     }
   };
 
@@ -122,7 +120,7 @@ export default function AlertDialog() {
   const renderTotalPrice = () => {
     let total = 0;
     cartGlobal.cartList.forEach((element) => {
-      return (total += element.quantity * element.price_per_unit);
+      return (total += element.quantity * element.price_per_stock);
     });
     return total;
   };
@@ -136,41 +134,57 @@ export default function AlertDialog() {
     <Container>
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
-          <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6" px={6} py={2}>
-              My Cart
-            </Typography>
-            {cartGlobal.cartList.length ? (
-              <>
+          <Card
+            variant="elevation"
+            sx={{ width: 700, borderRadius: 6 }}
+            elevation={0}
+          >
+            <Box p={4}>
+              <Typography px={6} py={2} fontSize={24}>
+                My Cart
+              </Typography>
+              {cartGlobal.cartList.length ? (
+                <>
+                  <CardContent>
+                    <Box px={4}>{renderCart()}</Box>
+                  </CardContent>
+                </>
+              ) : (
                 <CardContent>
-                  <Box px={4}>{renderCart()}</Box>
-                </CardContent>
-              </>
-            ) : (
-              <CardContent>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  px={4}
-                  pb={14}
-                >
-                  <Box p={4}>
-                    <DoDisturbOutlinedIcon fontSize="large" color="disabled" />
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    px={4}
+                    pb={14}
+                  >
+                    <Box p={4}>
+                      <DoDisturbOutlinedIcon
+                        fontSize="large"
+                        color="disabled"
+                      />
+                    </Box>
+                    <Typography color="GrayText">
+                      You don't have any products on your cart
+                    </Typography>
                   </Box>
-                  <Typography color="GrayText">
-                    You don't have any products on your cart
-                  </Typography>
-                </Box>
-              </CardContent>
-            )}
+                </CardContent>
+              )}
+            </Box>
           </Card>
         </Box>
         {cartGlobal.cartList.length ? (
-          <Box my={4} pl={2}>
+          <Box my={4} pl={2} ml={6}>
             <Card
-              variant="outlined"
-              sx={{ width: 500, position: "sticky", top: 0, padding: 2 }}
+              variant="elevation"
+              elevation={0}
+              sx={{
+                width: 500,
+                position: "sticky",
+                top: 0,
+                padding: 4,
+                borderRadius: 6,
+              }}
             >
               <CardContent>
                 <Typography fontWeight={700}>Order Summary</Typography>
