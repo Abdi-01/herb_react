@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import { API_URL } from '../../helper';
-import { AddModal } from './ModalAddProduct/ModalAddProduct';
 import {
-  Card,
-  Container,
-  Grid,
-  CardHeader,
-  CardMedia,
-  Typography,
-  Divider,
-  CardContent,
+  Card, CardContent, CardHeader,
+  CardMedia, Container, Divider, Grid, IconButton, Typography
 } from '@material-ui/core';
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import Avatar from '@mui/material/Avatar';
-
-
-import styled from "styled-components";
+import { Box } from '@mui/system';
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import { API_URL } from '../../helper';
+import { AddModal } from './ModalAddProduct/ModalAddProduct';
 
 const Button = styled.button`
   min-width: 100px;
@@ -42,7 +37,7 @@ const Admin = () => {
     editProductName: "",
     editProductDesc: "",
     editProductStock: null,
-    editProductNetto: null,
+    editProductCapacityPerPackage: null,
     editProductNettoTotal: null,
     editProductUnit: null,
     editProductPricePerUnit: null,
@@ -57,6 +52,9 @@ const Admin = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1)
+
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
 
@@ -89,7 +87,7 @@ const Admin = () => {
       editProductName: editData.product_name,
       editProductDesc: editData.product_desc,
       editProductStock: editData.stock,
-      editProductNetto: editData.netto,
+      editProductCapacityPerPackage: editData.capacity_per_package,
       editProductNettoTotal: editData.netto_total,
       editProductUnit: editData.unit,
       editProductPricePerUnit: editData.price_per_unit,
@@ -114,9 +112,9 @@ const Admin = () => {
         JSON.stringify({
           product_name: editProduct.editProductName,
           product_desc: editProduct.editProductDesc,
-          stock: editProduct.editProductStock,
-          netto: editProduct.editProductNetto,
-          netto_total: editProduct.editProductNettoTotal,
+          // stock: editProduct.editProductStock,
+          // netto: editProduct.editProductNetto,
+          // netto_total: editProduct.editProductNettoTotal,
           unit: editProduct.editProductUnit,
           price_per_unit: editProduct.editProductPricePerUnit,
           price_per_stock: editProduct.editProductPricePerStock,
@@ -139,9 +137,9 @@ const Admin = () => {
         product_name: editProduct.editProductName,
         product_desc: editProduct.editProductDesc,
         product_img: productFetch.productDataList.product_img,
-        stock: editProduct.editProductStock,
-        netto: editProduct.editProductNetto,
-        netto_total: editProduct.editProductNettoTotal,
+        // stock: editProduct.editProductStock,
+        // netto: editProduct.editProductNetto,
+        // netto_total: editProduct.editProductNettoTotal,
         unit: editProduct.editProductUnit,
         price_per_unit: editProduct.editProductPricePerUnit,
         price_per_stock: editProduct.editProductPricePerStock,
@@ -156,8 +154,35 @@ const Admin = () => {
         .catch(() => {
           alert(`Terjadi Kesalahan`);
         });
+    };
+  }
+
+
+  const quantityHandler = (action) => {
+    if (action === "increment") {
+      setQuantity(quantity + 1)
+      // netto_total = capacity_per_package  * stock
+    }else if (action === "decrement" && quantity > 1) {
+      setQuantity(quantity - 1)
+      // netto_total = capacity_per_package  * stock
     }
-  };
+  }
+
+  const restockHandler = () => {
+    Axios.patch(`${API_URL}/products/restock/${editProduct.editId}`, {
+      stock: editProduct.editProductStock,
+      capacity_per_package: editProduct.editProductCapacityPerPackage,
+      quantity: quantity
+    })
+      .then((res) => {
+        fetchProducts();
+        cancelEdit();
+        setQuantity(1);
+      })
+      .catch(() => {
+        alert(`Terjadi Kesalahan`);
+      });
+  }
 
   const deleteBtnHandler = (deleteId) => {
     const confirmDelete = window.confirm(
@@ -188,6 +213,10 @@ const Admin = () => {
       preview.src = URL.createObjectURL(e.target.files[0]);
     }
   };
+
+  const openHandler = () => {
+    setIsOpen(!isOpen)
+  }
 
   // render products
   const renderProducts = () => {
@@ -249,129 +278,169 @@ const Admin = () => {
                       name="editProductDesc"
                     />
                   </div>
-                  <div>
-                    <label for="productstock" className="text-xl-left">
-                      Product Stock
-                    </label>
-                    <input
-                      value={editProduct.editProductStock}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductStock"
-                    />
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productstock" className="text-xl-left">
+                        Product Stock
+                      </label>
+                      <input
+                        value={product.stock}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductStock"
+                        disabled
+                      />
+                    </div>
+                    <div className="col-6 p-1">
+                      <label for="productnetto" className="text-xl-left">
+                        Product Netto
+                      </label>
+                      <input
+                        value={product.capacity_per_package}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductNetto"
+                        disabled
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label for="productnetto" className="text-xl-left">
-                      Product Netto
-                    </label>
-                    <input
-                      value={editProduct.editProductNetto}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductNetto"
-                    />
+                  { isOpen ? 
+                   <div className="d-flex justify-content-between">
+                     <div className="col-6">
+                      <Box display="flex" className="mt-4 d-flex justify-content-start" alignItems="center">
+                        <IconButton size="large" onClick={() => quantityHandler("decrement")}>
+                          <RemoveCircleOutlineOutlinedIcon color="success" />
+                        </IconButton>
+                        <Typography px={2}>{quantity}</Typography>
+                        <IconButton size="large" onClick={() => quantityHandler("increment")}>
+                          <AddCircleOutlineOutlinedIcon color="success" />
+                        </IconButton>
+                        <button
+                        onClick={restockHandler}
+                        className="btn btn-secondary"
+                        >
+                        Apply
+                        </button>
+                      </Box>
+                    </div> 
+                    <div className="col-6 p-1">
+                      <label for="productnetto" className="text-xl-left">
+                        Product Netto
+                      </label>
+                      <input
+                        defaultValue={editProduct.editProductCapacityPerPackage}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductNetto"
+                      />
+                      <button
+                        onClick={() => restockHandler("custom")}
+                        className="btn btn-secondary"
+                        >
+                        Apply
+                        </button>
+                    </div>
+                    </div>
+                     : null
+                    }
+                    <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productunit" className="text-xl-left">
+                        Product Unit
+                      </label>
+                      <select
+                        value={editProduct.editProductUnit}
+                        onChange={inputHandler}
+                        type="text"
+                        className="form-control"
+                        name="editProductUnit"
+                      >
+                        <option value="ml">ml</option>
+                        <option value="mg">mg</option>
+                        <option value="tablet">tablet</option>
+                        <option value="kaplet">kaplet</option>
+                      </select>
+                    </div>
                   </div>
-                  <div>
-                    <label for="productnettototal" className="text-xl-left">
-                      Product Netto Total
-                    </label>
-                    <input
-                      value={editProduct.editProductNettoTotal}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductNettoTotal"
-                    />
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productpriceperunit" className="text-xl-left">
+                        Price Per Unit
+                      </label>
+                      <input
+                        value={editProduct.editProductPricePerUnit}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductPricePerUnit"
+                      />
+                    </div>
+                    <div className="col-6 p-1">
+                      <label
+                        for="productpriceperstock"
+                        className="text-xl-left"
+                      >
+                        Product Price Per Stock
+                      </label>
+                      <input
+                        value={editProduct.editProductPricePerStock}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductPricePerStock"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label for="productunit" className="text-xl-left">
-                      Product Unit
-                    </label>
-                    <select
-                      value={editProduct.editProductUnit}
-                      onChange={inputHandler}
-                      type="text"
-                      className="form-control"
-                      name="editProductUnit"
-                    >
-                      <option value="ml">ml</option>
-                      <option value="mg">mg</option>
-                      <option value="botol">botol</option>
-                      <option value="tablet">tablet</option>
-                      <option value="kaplet">kaplet</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="productpriceperunit" className="text-xl-left">
-                      Price Per Unit
-                    </label>
-                    <input
-                      value={editProduct.editProductPricePerUnit}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductPricePerUnit"
-                    />
-                  </div>
-                  <div>
-                    <label for="productpriceperstock" className="text-xl-left">
-                      Product Price Per Stock
-                    </label>
-                    <input
-                      value={editProduct.editProductPricePerStock}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductPricePerStock"
-                    />
-                  </div>
-                  <div>
-                    <label for="productbrand" className="text-xl-left">
-                      Product Brand
-                    </label>
-                    <select
-                      value={editProduct.editProductBrand}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductBrand"
-                    >
-                      <option value="1">Kalbe Farma</option>
-                      <option value="2">Sanbe Farma</option>
-                      <option value="3">Dexa Medica</option>
-                      <option value="4">Pharos Indonesia</option>
-                      <option value="5">Kimia Farma</option>
-                      <option value="6">Biofarma</option>
-                      <option value="7">Novartis</option>
-                      <option value="8">PT. Sido Muncul Tbk.</option>
-                      <option value="9">Blackmores Limited</option>
-                      <option value="10">H&H Group</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="productcategory" className="text-xl-left">
-                      Product Category
-                    </label>
-                    <select
-                      value={editProduct.editProductCategory}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductCategory"
-                    >
-                      <option value="1">Antibiotics</option>
-                      <option value="2">Antibacterials</option>
-                      <option value="3">Antacids</option>
-                      <option value="4">Antidepressants</option>
-                      <option value="5">Antiarrhythmics</option>
-                      <option value="6">Suplement</option>
-                      <option value="7">Anti-Inflammatories</option>
-                      <option value="8">Antipyretics</option>
-                      <option value="9">Paracetamol</option>
-                      <option value="10">Immunosuppressives</option>
-                    </select>
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productbrand" className="text-xl-left">
+                        Product Brand
+                      </label>
+                      <select
+                        value={editProduct.editProductBrand}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductBrand"
+                      >
+                        <option value="1">Kalbe Farma</option>
+                        <option value="2">Sanbe Farma</option>
+                        <option value="3">Dexa Medica</option>
+                        <option value="4">Pharos Indonesia</option>
+                        <option value="5">Kimia Farma</option>
+                        <option value="6">Biofarma</option>
+                        <option value="7">Novartis</option>
+                        <option value="8">PT. Sido Muncul Tbk.</option>
+                        <option value="9">Blackmores Limited</option>
+                        <option value="10">H&H Group</option>
+                      </select>
+                    </div>
+                    <div className="col-6 p-1">
+                      <label for="productcategory" className="text-xl-left">
+                        Product Category
+                      </label>
+                      <select
+                        value={editProduct.editProductCategory}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductCategory"
+                      >
+                        <option value="1">Antibiotics</option>
+                        <option value="2">Antibacterials</option>
+                        <option value="3">Antacids</option>
+                        <option value="4">Antidepressants</option>
+                        <option value="5">Antiarrhythmics</option>
+                        <option value="6">Suplement</option>
+                        <option value="7">Anti-Inflammatories</option>
+                        <option value="8">Antipyretics</option>
+                        <option value="9">Paracetamol</option>
+                        <option value="10">Immunosuppressives</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -380,6 +449,15 @@ const Admin = () => {
                     className="btn btn-secondary"
                   >
                     Save
+                  </button>
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#editModal"
+                    onClick={openHandler}
+                    className="btn btn-secondary"
+                  >
+                    Restock
                   </button>
                   <button onClick={cancelEdit} className="btn btn-danger">
                     Cancel
@@ -429,7 +507,7 @@ const Admin = () => {
             </Typography>
             <Typography variant="body2" color="textSecondary">
               <strong>Netto: </strong>
-              {product.netto}
+              {product.capacity_per_package}
             </Typography>
             <Typography variant="body2" color="textSecondary">
               <strong>Netto Total: </strong>
