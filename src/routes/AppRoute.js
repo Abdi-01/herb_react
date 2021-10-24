@@ -1,6 +1,23 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Layout from "../components/Layout";
+import TransactionHistoryItem from "../components/TransactionHistoryItem";
+// import Profile from "../pages/Profile";
+import {
+  AdminDashboard,
+  AdminProducts,
+  CustomOrder,
+  CustomReport,
+  EditModal,
+  ProductDetail,
+  Products,
+  Profile,
+  Sale,
+  SalesReport,
+  TransactionDetail,
+  UserTransactions,
+} from "../pages";
+import AdminTransactons from "../pages/AdminTransactions";
 import Forgot from "../pages/Auth/Forgot";
 import ForgotSuccess from "../pages/Auth/ForgotSuccess";
 import ForgotVerify from "../pages/Auth/ForgotVerify";
@@ -9,28 +26,11 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import RegisterSuccess from "../pages/Auth/RegisterSuccess";
 import Verify from "../pages/Auth/Verify";
+import Cart from "../pages/Cart";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home/Home";
-// import Profile from "../pages/Profile";
-import {
-  Profile,
-  EditModal,
-  LandingPage,
-  AdminDashboard,
-  AdminProducts,
-  SalesReport,
-  ProductDetail,
-  CustomReport,
-  CustomOrder,
-  UserTransactions,
-  TransactionDetail,
-  Products,
-  Sale,
-} from '../pages';
-import Transaction from '../pages/Transaction';
-import Cart from '../pages/Cart';
-import TransactionHistory from '../pages/TransactionHistory';
-import AdminTransactons from "../pages/AdminTransactions";
+import Transaction from "../pages/Transaction/Transaction";
+import TransactionHistory from "../pages/Transaction/TransactionHistory";
 
 function AppRoute() {
   return (
@@ -74,10 +74,14 @@ function AppRoute() {
           <Route
             exact
             path="/transaction-history"
-            component={TransactionHistoryItem}
+            component={TransactionHistory}
           />
           <Route exact path="/profiles/:username" component={Profile} />
-          <Route exact path="/profiles/:username/profile/change" component={EditModal} />
+          <Route
+            exact
+            path="/profiles/:username/profile/change"
+            component={EditModal}
+          />
           <Route exact path="/salesreport" component={SalesReport} />
           <Route exact path="/customrecord" component={CustomReport} />
           <Route exact path="/cart" component={Cart} />

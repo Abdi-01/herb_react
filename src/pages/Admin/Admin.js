@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
-import Axios from 'axios';
-import { API_URL } from '../../helper';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Redirect, Link } from "react-router-dom";
+import Axios from "axios";
+import { API_URL } from "../../helper";
 import AdminProducts from "../AdminProducts/AdminProducts";
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import BarChartRoundedIcon from '@mui/icons-material/BarChartRounded';
-import AnalyticsIcon from '@mui/icons-material/Analytics';
+import ShowChartIcon from "@mui/icons-material/ShowChart";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 // styling
 import {
@@ -17,8 +17,8 @@ import {
   Divider,
   CardContent,
   Grid,
-} from '@material-ui/core';
-import Avatar from '@mui/material/Avatar';
+} from "@material-ui/core";
+import Avatar from "@mui/material/Avatar";
 
 import "./adminstyles.css";
 import styled from "styled-components";
@@ -55,9 +55,6 @@ const SidebarWrap = styled.div`
 function Admin() {
   const userGlobal = useSelector((state) => state.userGlobal);
 
-  if (userGlobal?.role !== 'admin') {
-    return <Redirect to="/" />;
-  }
   const [products, setProducts] = useState({
     productsList: [],
   });
@@ -90,11 +87,11 @@ function Admin() {
     fetchProducts();
   }, []);
 
-  if (userGlobal?.role !== 'admin') {
+  if (userGlobal?.role !== "admin") {
     return <Redirect to="/" />;
   }
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: "100%" }}>
       <div>
         <Nav>
           <SidebarNav>
@@ -127,7 +124,6 @@ function Admin() {
                     className="text-decoration-none text-white link_to"
                   >
                     Custom Record
-
                   </Link>
                 </h6>
                 <h6 className="text-white my-4">
@@ -156,7 +152,7 @@ function Admin() {
       {/* DASHBOARD HEADER */}
       <Container
         className="p-4"
-        style={{ marginLeft: '20%', background: 'transparent' }}
+        style={{ marginLeft: "20%", background: "transparent" }}
       >
         <Card className="p-2">
           <h4>Welcome back, {userGlobal.fullname}!</h4>
@@ -165,8 +161,8 @@ function Admin() {
       </Container>
 
       {/* MAIN ANALYTICS DASHBOARD */}
-      <Container className="p-2" style={{ marginLeft: '20%' }}>
-        <Card style={{ background: '#8ccfcd' }}>
+      <Container className="p-2" style={{ marginLeft: "20%" }}>
+        <Card style={{ background: "#8ccfcd" }}>
           <CardHeader
             avatar={
               <Avatar>
@@ -183,9 +179,9 @@ function Admin() {
                 item
                 className="mx-4 p-2"
                 style={{
-                  width: '250px',
-                  height: '120px',
-                  background: '#FEF1E6',
+                  width: "250px",
+                  height: "120px",
+                  background: "#FEF1E6",
                 }}
               >
                 <AssessmentIcon className="mb-3" />
@@ -198,10 +194,10 @@ function Admin() {
                 item
                 className="mx-4 p-2"
                 style={{
-                  width: '250px',
-                  height: '120px',
-                  color: 'darkgreen',
-                  background: '#FEF1E6',
+                  width: "250px",
+                  height: "120px",
+                  color: "darkgreen",
+                  background: "#FEF1E6",
                 }}
               >
                 <ShowChartIcon className="mb-3" />
@@ -214,10 +210,10 @@ function Admin() {
                 item
                 className="mx-4 p-2"
                 style={{
-                  width: '250px',
-                  height: '120px',
-                  color: 'red',
-                  background: '#FEF1E6',
+                  width: "250px",
+                  height: "120px",
+                  color: "red",
+                  background: "#FEF1E6",
                 }}
               >
                 <BarChartRoundedIcon className="mb-3" />
@@ -233,7 +229,7 @@ function Admin() {
       </Container>
 
       {/* DASHBOARD LINK TO SPECIFIC PAGE */}
-      <Container style={{ marginLeft: '25%', paddingTop: '2%' }}>
+      <Container style={{ marginLeft: "25%", paddingTop: "2%" }}>
         <h4>Link to page</h4>
         <Grid container spacing={2} className="col-4">
           <Grid item xs={5} className="mx-2 my-2">
@@ -261,7 +257,7 @@ function Admin() {
               </h5>
               <Divider color="textSecondary" />
               <h6>
-                You have a total of {transactionList.transactionLists.length}{' '}
+                You have a total of {transactionList.transactionLists.length}{" "}
                 Transactions
               </h6>
             </Card>

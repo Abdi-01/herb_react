@@ -138,6 +138,8 @@ function TransactionItem(props) {
           priceperunit={item.price_per_unit}
           priceperstock={item.price_per_stock}
           quantity={item.quantity}
+          dose={item.dose}
+          unit={item.unit}
           name={item.product_name}
         />
       );
