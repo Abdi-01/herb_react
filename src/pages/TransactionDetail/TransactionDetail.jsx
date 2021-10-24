@@ -44,8 +44,9 @@ const TransactionDetail = (props) => {
       Axios.delete(`${API_URL}/transaction/delete/${deleteId}`)
         .then(() => {
           alert('Transaction has been deleted.');
-          <Redirect to="/transactions" />;
-          fetchTransactions();
+          <div>
+            <Redirect to="/transactions" />;
+          </div>;
         })
         .catch((err) => {
           alert(err);
@@ -147,124 +148,121 @@ const TransactionDetail = (props) => {
               margin: '-75% 0 5% 40%',
             }}
           >
-            <div>
-              <h3>
-                <strong>Transaction Details: </strong>
-                <br />
-              </h3>
-              <hr />
-              <h6>
-                <strong>Transaction id: </strong>
-                {transaction.transactionData.transaction_id}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Transaction Date: </strong>
-                {getCurrentDate(transaction.transactionData.transaction_date)}
-              </h6>
-              {/* <Container>
-                <img
-                  className="image_container"
-                  style={{ width: '200px', height: '200px' }}
-                  src={API_URL + transaction.transactionData.payment_proof}
-                  alt=""
-                />
-              </Container> */}
-              <hr />
-              <h6>
-                <strong>Product Name: </strong>
-                {transaction.transactionData.product_name}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Order Quantity: </strong>
-                {transaction.transactionData.quantity}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Transaction Type: </strong>
-                {transaction.transactionData.transaction_type}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Total Spending: </strong>
-                Rp.{transaction.transactionData.total_price}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Payment Status: </strong>
-                {transaction.transactionData.payment_status}
-              </h6>
-              <hr />
+            {transaction.transactionData !== null ? (
+              <div>
+                <h3>
+                  <strong>Transaction Details: </strong>
+                  <br />
+                </h3>
+                <hr />
+                <h6>
+                  <strong>Transaction id: </strong>
+                  {transaction.transactionData.transaction_id}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Transaction Date: </strong>
+                  {getCurrentDate(transaction.transactionData.transaction_date)}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Product Name: </strong>
+                  {transaction.transactionData.product_name}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Order Quantity: </strong>
+                  {transaction.transactionData.quantity}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Transaction Type: </strong>
+                  {transaction.transactionData.transaction_type}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Total Spending: </strong>
+                  Rp.{transaction.transactionData.total_price}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Payment Status: </strong>
+                  {transaction.transactionData.payment_status}
+                </h6>
+                <hr />
 
-              <h6>
-                <strong>Order by: </strong>
-                {transaction.transactionData.username}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Recipient: </strong>
-                {transaction.transactionData.username}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Address: </strong>
-                {transaction.transactionData.address}
-              </h6>
-              <hr />
-              <h6>
-                <strong>Notes: </strong>
-                {transaction.transactionData.notes_payment}
-              </h6>
-              <hr />
-
-              {transaction.transactionData.payment_status === 'onprocess' ? (
-                <Container className="d-flex justify-content-end pt-4">
-                  <Button
-                    variant="contained"
-                    style={{ background: 'green', color: 'white' }}
-                    startIcon={<CheckIcon />}
-                    onClick={() =>
-                      acceptOrderBtnHandler(
-                        transaction.transactionData.transactiondetail_id
-                      )
-                    }
-                    className="btn btn-success mx-2"
-                  >
-                    Accept Order
-                  </Button>
-                  <Button
-                    variant="contained"
-                    style={{ background: '#cc0000', color: 'white' }}
-                    startIcon={<DeleteForeverIcon />}
-                    onClick={() =>
-                      deleteBtnHandler(
-                        transaction.transactionData.transactiondetail_id
-                      )
-                    }
-                    className="btn btn-danger mx-2"
-                  >
-                    Reject
-                  </Button>
-                </Container>
-              ) : (
-                <Container className="d-flex justify-content-end pt-4">
-                  <Button
-                    variant="outlined"
-                    component={Link}
-                    to="/transactions"
-                    startIcon={<ArrowBackIcon />}
-                    style={{
-                      background: 'orange',
-                      color: 'black',
-                      padding: '12px',
-                    }}
-                  >
-                    Back
-                  </Button>
-                </Container>
-              )}
-            </div>
+                <h6>
+                  <strong>Order by: </strong>
+                  {transaction.transactionData.username}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Recipient: </strong>
+                  {transaction.transactionData.username}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Address: </strong>
+                  {transaction.transactionData.address}
+                </h6>
+                <hr />
+                <h6>
+                  <strong>Notes: </strong>
+                  {transaction.transactionData.notes_payment}
+                </h6>
+                <hr />
+                {transaction.transactionData.payment_status === 'onprocess' ? (
+                  <Container className="d-flex justify-content-end pt-4">
+                    <Button
+                      variant="contained"
+                      style={{ background: 'green', color: 'white' }}
+                      startIcon={<CheckIcon />}
+                      onClick={() =>
+                        acceptOrderBtnHandler(
+                          transaction.transactionData.transactiondetail_id
+                        )
+                      }
+                      className="btn btn-success mx-2"
+                    >
+                      Accept Order
+                    </Button>
+                    <Button
+                      variant="contained"
+                      style={{ background: '#cc0000', color: 'white' }}
+                      startIcon={<DeleteForeverIcon />}
+                      onClick={() =>
+                        deleteBtnHandler(
+                          transaction.transactionData.transactiondetail_id
+                        )
+                      }
+                      className="btn btn-danger mx-2"
+                    >
+                      Reject
+                    </Button>
+                  </Container>
+                ) : (
+                  <Container className="d-flex justify-content-end pt-4">
+                    <Button
+                      variant="outlined"
+                      component={Link}
+                      to="/transactions"
+                      startIcon={<ArrowBackIcon />}
+                      style={{
+                        background: 'orange',
+                        color: 'black',
+                        padding: '12px',
+                      }}
+                    >
+                      Back
+                    </Button>
+                  </Container>
+                )}
+              </div>
+            ) : (
+              <div>
+                <Button component={Link} to="/transactions"></Button>
+              </div>
+            )}
           </div>
         </Container>
       </Grid>
