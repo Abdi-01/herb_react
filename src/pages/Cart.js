@@ -120,7 +120,7 @@ export default function AlertDialog() {
   const renderTotalPrice = () => {
     let total = 0;
     cartGlobal.cartList.forEach((element) => {
-      return (total += element.quantity * element.price_per_unit);
+      return (total += element.quantity * element.price_per_stock);
     });
     return total;
   };

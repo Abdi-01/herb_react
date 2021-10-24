@@ -1,23 +1,4 @@
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import {
-  Button,
-  Card,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  List,
-  MenuItem,
-  Select,
-  Switch,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Tab, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -26,7 +7,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TransactionCustomItem from "../../components/TransactionCustomItem";
 import { API } from "../../constants/api";
-import dateFormat from "../../helper/dateFormat";
 
 // custom styling
 const Nav = styled.div`
@@ -134,7 +114,7 @@ function AdminTransactons() {
             <SidebarWrap>
               <div>
                 <h6 className="text-white my-4">Dashboard</h6>
-                <h6 className="my-2">
+                <h6 className="my-4">
                   <Link
                     to="/adminproducts"
                     className="text-decoration-none text-white link_to"
@@ -150,6 +130,15 @@ function AdminTransactons() {
                     Transactions
                   </Link>
                 </h6>
+                <h6 className="my-4">
+                  <Link
+                    to="/salesreport"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Sales Report
+                  </Link>
+                </h6>
+
                 <h6 className="text-white my-4">Manage Account</h6>
               </div>
             </SidebarWrap>

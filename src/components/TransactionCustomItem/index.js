@@ -1,5 +1,4 @@
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import {
   Button,
   Card,
@@ -13,14 +12,18 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../constants/api";
 import dateFormat from "../../helper/dateFormat";
+import CustomItem from "../CustomItem";
 import ProductList from "./ProductList";
 
 function TransactionCustomItem(props) {
   const [open, setOpen] = React.useState(false);
   const [productsFetch, setProductsFetch] = useState([]);
 
+  const cartCustomGlobal = useSelector((state) => state.cartCustomGlobal);
+  const dispatch = useDispatch();
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -31,6 +34,15 @@ function TransactionCustomItem(props) {
 
   const handleClose = () => {
     setOpen(false);
+    dispatch({
+      type: "DELETE_CUSTOM_ITEM",
+    });
+  };
+
+  const handleClearItems = () => {
+    return dispatch({
+      type: "DELETE_CUSTOM_ITEM",
+    });
   };
 
   const fetchProducts = () => {
@@ -48,6 +60,38 @@ function TransactionCustomItem(props) {
       });
   };
 
+  const sumTotalPrice = () => {
+    let total = 0;
+
+    cartCustomGlobal.itemList.forEach((item) => {
+      total += item.price_per_unit * item.dose;
+    });
+
+    return total;
+  };
+
+  const addTransDetail = () => {
+    console.log(cartCustomGlobal.itemList);
+    let total = sumTotalPrice();
+
+    axios
+      .post(`${API}/transactions/custom`, {
+        dataDetail: cartCustomGlobal.itemList,
+        transId: props.transaction_id,
+        totalPayment: total,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {});
+
+    dispatch({
+      type: "DELETE_CUSTOM_ITEM",
+    });
+
+    setOpen(false);
+  };
+
   const renderProducts = () => {
     return productsFetch.map((item) => {
       return (
@@ -60,7 +104,24 @@ function TransactionCustomItem(props) {
           transId={props.transaction_id}
           productId={item.product_id}
           productData={item}
+          priceperunit={item.price_per_unit}
         />
+      );
+    });
+  };
+
+  const renderCustomProductItem = () => {
+    return cartCustomGlobal.itemList.map((item) => {
+      return (
+        <Box px={4}>
+          <CustomItem
+            image={`${API}/${item.product_img}`}
+            name={item.product_name}
+            priceperunit={item.price_per_unit}
+            dose={item.dose}
+            unit={item.unit}
+          />
+        </Box>
       );
     });
   };
@@ -153,7 +214,31 @@ function TransactionCustomItem(props) {
                     mt={2}
                     height={600}
                     width={380}
-                  ></Box>
+                  >
+                    <Box
+                      px={4}
+                      py={2}
+                      display="flex"
+                      flexDirection="row-reverse"
+                    >
+                      <Button onClick={handleClearItems}>Clear Items</Button>
+                    </Box>
+                    {/* Product Custom List  */}
+                    <Box
+                      height={350}
+                      style={{ maxHeight: 350, overflow: "auto" }}
+                    >
+                      {renderCustomProductItem()}
+                    </Box>
+                    <Typography ml={4}>
+                      Total Payment : Rp. {sumTotalPrice()}
+                    </Typography>
+                    <Box p={4} display="flex" flexDirection="row-reverse">
+                      <Button variant="outlined" onClick={addTransDetail}>
+                        Checkout
+                      </Button>
+                    </Box>
+                  </Box>
                 </Box>
               </Box>
             </Box>

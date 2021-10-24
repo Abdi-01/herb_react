@@ -29,13 +29,18 @@ function TransactionDetailItem(props) {
                 {props.name}
               </Typography>
               <Typography fontWeight="600" component={"div"} variant={"body2"}>
-                Price : Rp.{props.priceperstock}
+                Price : Rp.
+                {props.dose ? props.priceperunit : props.priceperstock}
               </Typography>
               <Typography fontWeight="600" component={"div"} variant={"body2"}>
-                Quantity : {props.quantity}
+                Quantity : {props.quantity ? props.quantity : props.dose}{" "}
+                {props.unit}
               </Typography>
               <Typography component={"div"} variant={"body2"}>
-                Rp. {props.quantity * props.priceperstock}
+                Rp.
+                {props.dose
+                  ? props.dose * props.priceperunit
+                  : props.quantity * props.priceperstock}
               </Typography>
             </Box>
           </Box>

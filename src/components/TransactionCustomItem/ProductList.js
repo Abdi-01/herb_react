@@ -29,53 +29,20 @@ function ProductList(props) {
 
   const addSummaryItem = () => {
     console.log(dose);
-    setOpen(false);
-    // setProductCustomList({
-    //   ...props.productData,
-    //   dose: parseInt(dose),
-    // });
-    dispatch({
-      type: "ADD_CUSTOM_ITEM",
-      payload: {
-        ...props.productData,
-        dose: parseInt(dose),
-      },
-    });
-    setDose(0);
-  };
+    if (dose === 0 || dose === "") {
+      alert("Dose must be required");
+    } else {
+      setOpen(false);
 
-  const addTransDetail = () => {
-    setOpen(false);
-    axios
-      .get(`${API}/transactions/detail`, {
-        params: {
-          id: props.transId,
+      dispatch({
+        type: "ADD_CUSTOM_ITEM",
+        payload: {
+          ...props.productData,
+          dose: parseInt(dose),
         },
-      })
-      .then((res) => {
-        if (res.data.length) {
-          console.log("ketemu");
-          //   axios
-          //     .patch(`${API}/carts/${res.data[0].id}`, {
-          //       qty: res.data[0].quantity + qty,
-          //     })
-          //     .then((res) => {})
-          //     .catch();
-        } else {
-          console.log("data belum ada");
-          //   console.log(props.productData);
-          axios
-            .post(`${API}/transactions/custom`, {
-              ...props.productData,
-              dose: parseInt(dose),
-            })
-            .then((res) => {
-              console.log(res);
-            })
-            .catch((err) => {});
-        }
-      })
-      .catch((err) => {});
+      });
+      setDose(0);
+    }
   };
 
   const handleClickOpen = (e) => {
@@ -115,7 +82,10 @@ function ProductList(props) {
               <Card variant="outlined" sx={{ padding: 2, width: 300 }}>
                 <Box py={2}>
                   <Typography fontWeight={500}>{props.name}</Typography>
-                  <Typography>Stock : {props.stock}</Typography>
+                  <Typography>Stock : {props.stock} bottles</Typography>
+                  <Typography>
+                    Price per unit : Rp. {props.priceperunit}
+                  </Typography>
                   <Typography>
                     Netto Total : {props.totalNetto} {props.unit}
                   </Typography>

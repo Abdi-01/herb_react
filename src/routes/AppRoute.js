@@ -20,7 +20,7 @@ import {
   AdminProducts,
   SalesReport,
   ProductDetail,
-  CustomOrder,
+  CustomReport
 } from "../pages";
 import Cart from "../pages/Cart";
 import Transaction from "../pages/Transaction/Transaction";
@@ -57,7 +57,6 @@ function AppRoute() {
           <Route component={AdminDashboard} path="/admin" />
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
-          <Route component={CustomOrder} path="/customorder" />
           {/* <Route component={CustomOrder} path="/customorder" /> */}
           <Route exact path="/transaction" component={Transaction} />
           <Route
@@ -68,7 +67,7 @@ function AppRoute() {
           <Route exact path="/profiles/:username" component={Profile} />
           <Route exact path="/profiles/:username/profile/change" component={EditModal} />
           <Route exact path="/salesreport" component={SalesReport} />
-
+          <Route exact path="/customrecord" component={CustomReport} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/" component={Home} />
         </Switch>
