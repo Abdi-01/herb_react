@@ -1,9 +1,13 @@
 export { default as AdminDashboard } from './Admin/Admin';
 export { default as AdminProducts } from './AdminProducts/AdminProducts';
-export { default as Home } from './Home/Home';
+export { default as Products } from './Products/Products';
 export { default as ProductDetail } from './ProductDetail/ProductDetail';
 export { default as CustomOrder } from './CustomOrder/CustomOrder';
 export { default as Profile } from './User/Profile';
 export { default as EditModal } from './User/ModalEditUserProfile/ModalEditUser';
 export { default as SalesReport } from './Admin/SalesReport';
 export { default as CustomReport } from './Admin/CustomRecord';
+export { default as UserTransactions } from './UserTransactions/UserTransactions';
+export { default as TransactionDetail } from './TransactionDetail/TransactionDetail';
+export { default as Sale } from './SaleProducts/SaleProducts';
+export { default as Home } from './Home/Home';
