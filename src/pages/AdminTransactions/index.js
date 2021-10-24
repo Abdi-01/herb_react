@@ -1,13 +1,31 @@
-import { Card, List, Tab, Tabs, Typography, Button } from "@mui/material";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import {
+  Button,
+  Card,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  List,
+  MenuItem,
+  Select,
+  Switch,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import axios from "axios";
+import TransactionCustomItem from "../../components/TransactionCustomItem";
 import { API } from "../../constants/api";
-import { Divider } from "@material-ui/core";
 import dateFormat from "../../helper/dateFormat";
 
 // custom styling
@@ -71,7 +89,6 @@ function a11yProps(index) {
 function AdminTransactons() {
   const [value, setValue] = useState(0);
   const [customTrans, setCustomTrans] = useState([]);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -98,31 +115,13 @@ function AdminTransactons() {
   const renderCustomTrans = () => {
     return customTrans.map((item) => {
       return (
-        <List>
-          <Card variant="outlined" sx={{ padding: 2 }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Box display="flex">
-                <ShoppingCartOutlinedIcon sx={{ mr: 4 }} />
-                <Typography>Transaction - {item.transaction_id}</Typography>
-              </Box>
-              <Box width={200}>
-                <Typography>{item.recipent}</Typography>
-              </Box>
-              <Box width={100}>
-                <Typography>{dateFormat(item.transaction_date)}</Typography>
-              </Box>
-              <Box width={300}>
-                <Typography>{item.address}</Typography>
-              </Box>
-
-              <Button variant="outlined">Serve</Button>
-            </Box>
-          </Card>
-        </List>
+        <TransactionCustomItem
+          transaction_id={item.transaction_id}
+          recipent={item.recipent}
+          transaction_date={item.transaction_date}
+          address={item.address}
+          img={item.prescription_img}
+        />
       );
     });
   };

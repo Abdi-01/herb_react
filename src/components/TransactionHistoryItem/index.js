@@ -174,7 +174,7 @@ function TransactionHistoryItem(props) {
               justifyContent="space-between"
             >
               <Typography> Payment Proof</Typography>
-              <Button onClick={handleConfirm}> View Proof</Button>
+              <Button onClick={handleConfirm}> View</Button>
               <Dialog
                 open={open}
                 aria-labelledby="alert-dialog-title"
@@ -188,14 +188,14 @@ function TransactionHistoryItem(props) {
                     <Box>
                       <Box>
                         <>
-                          <div className="image_preview mb-5">
+                          <Box className="image_preview mb-5">
                             <img
                               id="imgpreview"
                               src={`${API}/${props.imgproof}`}
                               alt=""
                               width="100%"
                             />
-                          </div>
+                          </Box>
                         </>
                       </Box>
                     </Box>
