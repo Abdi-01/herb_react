@@ -57,31 +57,60 @@ const TransactionDetail = (props) => {
   };
 
   const acceptOrderBtnHandler = (patchId) => {
-    // update product stock (substracting current stock with order's quantity)
-    const substractStock =
-      product.productsStock.stock - transaction.transactionData.quantity;
+    if (transaction.transactionData.transaction_type === 'normal') {
+      // update product stock (substracting current stock with order's quantity)
+      const substractStock =
+        product.productsStock.stock - transaction.transactionData.quantity;
 
-    Axios.patch(`${API_URL}/transaction/update/${patchId}`, {
-      payment_status: 'paid',
-    })
-      .then(() => {
-        fetchTransactions();
-        Axios.patch(
-          `${API_URL}/products/update/${product.productsStock.product_id}`,
-          {
-            stock: substractStock,
-          }
-        )
-          .then((res) => {
-            alert(res.data.message);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+      Axios.patch(`${API_URL}/transaction/update/${patchId}`, {
+        payment_status: 'paid',
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then(() => {
+          fetchTransactions();
+          Axios.patch(
+            `${API_URL}/products/update/${product.productsStock.product_id}`,
+            {
+              stock: substractStock,
+            }
+          )
+            .then((res) => {
+              alert(res.data.message);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (transaction.transactionData.transaction_type === 'custom') {
+      // update product stock (substracting current stock with order's quantity)
+      const substractTotalNetto =
+        product.productsStock.netto_total - transaction.transactionData.dose;
+
+      Axios.patch(`${API_URL}/transaction/update/${patchId}`, {
+        payment_status: 'paid',
+      })
+        .then(() => {
+          fetchTransactions();
+          Axios.patch(
+            `${API_URL}/products/update/${product.productsStock.product_id}`,
+            {
+              stock: product.productsStock.stock - 1,
+              netto_total: substractTotalNetto,
+            }
+          )
+            .then((res) => {
+              alert(res.data.message);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -148,7 +177,7 @@ const TransactionDetail = (props) => {
               margin: '-75% 0 5% 40%',
             }}
           >
-            {transaction.transactionData !== null ? (
+            {transaction.transactionData !== 'null' ? (
               <div>
                 <h3>
                   <strong>Transaction Details: </strong>
@@ -170,9 +199,13 @@ const TransactionDetail = (props) => {
                   {transaction.transactionData.product_name}
                 </h6>
                 <hr />
+
                 <h6>
                   <strong>Order Quantity: </strong>
-                  {transaction.transactionData.quantity}
+
+                  {transaction.transactionData.dose
+                    ? `${transaction.transactionData.dose} ${transaction.transactionData.unit}`
+                    : transaction.transactionData.quantity}
                 </h6>
                 <hr />
                 <h6>
