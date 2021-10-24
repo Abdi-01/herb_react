@@ -1,30 +1,30 @@
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import { Badge, IconButton, Skeleton } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
-import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import BasicMenu from "./BasicMenu";
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import { Badge, IconButton, Skeleton } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import { makeStyles } from '@mui/styles';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import BasicMenu from './BasicMenu';
 
-import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
-import { fetchCart } from "../../redux/actions/cart";
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import { fetchCart } from '../../redux/actions/cart';
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    display: "flex",
-    justifyContent: "space-between",
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }));
 
 const customTheme = createTheme({
   palette: {
     primary: {
-      main: "#8ccfcd",
+      main: '#8ccfcd',
     },
   },
 });
@@ -71,7 +71,12 @@ export default function Navbar() {
               <Button size="small" component={Link} to="/" color="inherit">
                 Home
               </Button>
-              <Button size="small" color="inherit">
+              <Button
+                size="small"
+                component={Link}
+                to="/products"
+                color="inherit"
+              >
                 Products
               </Button>
               <Button
@@ -90,7 +95,7 @@ export default function Navbar() {
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  style={{ color: "#FFFF", marginRight: 10 }}
+                  style={{ color: '#FFFF', marginRight: 10 }}
                 >
                   {userGlobal.id ? (
                     cartGlobal.length ? (
@@ -116,12 +121,12 @@ export default function Navbar() {
                 <Link
                   to="/login"
                   style={{
-                    textDecoration: "none",
-                    color: "white",
+                    textDecoration: 'none',
+                    color: 'white',
                   }}
                 >
                   <Button
-                    style={{ color: "#FFFF" }}
+                    style={{ color: '#FFFF' }}
                     startIcon={<LoginOutlinedIcon />}
                   >
                     Login

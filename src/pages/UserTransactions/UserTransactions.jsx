@@ -10,28 +10,33 @@ import {
   Typography,
   CardContent,
   Divider,
+  Container,
   Card,
   CardActions,
+  Button,
 } from '@material-ui/core';
 import styled from 'styled-components';
 import Avatar from '@mui/material/Avatar';
 
 // custom styling
 const Nav = styled.div`
-  position: absolute;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const SidebarNav = styled.nav`
   background: #8ccfcd;
-  width: 250px;
+  width: 336px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  position: block;
-  padding: 10% 5% 290%;
+  position: absolute;
+  opacity: 0.9;
+  border-radius: 25px;
+  padding: 1% 1% 41%;
   left: 0;
-  top: 100px;
+  top: 70px;
   transition: 350ms;
   z-index: 4;
 `;
@@ -41,9 +46,9 @@ const SidebarWrap = styled.div`
   padding-top: 10%;
 `;
 
-// All User Transactions
+// Admin had an access to see all user transactions
 const UserTransactions = () => {
-  // const userGlobal = useSelector((state) => state.userGlobal);
+  const userGlobal = useSelector((state) => state.userGlobal);
 
   const [transactionList, setTransactionList] = useState({
     productList: [],
@@ -132,7 +137,7 @@ const UserTransactions = () => {
           <Card
             className="p-3 my-2 mt-2 mx-2"
             style={{
-              height: '420px',
+              height: '400px',
             }}
           >
             <CardHeader
@@ -145,21 +150,33 @@ const UserTransactions = () => {
               <Typography variant="h6" className="my-1">
                 Product Name: <br /> <strong>{product.product_name}</strong>
               </Typography>
-              <Typography variant="h6" className="my-1">
-                Quantity: <br />
-                <strong>{product.quantity} item(s)</strong>
-              </Typography>
-              <Typography variant="h6" className="my-1">
-                Payment Status: <br />
-                <strong>{product.payment_status}</strong>
-              </Typography>
+              <Container className="d-flex justify-content-around p-4">
+                <Typography variant="body1" className="my-1">
+                  Quantity: <br />
+                  <strong>{product.quantity} item(s)</strong>
+                </Typography>
+                <Typography variant="body1" className="my-1">
+                  Payment Status: <br />
+                  <strong>{product.payment_status}</strong>
+                </Typography>
+              </Container>
               <Divider />
             </CardContent>
             <CardActions className="d-flex justify-content-between">
-              <Typography variant="h6">
-                Total Spending: <br /> <strong>Rp.{product.total_price}</strong>
+              <Typography variant="body1">
+                Total Spending: <br />{' '}
+                <strong>Rp.{product.total_price.toLocaleString()}</strong>
               </Typography>
-              <button className="btn btn-primary ">See Details</button>
+              <Button
+                variant="outlined"
+                style={{
+                  background: '#077867 ',
+                  color: 'white',
+                  padding: '15px',
+                }}
+              >
+                See Details
+              </Button>
             </CardActions>
           </Card>
         </Link>
@@ -178,9 +195,9 @@ const UserTransactions = () => {
     fetchTransactions();
   }, []);
 
-  // if (userGlobal?.role !== 'admin') {
-  //   return <Redirect to="/" />;
-  // }
+  if (userGlobal?.role !== 'admin') {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>
@@ -189,25 +206,6 @@ const UserTransactions = () => {
           <SidebarNav>
             <SidebarWrap>
               <div>
-                {/* <label htmlFor="searchProductName" className="text-white">
-                  Transaction
-                </label>
-                <input
-                  style={{ borderRadius: '25px' }}
-                  onChange={inputHandler}
-                  name="searchProductName"
-                  type="text"
-                  placeholder="Search..."
-                  className=" form-control mb-3"
-                />
-                <div className="d-flex flex-row-reverse col-10 pb-4">
-                  <button
-                    onClick={searchBtnHandler}
-                    className="btn btn-primary col-10"
-                  >
-                    Search
-                  </button>
-                </div> */}
                 <div>
                   <label htmlFor="sortBy" className="text-white">
                     Sort Transactions

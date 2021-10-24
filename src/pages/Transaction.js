@@ -28,7 +28,7 @@ function Transaction() {
         },
       })
       .then((res) => {
-        console.log('fetch Trans : ', res.data);
+        // console.log('fetch Trans : ', res.data);
         let dataTrans = res.data;
         setTransactionData({
           ...transactionData,

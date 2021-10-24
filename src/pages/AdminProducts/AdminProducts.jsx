@@ -131,7 +131,7 @@ const Admin = () => {
         product_desc: editProduct.editProductDesc,
         product_img: productFetch.productDataList.product_img,
         stock: editProduct.editProductStock,
-        netto: editProduct.editProductNetto,
+        capacity_per_package: editProduct.editProductNetto,
         netto_total: editProduct.editProductNettoTotal,
         unit: editProduct.editProductUnit,
         price_per_unit: editProduct.editProductPricePerUnit,
@@ -240,128 +240,139 @@ const Admin = () => {
                       name="editProductDesc"
                     />
                   </div>
-                  <div>
-                    <label for="productstock" className="text-xl-left">
-                      Product Stock
-                    </label>
-                    <input
-                      value={editProduct.editProductStock}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductStock"
-                    />
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productstock" className="text-xl-left">
+                        Product Stock
+                      </label>
+                      <input
+                        value={editProduct.editProductStock}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductStock"
+                      />
+                    </div>
+                    <div className="col-6 p-1">
+                      <label for="productnetto" className="text-xl-left">
+                        Product Netto
+                      </label>
+                      <input
+                        value={editProduct.editProductNetto}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductNetto"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label for="productnetto" className="text-xl-left">
-                      Product Netto
-                    </label>
-                    <input
-                      value={editProduct.editProductNetto}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductNetto"
-                    />
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productnettototal" className="text-xl-left">
+                        Product Netto Total
+                      </label>
+                      <input
+                        value={editProduct.editProductNettoTotal}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductNettoTotal"
+                      />
+                    </div>
+                    <div className="col-6 p-1">
+                      <label for="productunit" className="text-xl-left">
+                        Product Unit
+                      </label>
+                      <select
+                        value={editProduct.editProductUnit}
+                        onChange={inputHandler}
+                        type="text"
+                        className="form-control"
+                        name="editProductUnit"
+                      >
+                        <option value="ml">ml</option>
+                        <option value="mg">mg</option>
+                        <option value="tablet">tablet</option>
+                        <option value="kaplet">kaplet</option>
+                      </select>
+                    </div>
                   </div>
-                  <div>
-                    <label for="productnettototal" className="text-xl-left">
-                      Product Netto Total
-                    </label>
-                    <input
-                      value={editProduct.editProductNettoTotal}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductNettoTotal"
-                    />
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productpriceperunit" className="text-xl-left">
+                        Price Per Unit
+                      </label>
+                      <input
+                        value={editProduct.editProductPricePerUnit}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductPricePerUnit"
+                      />
+                    </div>
+                    <div className="col-6 p-1">
+                      <label
+                        for="productpriceperstock"
+                        className="text-xl-left"
+                      >
+                        Product Price Per Stock
+                      </label>
+                      <input
+                        value={editProduct.editProductPricePerStock}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductPricePerStock"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label for="productunit" className="text-xl-left">
-                      Product Unit
-                    </label>
-                    <select
-                      value={editProduct.editProductUnit}
-                      onChange={inputHandler}
-                      type="text"
-                      className="form-control"
-                      name="editProductUnit"
-                    >
-                      <option value="ml">ml</option>
-                      <option value="mg">mg</option>
-                      <option value="tablet">tablet</option>
-                      <option value="kaplet">kaplet</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="productpriceperunit" className="text-xl-left">
-                      Price Per Unit
-                    </label>
-                    <input
-                      value={editProduct.editProductPricePerUnit}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductPricePerUnit"
-                    />
-                  </div>
-                  <div>
-                    <label for="productpriceperstock" className="text-xl-left">
-                      Product Price Per Stock
-                    </label>
-                    <input
-                      value={editProduct.editProductPricePerStock}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductPricePerStock"
-                    />
-                  </div>
-                  <div>
-                    <label for="productbrand" className="text-xl-left">
-                      Product Brand
-                    </label>
-                    <select
-                      value={editProduct.editProductBrand}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductBrand"
-                    >
-                      <option value="1">Kalbe Farma</option>
-                      <option value="2">Sanbe Farma</option>
-                      <option value="3">Dexa Medica</option>
-                      <option value="4">Pharos Indonesia</option>
-                      <option value="5">Kimia Farma</option>
-                      <option value="6">Biofarma</option>
-                      <option value="7">Novartis</option>
-                      <option value="8">PT. Sido Muncul Tbk.</option>
-                      <option value="9">Blackmores Limited</option>
-                      <option value="10">H&H Group</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="productcategory" className="text-xl-left">
-                      Product Category
-                    </label>
-                    <select
-                      value={editProduct.editProductCategory}
-                      onChange={inputHandler}
-                      type="number"
-                      className="form-control"
-                      name="editProductCategory"
-                    >
-                      <option value="1">Antibiotics</option>
-                      <option value="2">Antibacterials</option>
-                      <option value="3">Antacids</option>
-                      <option value="4">Antidepressants</option>
-                      <option value="5">Antiarrhythmics</option>
-                      <option value="6">Suplement</option>
-                      <option value="7">Anti-Inflammatories</option>
-                      <option value="8">Antipyretics</option>
-                      <option value="9">Paracetamol</option>
-                      <option value="10">Immunosuppressives</option>
-                    </select>
+                  <div className="d-flex justify-content-between">
+                    <div className="col-6 p-1">
+                      <label for="productbrand" className="text-xl-left">
+                        Product Brand
+                      </label>
+                      <select
+                        value={editProduct.editProductBrand}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductBrand"
+                      >
+                        <option value="1">Kalbe Farma</option>
+                        <option value="2">Sanbe Farma</option>
+                        <option value="3">Dexa Medica</option>
+                        <option value="4">Pharos Indonesia</option>
+                        <option value="5">Kimia Farma</option>
+                        <option value="6">Biofarma</option>
+                        <option value="7">Novartis</option>
+                        <option value="8">PT. Sido Muncul Tbk.</option>
+                        <option value="9">Blackmores Limited</option>
+                        <option value="10">H&H Group</option>
+                      </select>
+                    </div>
+                    <div className="col-6 p-1">
+                      <label for="productcategory" className="text-xl-left">
+                        Product Category
+                      </label>
+                      <select
+                        value={editProduct.editProductCategory}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductCategory"
+                      >
+                        <option value="1">Antibiotics</option>
+                        <option value="2">Antibacterials</option>
+                        <option value="3">Antacids</option>
+                        <option value="4">Antidepressants</option>
+                        <option value="5">Antiarrhythmics</option>
+                        <option value="6">Suplement</option>
+                        <option value="7">Anti-Inflammatories</option>
+                        <option value="8">Antipyretics</option>
+                        <option value="9">Paracetamol</option>
+                        <option value="10">Immunosuppressives</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <div className="modal-footer">
@@ -419,7 +430,7 @@ const Admin = () => {
             </Typography>
             <Typography variant="body2" color="textSecondary">
               <strong>Netto: </strong>
-              {product.netto}
+              {product.capacity_per_package}
             </Typography>
             <Typography variant="body2" color="textSecondary">
               <strong>Netto Total: </strong>

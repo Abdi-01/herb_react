@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New&display=swap');
 .App {
   text-align: center;
 }
@@ -11,6 +12,30 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+h1 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+h2 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+h3 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+h4 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+h5 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+}
+
+h6 {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
 }
 
 .App-header {

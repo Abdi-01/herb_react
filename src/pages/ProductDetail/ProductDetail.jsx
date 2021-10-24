@@ -25,8 +25,6 @@ const ProductDetail = (props) => {
     quantity: 1,
   });
 
-  console.log(product.productData);
-
   const userGlobal = useSelector((state) => state.userGlobal);
   const dispatch = useDispatch();
   const fetchCarts = (data) => dispatch(fetchCart(data));

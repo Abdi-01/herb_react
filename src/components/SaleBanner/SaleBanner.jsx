@@ -1,10 +1,13 @@
-import React from 'react';
-import { Card, Container, Grid } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Card, Container, Grid, Button } from '@material-ui/core';
+import Axios from 'axios';
+import { Link } from 'react-router-dom';
+import { API_URL } from '../../helper';
 
-// Discount Page
+// SALE component
 const SaleBanner = () => {
   return (
-    <Grid container className="d-flex justify-content-between mx-2">
+    <Grid container className="d-flex justify-content-center mx-2">
       <Card
         item
         xs={6}
@@ -19,26 +22,15 @@ const SaleBanner = () => {
       >
         <Container>
           <h6>New Markdowns</h6>
-          <h3>Get up to 20% discount</h3>
-          <button className="btn btn-secondary">Shop Here</button>
-        </Container>
-      </Card>
-      <Card
-        xs={6}
-        item
-        className="d-flex align-items-center"
-        style={{
-          width: '45%',
-          height: '400px',
-          backgroundColor: '#79B4B7',
-          color: 'white',
-          marginBottom: '50px',
-        }}
-      >
-        <Container>
-          <h6>New Markdowns</h6>
-          <h3>Get up to 20% discount</h3>
-          <button className="btn btn-secondary">Shop Here</button>
+          <h3>Get 50% discount!</h3>
+          <Button
+            component={Link}
+            to="/sale"
+            variant="outlined"
+            className="text-white mt-2"
+          >
+            Shop Here
+          </Button>
         </Container>
       </Card>
     </Grid>

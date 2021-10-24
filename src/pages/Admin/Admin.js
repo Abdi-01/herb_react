@@ -24,20 +24,23 @@ import styled from 'styled-components';
 
 // custom styling
 const Nav = styled.div`
-  position: absolute;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const SidebarNav = styled.nav`
   background: #8ccfcd;
-  width: 250px;
+  width: 336px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  position: block;
-  padding: 10% 5% 320%;
+  position: absolute;
+  padding: 1% 1% 39%;
+  border-radius: 25px;
+  opacity: 0.9;
   left: 0;
-  top: 100px;
+  top: 70px;
   transition: 350ms;
   z-index: 4;
 `;
@@ -93,35 +96,35 @@ function Admin() {
           <SidebarNav>
             <SidebarWrap>
               <div>
-                <h6 className="text-white my-4">
+                <h4 className="text-white my-4">
                   <Link className="text-decoration-none text-white" to="/admin">
                     Dashboard
                   </Link>
-                </h6>
-                <h6 className="my-4">
+                </h4>
+                <h4 className="my-4">
                   <Link
                     to="/adminproducts"
                     className="text-decoration-none text-white"
                   >
                     Manage Products
                   </Link>
-                </h6>
-                <h6 className="text-white my-4">
+                </h4>
+                <h4 className="text-white my-4">
                   <Link
                     className="text-decoration-none text-white"
                     to="/transactions"
                   >
                     Transactions
                   </Link>
-                </h6>
-                <h6 className="text-white my-4">
+                </h4>
+                <h4 className="text-white my-4">
                   <Link
                     className="text-decoration-none text-white"
                     to={`/profiles/${userGlobal.username}`}
                   >
                     Manage Account
                   </Link>
-                </h6>
+                </h4>
               </div>
             </SidebarWrap>
           </SidebarNav>

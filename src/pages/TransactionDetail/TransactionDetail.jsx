@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { API_URL } from '../../helper';
-import { Grid, Container } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Grid, Container, Button } from '@material-ui/core';
+import { Link, Redirect } from 'react-router-dom';
 import getCurrentDate from '../../helper/getDate';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CheckIcon from '@mui/icons-material/Check';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const TransactionDetail = (props) => {
   const [transaction, setTranscation] = useState({
@@ -53,6 +56,7 @@ const TransactionDetail = (props) => {
   };
 
   const acceptOrderBtnHandler = (patchId) => {
+    // update product stock (substracting current stock with order's quantity)
     const substractStock =
       product.productsStock.stock - transaction.transactionData.quantity;
 
@@ -85,7 +89,6 @@ const TransactionDetail = (props) => {
 
   return (
     <div className="product_detail_container">
-      {/* <Card> */}
       <Grid
         xs={4}
         style={{ border: '1px solid', padding: '20px', marginTop: '6%' }}
@@ -184,10 +187,16 @@ const TransactionDetail = (props) => {
               </h6>
               <hr />
               <h6>
+                <strong>Total Spending: </strong>
+                Rp.{transaction.transactionData.total_price}
+              </h6>
+              <hr />
+              <h6>
                 <strong>Payment Status: </strong>
                 {transaction.transactionData.payment_status}
               </h6>
               <hr />
+
               <h6>
                 <strong>Order by: </strong>
                 {transaction.transactionData.username}
@@ -199,23 +208,22 @@ const TransactionDetail = (props) => {
               </h6>
               <hr />
               <h6>
-                <strong>Notes: </strong>
-                {transaction.transactionData.notes_payment}
-              </h6>
-              <hr />
-              <h6>
                 <strong>Address: </strong>
                 {transaction.transactionData.address}
               </h6>
               <hr />
               <h6>
-                <strong>Total Price: </strong>
-                Rp.{transaction.transactionData.total_price}
+                <strong>Notes: </strong>
+                {transaction.transactionData.notes_payment}
               </h6>
               <hr />
+
               {transaction.transactionData.payment_status === 'onprocess' ? (
                 <Container className="d-flex justify-content-end pt-4">
-                  <button
+                  <Button
+                    variant="contained"
+                    style={{ background: 'green', color: 'white' }}
+                    startIcon={<CheckIcon />}
                     onClick={() =>
                       acceptOrderBtnHandler(
                         transaction.transactionData.transactiondetail_id
@@ -224,8 +232,11 @@ const TransactionDetail = (props) => {
                     className="btn btn-success mx-2"
                   >
                     Accept Order
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="contained"
+                    style={{ background: '#cc0000', color: 'white' }}
+                    startIcon={<DeleteForeverIcon />}
                     onClick={() =>
                       deleteBtnHandler(
                         transaction.transactionData.transactiondetail_id
@@ -234,14 +245,29 @@ const TransactionDetail = (props) => {
                     className="btn btn-danger mx-2"
                   >
                     Reject
-                  </button>
+                  </Button>
                 </Container>
-              ) : null}
+              ) : (
+                <Container className="d-flex justify-content-end pt-4">
+                  <Button
+                    variant="outlined"
+                    component={Link}
+                    to="/transactions"
+                    startIcon={<ArrowBackIcon />}
+                    style={{
+                      background: 'orange',
+                      color: 'black',
+                      padding: '12px',
+                    }}
+                  >
+                    Back
+                  </Button>
+                </Container>
+              )}
             </div>
           </div>
         </Container>
       </Grid>
-      {/* </Card> */}
     </div>
   );
 };
