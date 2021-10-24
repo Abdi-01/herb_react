@@ -20,13 +20,17 @@ import {
   AdminProducts,
   SalesReport,
   ProductDetail,
-  CustomReport
-} from "../pages";
-import Cart from "../pages/Cart";
-import Transaction from "../pages/Transaction/Transaction";
-import TransactionHistoryItem from "../pages/Transaction/TransactionHistory";
+  CustomReport,
+  CustomOrder,
+  UserTransactions,
+  TransactionDetail,
+  Products,
+  Sale,
+} from '../pages';
+import Transaction from '../pages/Transaction';
+import Cart from '../pages/Cart';
+import TransactionHistory from '../pages/TransactionHistory';
 import AdminTransactons from "../pages/AdminTransactions";
-
 
 function AppRoute() {
   return (
@@ -55,9 +59,17 @@ function AppRoute() {
           <Route component={AdminTransactons} path="/admin/transactions" />
           <Route component={AdminProducts} path="/adminproducts" />
           <Route component={AdminDashboard} path="/admin" />
+          <Route component={ProductDetail} path="/productdetail/:product_id" />
+          <Route component={UserTransactions} path="/transactions" />
+          <Route
+            component={TransactionDetail}
+            path="/transactiondetail/:transactiondetail_id"
+          />
           {/* PRODUCTS ROUTING */}
           <Route component={ProductDetail} path="/productdetail/:product_id" />
-          {/* <Route component={CustomOrder} path="/customorder" /> */}
+          <Route component={CustomOrder} path="/customorder" />
+          <Route component={Sale} path="/sale" />
+          <Route exact path="/products" component={Products} />
           <Route exact path="/transaction" component={Transaction} />
           <Route
             exact

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Martel:wght@700&family=Prata&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap');
+
+.earth_img {
+  display: absolute;
+  float: right;
+  width: 750px;
+  height: 500px;
+  margin: 4%;
+  border-radius: 5px;
+  z-index: 4;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.organic_img {
+  position: absolute;
+  width: 800px;
+  height: 500px;
+  margin: 4% -20%;
+  float: right;
+  border-radius: 25%;
+}
+
+.h1_main {
+  width: 850px;
+  margin: 10%;
+  font-family: 'Prata', serif;
+  font-weight: 500;
+  color: white;
+  font-size: 70px;
+  text-align: start;
+  text-shadow: 5px 5px 5px grey;
+  letter-spacing: 2px;
+  padding-top: 2%;
+  z-index: 6;
+}
+
+.second_container {
+  height: 190vh;
+  width: 100%;
+  background: white;
+  position: block;
+  background-image: organic;
+}
+
+.h2_main {
+  font-family: 'Prata', serif;
+  font-weight: 500;
+  padding: 4% 4% 1%;
+  text-align: center;
+  color: #1e5128;
+}
+
+.h2_secondary {
+  font-family: 'Prata', serif;
+  font-weight: 500;
+  padding: 4% 4% -2%;
+  text-align: center;
+  color: #1e5128;
+}
+
+.h5_main {
+  font-weight: 500;
+  text-align: center;
+  color: darkgray;
+  margin: auto;
+}
+
+.icon_container {
+  margin-top: 5%;
+  text-align: center;
+}
+
+.icon {
+  font-size: 45px;
+  margin-bottom: 2%;
+  color: #1e5128;
+}
+
+.sub_second_container {
+  margin-top: 5%;
+}
+
+.image_icon {
+  width: 150px;
+  height: 150px;
+}
+
+.carousel_container {
+  font-family: 'Prata', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.img_carousel {
+  object-fit: fill;
+  height: 60vh;
+  width: 80vw;
+}
+
+.third_container {
+  margin: 5% 7% 2%;
+}
+
+.h6_main {
+  font-size: 40px;
+}
+
+.p_main {
+  padding-top: 4%;
+  font-size: 30px;
+}
+
+.sub_third_container {
+  margin-top: 8%;
+}
+
+.img_third {
+  width: 350px;
+  height: 300px;
+}
+
+.sub_third {
+  width: 350px;
+}
+
+.sub_sub_third {
+  display: flex;
+  width: 300px;
+  text-align: justify;
+  margin: 3% 0 3% 2%;
+}
