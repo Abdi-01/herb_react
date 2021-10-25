@@ -1,23 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import {
+  Card, CardContent, CardHeader,
+  CardMedia, Container, Divider, Grid, IconButton, Typography
+} from '@material-ui/core';
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
+import Avatar from '@mui/material/Avatar';
+import { Box } from '@mui/system';
 import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import styled from "styled-components";
 import { API_URL } from '../../helper';
 import { AddModal } from './ModalAddProduct/ModalAddProduct';
-import {
-  Card,
-  Container,
-  Grid,
-  CardHeader,
-  CardMedia,
-  Typography,
-  Divider,
-  CardContent,
-} from '@material-ui/core';
-import Avatar from '@mui/material/Avatar';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import SyncIcon from '@mui/icons-material/Sync';
 
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+const Button = styled.button`
+  min-width: 100px;
+  padding: 16px 32px;
+  border-radius: 4px;
+  border: none;
+  background: #8ccfcd;
+  color: #fff;
+  cursor: pointer;
+`;
 
 const Admin = () => {
   const [productFetch, setProductFetch] = useState({
@@ -32,7 +39,7 @@ const Admin = () => {
     editProductName: '',
     editProductDesc: '',
     editProductStock: null,
-    editProductNetto: null,
+    editProductCapacityPerPackage: null,
     editProductNettoTotal: null,
     editProductUnit: null,
     editProductPricePerUnit: null,
@@ -47,6 +54,8 @@ const Admin = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [quantity, setQuantity] = useState(1)
 
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -80,7 +89,7 @@ const Admin = () => {
       editProductName: editData.product_name,
       editProductDesc: editData.product_desc,
       editProductStock: editData.stock,
-      editProductNetto: editData.netto,
+      editProductCapacityPerPackage: editData.capacity_per_package,
       editProductNettoTotal: editData.netto_total,
       editProductUnit: editData.unit,
       editProductPricePerUnit: editData.price_per_unit,
@@ -105,9 +114,6 @@ const Admin = () => {
         JSON.stringify({
           product_name: editProduct.editProductName,
           product_desc: editProduct.editProductDesc,
-          stock: editProduct.editProductStock,
-          netto: editProduct.editProductNetto,
-          netto_total: editProduct.editProductNettoTotal,
           unit: editProduct.editProductUnit,
           price_per_unit: editProduct.editProductPricePerUnit,
           price_per_stock: editProduct.editProductPricePerStock,
@@ -130,9 +136,6 @@ const Admin = () => {
         product_name: editProduct.editProductName,
         product_desc: editProduct.editProductDesc,
         product_img: productFetch.productDataList.product_img,
-        stock: editProduct.editProductStock,
-        capacity_per_package: editProduct.editProductNetto,
-        netto_total: editProduct.editProductNettoTotal,
         unit: editProduct.editProductUnit,
         price_per_unit: editProduct.editProductPricePerUnit,
         price_per_stock: editProduct.editProductPricePerStock,
@@ -147,8 +150,33 @@ const Admin = () => {
         .catch(() => {
           alert(`Terjadi Kesalahan`);
         });
+    };
+  }
+
+
+  const quantityHandler = (action) => {
+    if (action === "increment") {
+      setQuantity(quantity + 1)
+    }else if (action === "decrement" && quantity > 1) {
+      setQuantity(quantity - 1)
     }
-  };
+  }
+
+  const restockHandler = () => {
+    Axios.patch(`${API_URL}/products/restock/${editProduct.editId}`, {
+      stock: editProduct.editProductStock,
+      capacity_per_package: editProduct.editProductCapacityPerPackage,
+      quantity: quantity
+    })
+      .then((res) => {
+        fetchProducts();
+        cancelEdit();
+        setQuantity(1);
+      })
+      .catch(() => {
+        alert(`Terjadi Kesalahan`);
+      });
+  }
 
   const deleteBtnHandler = (deleteId) => {
     const confirmDelete = window.confirm(
@@ -179,6 +207,10 @@ const Admin = () => {
       preview.src = URL.createObjectURL(e.target.files[0]);
     }
   };
+
+  const openHandler = () => {
+    setIsOpen(!isOpen)
+  }
 
   // render products
   const renderProducts = () => {
@@ -246,11 +278,12 @@ const Admin = () => {
                         Product Stock
                       </label>
                       <input
-                        value={editProduct.editProductStock}
+                        value={product.stock}
                         onChange={inputHandler}
                         type="number"
                         className="form-control"
                         name="editProductStock"
+                        disabled
                       />
                     </div>
                     <div className="col-6 p-1">
@@ -258,27 +291,56 @@ const Admin = () => {
                         Product Netto
                       </label>
                       <input
-                        value={editProduct.editProductNetto}
+                        value={product.capacity_per_package}
+                        onChange={inputHandler}
+                        type="number"
+                        className="form-control"
+                        name="editProductNetto"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                  { isOpen ? 
+                   <div className="d-flex justify-content-between">
+                     <div className="col-6">
+                      <Box display="flex" className="mt-4 d-flex justify-content-start" alignItems="center">
+                        <IconButton size="large" onClick={() => quantityHandler("decrement")}>
+                          <RemoveCircleOutlineOutlinedIcon color="success" />
+                        </IconButton>
+                        <Typography px={2}>{quantity}</Typography>
+                        <IconButton size="large" onClick={() => quantityHandler("increment")}>
+                          <AddCircleOutlineOutlinedIcon color="success" />
+                        </IconButton>
+                        <button
+                        onClick={restockHandler}
+                        className="btn btn-secondary"
+                        >
+                        Apply
+                        </button>
+                      </Box>
+                    </div> 
+                    <div className="col-6 p-1">
+                      <label for="productnetto" className="text-xl-left">
+                        Product Netto
+                      </label>
+                      <input
+                        defaultValue={editProduct.editProductCapacityPerPackage}
                         onChange={inputHandler}
                         type="number"
                         className="form-control"
                         name="editProductNetto"
                       />
+                      <button
+                        onClick={() => restockHandler("custom")}
+                        className="btn btn-secondary"
+                        >
+                        Apply
+                        </button>
                     </div>
-                  </div>
-                  <div className="d-flex justify-content-between">
-                    <div className="col-6 p-1">
-                      <label for="productnettototal" className="text-xl-left">
-                        Product Netto Total
-                      </label>
-                      <input
-                        value={editProduct.editProductNettoTotal}
-                        onChange={inputHandler}
-                        type="number"
-                        className="form-control"
-                        name="editProductNettoTotal"
-                      />
                     </div>
+                     : null
+                    }
+                    <div className="d-flex justify-content-between">
                     <div className="col-6 p-1">
                       <label for="productunit" className="text-xl-left">
                         Product Unit
@@ -381,6 +443,15 @@ const Admin = () => {
                     className="btn btn-secondary"
                   >
                     Save
+                  </button>
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#editModal"
+                    onClick={openHandler}
+                    className="btn btn-secondary"
+                  >
+                    Restock
                   </button>
                   <button onClick={cancelEdit} className="btn btn-danger">
                     Cancel
