@@ -148,7 +148,7 @@ function TransactionItem(props) {
 
   return (
     <>
-      <Card variant="outlined" sx={{ paddingRight: 3, paddingLeft: 3 }}>
+      <Card variant="outlined" sx={{ padding: 4 }}>
         <Box
           display="flex"
           alignItems="center"
@@ -167,34 +167,34 @@ function TransactionItem(props) {
               </Typography>
             </Box>
             <Box>
-              <Typography>
+              <Typography fontWeight={600}>
                 Transaction Date : {dateFormat(props.transactionDate)}
               </Typography>
             </Box>
           </Box>
         </Box>
-        <Box display="flex" justifyContent="space-between">
+        <Box display="flex" justifyContent="space-between" my={2}>
           <Box width="50%">
             <Box display="flex" justifyContent="space-between">
-              <Typography>Recipent :</Typography>
+              <Typography sx={{ mb: 2 }}>Recipent :</Typography>
               <Typography> {props.recipent}</Typography>
             </Box>
-            <Typography>Address : </Typography>
+            <Typography sx={{ mb: 2 }}>Address : </Typography>
             <Typography>{props.address}</Typography>
             <Divider />
-            <Box display="flex" justifyContent="space-between">
+            <Box display="flex" justifyContent="space-between" mt={4}>
               <Typography>Total Payment :</Typography>
               <Typography> Rp.{props.totalPrice}</Typography>
             </Box>
           </Box>
-          <Divider orientation="horizontal" variant="middle"></Divider>
+          <Divider orientation="horizontal" variant="middle" />
           <Box width="50%" justifyContent="center">
             <Box
               display="flex"
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography>Doctor Prescription</Typography>
+              <Typography sx={{ mb: 2 }}>Doctor Prescription</Typography>
               {props.imgprescription ? (
                 <>
                   <Button onClick={handleConfirm4}>View</Button>
@@ -242,7 +242,7 @@ function TransactionItem(props) {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography> Payment Proof</Typography>
+              <Typography sx={{ mb: 2 }}> Payment Proof</Typography>
               {props.imgproof ? (
                 <>
                   <Button onClick={handleConfirm3}> View</Button>
@@ -294,7 +294,14 @@ function TransactionItem(props) {
               justifyContent="space-between"
             >
               <Typography> Payment Status</Typography>
-              <Typography fontWeight={700}> {props.status}</Typography>
+              <Button
+                variant="text"
+                color="info"
+                sx={{ borderRadius: 6 }}
+                size="small"
+              >
+                {props.status}
+              </Button>
             </Box>
           </Box>
         </Box>
@@ -304,7 +311,13 @@ function TransactionItem(props) {
           justifyContent="space-between"
           p={2}
         >
-          <Button onClick={handleConfirm2}>Transaction details</Button>
+          <Button
+            variant="outlined"
+            sx={{ borderRadius: 6 }}
+            onClick={handleConfirm2}
+          >
+            Transaction details
+          </Button>
           <Dialog
             open={open2}
             aria-labelledby="alert-dialog-title"

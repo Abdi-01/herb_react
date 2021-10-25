@@ -4,7 +4,6 @@ import {
   CardContent,
   Container,
   CssBaseline,
-  Divider,
   TextField,
   Typography,
 } from "@mui/material";
@@ -58,7 +57,7 @@ function ChangePassword(props) {
           alignItems: "center",
         }}
       >
-        <Card variant="outlined">
+        <Card variant="elevation" elevation={0} sx={{ borderRadius: 6 }}>
           <CardContent
             sx={{
               display: "flex",
@@ -66,19 +65,16 @@ function ChangePassword(props) {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" mt={4}>
               Change password
             </Typography>
             <Typography component="h1" variant="h5" fontSize="16px" mt={1}>
               Please choose a new password
             </Typography>
             <Box display="flex">
-              <Box sx={{ width: 400 }}>
-                <Typography>Menu Side</Typography>
-                <Divider />
-              </Box>
               <Box
                 p={5}
+                px={20}
                 component="form"
                 noValidate
                 sx={{ mt: 1, width: 800 }}

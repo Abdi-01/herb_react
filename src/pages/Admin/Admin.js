@@ -131,7 +131,7 @@ function Admin() {
                     to="/admin/transactions"
                     className="text-decoration-none text-white link_to"
                   >
-                    Transactions
+                    Serve Transactions
                   </Link>
                 </h6>
                 <h6 className="text-white my-4">

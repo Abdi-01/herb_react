@@ -29,8 +29,7 @@ import Verify from "../pages/Auth/Verify";
 import Cart from "../pages/Cart";
 import ChangePassword from "../pages/ChangePassword";
 import Home from "../pages/Home/Home";
-import Transaction from "../pages/Transaction/Transaction";
-import TransactionHistory from "../pages/Transaction/TransactionHistory";
+import Transaction from "../pages/Transaction";
 
 function AppRoute() {
   return (
@@ -71,11 +70,6 @@ function AppRoute() {
           <Route component={Sale} path="/sale" />
           <Route exact path="/products" component={Products} />
           <Route exact path="/transaction" component={Transaction} />
-          <Route
-            exact
-            path="/transaction-history"
-            component={TransactionHistory}
-          />
           <Route exact path="/profiles/:username" component={Profile} />
           <Route
             exact

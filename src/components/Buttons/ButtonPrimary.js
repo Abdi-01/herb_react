@@ -15,6 +15,7 @@ export default function ButtonPrimary({
   disabled,
   children,
   onClick,
+  size,
 }) {
   return (
     <ColorButton
@@ -24,6 +25,7 @@ export default function ButtonPrimary({
       type={type}
       disabled={disabled}
       onClick={onClick}
+      size={size}
     >
       {children}
     </ColorButton>

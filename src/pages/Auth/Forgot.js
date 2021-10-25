@@ -65,7 +65,7 @@ function Forgot(props) {
           alignItems: "center",
         }}
       >
-        <Card variant="elevation">
+        <Card variant="elevation" elevation={0} sx={{ borderRadius: 6 }}>
           <CardContent
             sx={{
               display: "flex",

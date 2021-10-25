@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom";
 import TransactionItem from "../../components/TransactionItem";
 import { API } from "../../constants/api";
 
-function Transaction() {
+function OngoingTransaction() {
   const userGlobal = useSelector((state) => state.userGlobal);
   const [transactionData, setTransactionData] = useState({
     transaction: [],
@@ -72,10 +72,9 @@ function Transaction() {
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
           <Card
             variant="elevation"
-            sx={{ width: 700, borderRadius: 6, padding: 4 }}
+            sx={{ borderRadius: 6, padding: 4 }}
             elevation={0}
           >
-            <Typography variant="h6">Ongoing transactions</Typography>
             {transactionData.transaction.length ? (
               <>
                 <CardContent>
@@ -107,4 +106,4 @@ function Transaction() {
   );
 }
 
-export default Transaction;
+export default OngoingTransaction;

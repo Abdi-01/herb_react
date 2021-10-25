@@ -105,7 +105,7 @@ export default function AlertDialog() {
         <CartItem
           name={item.product_name}
           quantity={item.quantity}
-          price={item.price_per_unit}
+          price={item.price_per_stock}
           key={item.id}
           image={`${API}/${item.product_img}`}
           onIncrement={() => qtyHandler("increment", item.id, item.quantity)}
