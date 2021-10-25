@@ -97,11 +97,6 @@ function Admin() {
           <SidebarNav>
             <SidebarWrap>
               <div>
-                <h4 className="text-white my-4">
-                  <Link className="text-decoration-none text-white" to="/admin">
-                    Dashboard
-                  </Link>
-                </h4>
                 <h6 className="my-4">
                   <Link
                     to="/adminproducts"
@@ -110,14 +105,7 @@ function Admin() {
                     Manage Products
                   </Link>
                 </h6>
-                <h6 className="my-4">
-                  <Link
-                    to="/salesreport"
-                    className="text-decoration-none text-white link_to"
-                  >
-                    Sales Report
-                  </Link>
-                </h6>
+
                 <h6 className="my-4">
                   <Link
                     to="/customrecord"
@@ -140,6 +128,22 @@ function Admin() {
                     className="text-decoration-none text-white link_to"
                   >
                     Accept or Reject Transactions
+                  </Link>
+                </h6>
+                <h6 className="my-4">
+                  <Link
+                    to="/customrecord"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Custom Products Record
+                  </Link>
+                </h6>
+                <h6 className="my-4">
+                  <Link
+                    to="/salesreport"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Sales Report
                   </Link>
                 </h6>
                 <h6 className="text-white my-4">
@@ -204,30 +208,16 @@ function Admin() {
                 style={{
                   width: '250px',
                   height: '120px',
-                  color: 'darkgreen',
-                  background: '#FEF1E6',
-                }}
-              >
-                <ShowChartIcon className="mb-3" />
-                <h6>Unpaid Transactions:</h6>
-                <h4>
-                  <strong>Rp.5.000.000</strong>
-                </h4>
-              </Card>
-              <Card
-                item
-                className="mx-4 p-2"
-                style={{
-                  width: '250px',
-                  height: '120px',
-                  color: 'red',
+                  color: 'black',
                   background: '#FEF1E6',
                 }}
               >
                 <BarChartRoundedIcon className="mb-3" />
-                <h6>Capital Gains:</h6>
+                <h6>Total Transactions:</h6>
                 <h4>
-                  <strong>Rp.-200.000</strong>
+                  <strong>
+                    {transactionList.transactionLists.length} transactions
+                  </strong>
                 </h4>
               </Card>
             </Grid>
