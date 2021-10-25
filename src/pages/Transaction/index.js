@@ -66,7 +66,7 @@ export default function Transaction() {
               centered
             >
               <Tab label="Ongoing Transactions" {...a11yProps(0)} />
-              <Tab label="Custom Transactions" {...a11yProps(1)} />
+              <Tab label="History Transactions" {...a11yProps(1)} />
             </Tabs>
           </Box>
         </Box>
