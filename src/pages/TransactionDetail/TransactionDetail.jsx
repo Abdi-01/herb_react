@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { API_URL } from '../../helper';
 import { Grid, Container, Button } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import getCurrentDate from '../../helper/getDate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckIcon from '@mui/icons-material/Check';
