@@ -83,7 +83,9 @@ export const AddModal = ({ showModal }) => {
           product_name: newProduct.addProductName,
           product_desc: newProduct.addProductDesc,
           stock: parseInt(newProduct.addProductStock),
-          capacity_per_package: parseInt(newProduct.addProductCapacityPerPackage),
+          capacity_per_package: parseInt(
+            newProduct.addProductCapacityPerPackage
+          ),
           // netto_total: parseInt(newProduct.addProductNettoTotal),
           unit: newProduct.addProductUnit,
           price_per_unit: parseInt(newProduct.addProductPricePerUnit),
@@ -97,7 +99,6 @@ export const AddModal = ({ showModal }) => {
       Axios.post(`${API_URL}/products/post`, formData)
         .then((res) => {
           alert(res.data.message);
-          fetchProducts();
           setNewProduct({
             addProductName: '',
             addProductDesc: '',
@@ -114,6 +115,7 @@ export const AddModal = ({ showModal }) => {
             addFile: '',
             addFileName: '',
           });
+          fetchProducts();
         })
         .catch((err) => {
           console.log(err);

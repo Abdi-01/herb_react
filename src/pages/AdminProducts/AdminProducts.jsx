@@ -1,16 +1,23 @@
 import {
-  Card, CardContent, CardHeader,
-  CardMedia, Container, Divider, Grid, IconButton, Typography
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  Typography,
 } from '@material-ui/core';
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
 import Avatar from '@mui/material/Avatar';
 import { Box } from '@mui/system';
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import styled from "styled-components";
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 import { API_URL } from '../../helper';
 import { AddModal } from './ModalAddProduct/ModalAddProduct';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
@@ -55,7 +62,7 @@ const Admin = () => {
 
   const [showModal, setShowModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
 
   // Global State
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -150,23 +157,22 @@ const Admin = () => {
         .catch(() => {
           alert(`Terjadi Kesalahan`);
         });
-    };
-  }
-
+    }
+  };
 
   const quantityHandler = (action) => {
-    if (action === "increment") {
-      setQuantity(quantity + 1)
-    }else if (action === "decrement" && quantity > 1) {
-      setQuantity(quantity - 1)
+    if (action === 'increment') {
+      setQuantity(quantity + 1);
+    } else if (action === 'decrement' && quantity > 1) {
+      setQuantity(quantity - 1);
     }
-  }
+  };
 
   const restockHandler = () => {
     Axios.patch(`${API_URL}/products/restock/${editProduct.editId}`, {
       stock: editProduct.editProductStock,
       capacity_per_package: editProduct.editProductCapacityPerPackage,
-      quantity: quantity
+      quantity: quantity,
     })
       .then((res) => {
         fetchProducts();
@@ -176,7 +182,7 @@ const Admin = () => {
       .catch(() => {
         alert(`Terjadi Kesalahan`);
       });
-  }
+  };
 
   const deleteBtnHandler = (deleteId) => {
     const confirmDelete = window.confirm(
@@ -209,8 +215,8 @@ const Admin = () => {
   };
 
   const openHandler = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   // render products
   const renderProducts = () => {
@@ -300,47 +306,58 @@ const Admin = () => {
                       />
                     </div>
                   </div>
-                  { isOpen ? 
-                   <div className="d-flex justify-content-between">
-                     <div className="col-6">
-                      <Box display="flex" className="mt-4 d-flex justify-content-start" alignItems="center">
-                        <IconButton size="large" onClick={() => quantityHandler("decrement")}>
-                          <RemoveCircleOutlineOutlinedIcon color="success" />
-                        </IconButton>
-                        <Typography px={2}>{quantity}</Typography>
-                        <IconButton size="large" onClick={() => quantityHandler("increment")}>
-                          <AddCircleOutlineOutlinedIcon color="success" />
-                        </IconButton>
-                        <button
-                        onClick={restockHandler}
-                        className="btn btn-secondary"
-                        >
-                        Apply
-                        </button>
-                      </Box>
-                    </div> 
-                    <div className="col-6 p-1">
-                      <label for="productnetto" className="text-xl-left">
-                        Product Netto
-                      </label>
-                      <input
-                        defaultValue={editProduct.editProductCapacityPerPackage}
-                        onChange={inputHandler}
-                        type="number"
-                        className="form-control"
-                        name="editProductNetto"
-                      />
-                      <button
-                        onClick={() => restockHandler("custom")}
-                        className="btn btn-secondary"
-                        >
-                        Apply
-                        </button>
-                    </div>
-                    </div>
-                     : null
-                    }
+                  {isOpen ? (
                     <div className="d-flex justify-content-between">
+                      <div className="col-6">
+                        <Box
+                          display="flex"
+                          className="mt-4 d-flex justify-content-start"
+                          alignItems="center"
+                        >
+                          <IconButton
+                            size="large"
+                            onClick={() => quantityHandler('decrement')}
+                          >
+                            <RemoveCircleOutlineOutlinedIcon color="success" />
+                          </IconButton>
+                          <Typography px={2}>{quantity}</Typography>
+                          <IconButton
+                            size="large"
+                            onClick={() => quantityHandler('increment')}
+                          >
+                            <AddCircleOutlineOutlinedIcon color="success" />
+                          </IconButton>
+                          <button
+                            onClick={restockHandler}
+                            className="btn btn-secondary"
+                          >
+                            Apply
+                          </button>
+                        </Box>
+                      </div>
+                      <div className="col-6 p-1">
+                        <label for="productnetto" className="text-xl-left">
+                          Product Netto
+                        </label>
+                        <input
+                          defaultValue={
+                            editProduct.editProductCapacityPerPackage
+                          }
+                          onChange={inputHandler}
+                          type="number"
+                          className="form-control"
+                          name="editProductNetto"
+                        />
+                        <button
+                          onClick={() => restockHandler('custom')}
+                          className="btn btn-secondary"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
+                  <div className="d-flex justify-content-between">
                     <div className="col-6 p-1">
                       <label for="productunit" className="text-xl-left">
                         Product Unit
@@ -400,7 +417,7 @@ const Admin = () => {
                         className="form-control"
                         name="editProductBrand"
                       >
-                        <option value="1">Kalbe Farma</option>
+                        <option defaultValue="1">Kalbe Farma</option>
                         <option value="2">Sanbe Farma</option>
                         <option value="3">Dexa Medica</option>
                         <option value="4">Pharos Indonesia</option>
@@ -423,7 +440,7 @@ const Admin = () => {
                         className="form-control"
                         name="editProductCategory"
                       >
-                        <option value="1">Antibiotics</option>
+                        <option defaultValue="1">Antibiotics</option>
                         <option value="2">Antibacterials</option>
                         <option value="3">Antacids</option>
                         <option value="4">Antidepressants</option>
