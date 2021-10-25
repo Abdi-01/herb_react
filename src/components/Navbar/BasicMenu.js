@@ -5,6 +5,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
 import HistoryEduOutlinedIcon from "@mui/icons-material/HistoryEduOutlined";
 import {
+  Avatar,
   Divider,
   IconButton,
   ListItemIcon,
@@ -19,6 +20,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/actions/auth";
 import { Link } from "react-router-dom";
+import { API } from "../../constants/api";
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -53,7 +55,14 @@ export default function BasicMenu() {
           style={{ color: "#FFFF" }}
           aria-expanded={open ? "true" : undefined}
         >
-          <AccountCircle />
+          {userGlobal.img_profile ? (
+            <Avatar
+              src={`${API}/${userGlobal.img_profile}`}
+              sx={{ width: 28, height: 28 }}
+            />
+          ) : (
+            <AccountCircle />
+          )}
         </IconButton>
       </Box>
       <Menu
