@@ -296,47 +296,28 @@ const Admin = () => {
                         type="number"
                         className="form-control"
                         name="editProductNetto"
-                        disabled
                       />
                     </div>
                   </div>
                   { isOpen ? 
                    <div className="d-flex justify-content-between">
                      <div className="col-6">
-                      <Box display="flex" className="mt-4 d-flex justify-content-start" alignItems="center">
-                        <IconButton size="large" onClick={() => quantityHandler("decrement")}>
-                          <RemoveCircleOutlineOutlinedIcon color="success" />
-                        </IconButton>
-                        <Typography px={2}>{quantity}</Typography>
-                        <IconButton size="large" onClick={() => quantityHandler("increment")}>
-                          <AddCircleOutlineOutlinedIcon color="success" />
-                        </IconButton>
-                        <button
-                        onClick={restockHandler}
-                        className="btn btn-secondary"
-                        >
-                        Apply
-                        </button>
-                      </Box>
-                    </div> 
-                    <div className="col-6 p-1">
-                      <label for="productnetto" className="text-xl-left">
-                        Product Netto
-                      </label>
-                      <input
-                        defaultValue={editProduct.editProductCapacityPerPackage}
-                        onChange={inputHandler}
-                        type="number"
-                        className="form-control"
-                        name="editProductNetto"
-                      />
-                      <button
-                        onClick={() => restockHandler("custom")}
-                        className="btn btn-secondary"
-                        >
-                        Apply
-                        </button>
-                    </div>
+                        <Box display="flex" className="mt-4 d-flex justify-content-start" alignItems="center">
+                          <IconButton size="large" onClick={() => quantityHandler("decrement")}>
+                            <RemoveCircleOutlineOutlinedIcon color="success" />
+                          </IconButton>
+                          <Typography px={2}>{quantity}</Typography>
+                          <IconButton size="large" onClick={() => quantityHandler("increment")}>
+                            <AddCircleOutlineOutlinedIcon color="success" />
+                          </IconButton>
+                          <button
+                          onClick={restockHandler}
+                          className="btn btn-secondary"
+                          >
+                          Apply
+                          </button>
+                        </Box>
+                      </div> 
                     </div>
                      : null
                     }
