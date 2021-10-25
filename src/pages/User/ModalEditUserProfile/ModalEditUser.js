@@ -5,6 +5,7 @@ import ButtonPrimary from "../../../components/Buttons/ButtonPrimary";
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../../helper";
+import Alert from "@mui/material/Alert";
 
 function EditModal() {
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -24,6 +25,12 @@ function EditModal() {
     addFile: "",
     addFileName: "",
   });
+
+  const successAlert = () => {
+    return (
+      <Alert severity="success">This is a success alert — check it out!</Alert>
+    );
+  };
 
   const dispatch = useDispatch();
   const getSessions = (data) => {
@@ -75,7 +82,7 @@ function EditModal() {
 
       Axios.patch(`${API_URL}/users/${userGlobal.id}`, formData)
         .then((res) => {
-          alert(res.data.message);
+          successAlert();
           getSessions();
         })
         .catch(() => {
@@ -92,7 +99,7 @@ function EditModal() {
         age: editUser.editUserAge,
       })
         .then((res) => {
-          alert(res.data.message);
+          successAlert();
           getSessions();
         })
         .catch(() => {

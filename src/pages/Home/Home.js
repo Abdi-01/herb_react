@@ -62,7 +62,9 @@ const Home = () => {
           <img className="organic_img" src={organic} alt="" />
         </div>
         <Container>
-          <h1 className="h1_main"> The next generation of care for families</h1>
+          <h1 className="h1_main">
+            The next generation of healthcare for families and anyone.
+          </h1>
         </Container>
       </MainContainer>
 

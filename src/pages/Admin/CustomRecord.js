@@ -36,7 +36,7 @@ const CustomRecord = () => {
           <td>{val.capacity_per_package}</td>
           <td>{val.unit}</td>
           <td>{val.quantity}</td>
-          <td>{val.total_price}</td>
+          <td>Rp. {val.total_price}</td>
         </tr>
       )
     })

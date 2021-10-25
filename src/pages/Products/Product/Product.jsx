@@ -58,39 +58,41 @@ const Product = ({ product }) => {
   };
 
   return (
-    <Card className={classes.root}>
-      <div>
-        <Link
-          to={`/productdetail/${product.product_id}`}
-          style={{ textDecoration: 'none', color: 'inherit' }}
-        >
-          <CardMedia
-            className={classes.media}
-            image={API_URL + product.product_img}
-            title={product.product_name}
-          />
-          <CardContent>
-            <div className={classes.cardContent}>
-              <Typography gutterBottom variant="h5" component="p">
-                {product.product_name}
+    <div>
+      <Card className={classes.root}>
+        <div>
+          <Link
+            to={`/productdetail/${product.product_id}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <CardMedia
+              className={classes.media}
+              image={API_URL + product.product_img}
+              title={product.product_name}
+            />
+            <CardContent>
+              <div className={classes.cardContent}>
+                <Typography gutterBottom variant="h5" component="p">
+                  {product.product_name}
+                </Typography>
+                <Typography gutterBottom variant="h6" component="h2">
+                  Rp.{product.price_per_stock.toLocaleString()}
+                </Typography>
+                <br />
+              </div>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {product.products_category}
               </Typography>
-              <Typography gutterBottom variant="h6" component="h2">
-                Rp.{product.price_per_stock.toLocaleString()}
-              </Typography>
-              <br />
-            </div>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {product.products_category}
-            </Typography>
-          </CardContent>
-        </Link>
-        <CardActions disableSpacing className={classes.cardActions}>
-          <IconButton aria-label="Add to Cart">
-            <AddShoppingCart color="primary" onClick={onAddToCart} />
-          </IconButton>
-        </CardActions>
-      </div>
-    </Card>
+            </CardContent>
+          </Link>
+          <CardActions disableSpacing className={classes.cardActions}>
+            <IconButton aria-label="Add to Cart">
+              <AddShoppingCart color="primary" onClick={onAddToCart} />
+            </IconButton>
+          </CardActions>
+        </div>
+      </Card>
+    </div>
   );
 };
 
