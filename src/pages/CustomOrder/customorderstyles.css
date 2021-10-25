@@ -43,9 +43,9 @@ h6 {
   margin-top: 10%;
 }
 
-.form_container {
-  padding: 50px 10vw;
-}
+/* .form_container {
+  padding: 50px 12px;
+} */
 
 .btn_add_form {
   display: flex;
