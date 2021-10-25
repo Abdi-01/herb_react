@@ -60,13 +60,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
 function AdminTransactons() {
   const [customTrans, setCustomTrans] = useState([]);
   const userGlobal = useSelector((state) => state.userGlobal);

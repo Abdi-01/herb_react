@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
-import { API_URL } from '../../helper';
-import { Grid, Container, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import getCurrentDate from '../../helper/getDate';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CheckIcon from '@mui/icons-material/Check';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
+import { API_URL } from "../../helper";
+import { Grid, Container, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import getCurrentDate from "../../helper/getDate";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CheckIcon from "@mui/icons-material/Check";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const TransactionDetail = (props) => {
   const [transaction, setTranscation] = useState({
@@ -43,8 +43,8 @@ const TransactionDetail = (props) => {
     if (confirmDelete) {
       Axios.delete(`${API_URL}/transaction/delete/${deleteId}`)
         .then(() => {
-          alert('Transaction has been deleted.');
-          props.history.push('/admintransactions');
+          alert("Transaction has been deleted.");
+          props.history.push("/admintransactions");
         })
         .catch((err) => {
           alert(err);
@@ -55,13 +55,13 @@ const TransactionDetail = (props) => {
   };
 
   const acceptOrderBtnHandler = (patchId) => {
-    if (transaction.transactionData.transaction_type === 'normal') {
+    if (transaction.transactionData.transaction_type === "normal") {
       // update product stock (substracting current stock with order's quantity)
       const substractStock =
         product.productsStock.stock - transaction.transactionData.quantity;
 
       Axios.patch(`${API_URL}/transaction/update/${patchId}`, {
-        payment_status: 'paid',
+        payment_status: "paid",
       })
         .then(() => {
           fetchTransactions();
@@ -81,13 +81,13 @@ const TransactionDetail = (props) => {
         .catch((err) => {
           console.log(err);
         });
-    } else if (transaction.transactionData.transaction_type === 'custom') {
+    } else if (transaction.transactionData.transaction_type === "custom") {
       // update product stock (substracting current stock with order's quantity)
       const substractTotalNetto =
         product.productsStock.netto_total - transaction.transactionData.dose;
 
       Axios.patch(`${API_URL}/transaction/update/${patchId}`, {
-        payment_status: 'paid',
+        payment_status: "paid",
       })
         .then(() => {
           fetchTransactions();
@@ -119,7 +119,7 @@ const TransactionDetail = (props) => {
     <div className="product_detail_container">
       <Grid
         xs={4}
-        style={{ border: '1px solid', padding: '20px', marginTop: '6%' }}
+        style={{ border: "1px solid", padding: "20px", marginTop: "6%" }}
       >
         <h3>
           <strong>Item Details:</strong>
@@ -133,10 +133,10 @@ const TransactionDetail = (props) => {
         </Container>
         <Container
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '400px',
-            margin: '5% 0 0 -20px',
+            display: "flex",
+            flexDirection: "column",
+            width: "400px",
+            margin: "5% 0 0 -20px",
           }}
         >
           <hr />
@@ -170,12 +170,12 @@ const TransactionDetail = (props) => {
         <Container>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              margin: '-75% 0 5% 40%',
+              display: "flex",
+              flexDirection: "column",
+              margin: "-75% 0 5% 40%",
             }}
           >
-            {transaction.transactionData !== 'null' ? (
+            {transaction.transactionData !== "null" ? (
               <div>
                 <h3>
                   <strong>Transaction Details: </strong>
@@ -242,11 +242,11 @@ const TransactionDetail = (props) => {
                   {transaction.transactionData.notes_payment}
                 </h6>
                 <hr />
-                {transaction.transactionData.payment_status === 'onprocess' ? (
+                {transaction.transactionData.payment_status === "onprocess" ? (
                   <Container className="d-flex justify-content-end pt-4">
                     <Button
                       variant="contained"
-                      style={{ background: 'green', color: 'white' }}
+                      style={{ background: "green", color: "white" }}
                       startIcon={<CheckIcon />}
                       onClick={() =>
                         acceptOrderBtnHandler(
@@ -259,7 +259,7 @@ const TransactionDetail = (props) => {
                     </Button>
                     <Button
                       variant="contained"
-                      style={{ background: '#cc0000', color: 'white' }}
+                      style={{ background: "#cc0000", color: "white" }}
                       startIcon={<DeleteForeverIcon />}
                       onClick={() =>
                         deleteBtnHandler(
@@ -279,9 +279,9 @@ const TransactionDetail = (props) => {
                       to="/admintransactions"
                       startIcon={<ArrowBackIcon />}
                       style={{
-                        background: 'orange',
-                        color: 'black',
-                        padding: '12px',
+                        background: "orange",
+                        color: "black",
+                        padding: "12px",
                       }}
                     >
                       Back
