@@ -1,13 +1,13 @@
-import { CardContent, Typography } from '@material-ui/core';
-import { Card, Container } from '@mui/material';
-import { Box } from '@mui/system';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import TransactionItem from '../components/TransactionItem';
-import DoDisturbOutlinedIcon from '@mui/icons-material/DoDisturbOutlined';
-import { API } from '../constants/api';
-import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { CardContent, Typography } from "@material-ui/core";
+import { Card, Container } from "@mui/material";
+import { Box } from "@mui/system";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import DoDisturbOutlinedIcon from "@mui/icons-material/DoDisturbOutlined";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import TransactionItem from "../../components/TransactionItem";
+import { API } from "../../constants/api";
 
 function Transaction() {
   const userGlobal = useSelector((state) => state.userGlobal);
@@ -20,7 +20,7 @@ function Transaction() {
   }, []);
 
   const fetchTransaction = () => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const token = JSON.parse(localStorage.getItem("token"));
     axios
       .get(`${API}/transactions`, {
         params: {
@@ -40,14 +40,22 @@ function Transaction() {
 
   const renderTransactionData = () => {
     return transactionData.transaction.map((item) => {
+      console.log(item.prescription_img);
       return (
         <TransactionItem
+          key={item.transaction_id}
           transactionID={item.transaction_id}
           transactionDate={item.transaction_date}
           recipent={item.recipent}
           address={item.address}
           totalPrice={item.total_price}
           hasPrescription={item.prescription_img}
+          detail={item.transaction_id}
+          imgproof={item.payment_proof}
+          imgprescription={item.prescription_img}
+          notes={item.notes_payment}
+          prescnotes={item.notes}
+          status={item.payment_status}
         />
       );
     });
@@ -62,14 +70,16 @@ function Transaction() {
     <Container>
       <Box display="flex" justifyContent="center">
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
-          <Card variant="outlined" sx={{ width: 700 }}>
-            <Typography variant="h6" style={{ textAlign: 'center' }}>
-              Ongoing transactions
-            </Typography>
+          <Card
+            variant="elevation"
+            sx={{ width: 700, borderRadius: 6, padding: 4 }}
+            elevation={0}
+          >
+            <Typography variant="h6">Ongoing transactions</Typography>
             {transactionData.transaction.length ? (
               <>
                 <CardContent>
-                  <Box px={4}>{renderTransactionData()}</Box>
+                  <Box p={4}>{renderTransactionData()}</Box>
                 </CardContent>
               </>
             ) : (

@@ -276,7 +276,7 @@ const TransactionDetail = (props) => {
                     <Button
                       variant="outlined"
                       component={Link}
-                      to="/transactions"
+                      to="/admintransactions"
                       startIcon={<ArrowBackIcon />}
                       style={{
                         background: 'orange',
@@ -291,7 +291,7 @@ const TransactionDetail = (props) => {
               </div>
             ) : (
               <div>
-                <Button component={Link} to="/transactions"></Button>
+                <Button component={Link} to="/admintransactions"></Button>
               </div>
             )}
           </div>

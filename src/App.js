@@ -9,7 +9,7 @@ import AppRoute from "./routes/AppRoute";
 const theme = createTheme({
   palette: {
     background: {
-      default: "#FFFF",
+      default: "#FAFAFA",
     },
   },
 });

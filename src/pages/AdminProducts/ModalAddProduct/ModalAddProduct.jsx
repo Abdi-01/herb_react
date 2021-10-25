@@ -13,7 +13,7 @@ export const AddModal = ({ showModal }) => {
     addProductName: '',
     addProductDesc: '',
     addProductStock: 0,
-    addProductNetto: 0,
+    addProductCapacityPerPackage: 0,
     addProductNettoTotal: 0,
     addProductUnit: 0,
     addProductPricePerUnit: 0,
@@ -64,7 +64,7 @@ export const AddModal = ({ showModal }) => {
       addProductName: '',
       addProductDesc: '',
       addProductStock: 0,
-      addProductNetto: 0,
+      addProductCapacityPerPackage: 0,
       addProductNettoTotal: 0,
       addProductUnit: 0,
       addProductPricePerUnit: 0,
@@ -83,8 +83,8 @@ export const AddModal = ({ showModal }) => {
           product_name: newProduct.addProductName,
           product_desc: newProduct.addProductDesc,
           stock: parseInt(newProduct.addProductStock),
-          netto: parseInt(newProduct.addProductNetto),
-          netto_total: parseInt(newProduct.addProductNettoTotal),
+          capacity_per_package: parseInt(newProduct.addProductCapacityPerPackage),
+          // netto_total: parseInt(newProduct.addProductNettoTotal),
           unit: newProduct.addProductUnit,
           price_per_unit: parseInt(newProduct.addProductPricePerUnit),
           price_per_stock: parseInt(newProduct.addProductPricePerStock),
@@ -102,8 +102,8 @@ export const AddModal = ({ showModal }) => {
             addProductName: '',
             addProductDesc: '',
             addProductStock: 0,
-            addProductNetto: 0,
-            addProductNettoTotal: 0,
+            addProductCapacityPerPackage: 0,
+            // addProductNettoTotal: 0,
             addProductUnit: 0,
             addProductPricePerUnit: 0,
             addProductPricePerStock: 0,
@@ -196,16 +196,16 @@ export const AddModal = ({ showModal }) => {
                     Product Netto
                   </label>
                   <input
-                    value={newProduct.addProductNetto}
+                    value={newProduct.addProductCapacityPerPackage}
                     onChange={inputHandler}
-                    name="addProductNetto"
+                    name="addProductCapacityPerPackage"
                     type="number"
-                    id="productnetto"
+                    id="productcapacityperpackage"
                     placeholder="400"
                     className="form-control"
                   />
                 </div>
-                <div>
+                {/* <div>
                   <label htmlFor="productnettototal" className="text-xl-left">
                     Product Netto Total
                   </label>
@@ -218,7 +218,7 @@ export const AddModal = ({ showModal }) => {
                     placeholder="4000"
                     className="form-control"
                   />
-                </div>
+                </div> */}
                 <div>
                   <label htmlFor="productunit" className="text-xl-left">
                     Product Unit
@@ -235,6 +235,7 @@ export const AddModal = ({ showModal }) => {
                     <option value="ml">ml</option>
                     <option value="mg">mg</option>
                     <option value="tablet">tablet</option>
+                    <option value="botol">botol</option>
                     <option value="kaplet">kaplet</option>
                   </select>
                 </div>

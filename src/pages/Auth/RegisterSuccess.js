@@ -16,30 +16,38 @@ function RegisterSuccess() {
   const classes = useStyles();
   return (
     <Container>
-      <Box display="flex" width="100%" height={600}>
+      <Box display="flex" width="100%" height={600} mt={6}>
         <Box m="auto" display="flex" flexDirection="column" alignItems="center">
-          <Box className={classes.iconVerify}>
-            <SvgIcon component={VerifyIcon} fontSize="inherit"></SvgIcon>
-          </Box>
-          <Card variant="outlined" sx={{ padding: 3 }}>
-            <Typography fontSize="24px" fontWeight="500" textAlign="center">
-              Register Success
-            </Typography>
-            <CardContent>
-              <Typography color={"GrayText"}>
-                Please verify your account by open your email, we've send to you
-                right away!
-              </Typography>
-            </CardContent>
-          </Card>
           <Box
-            width="100%"
-            mt={3}
-            component={Link}
-            to="/"
-            className={classes.link}
+            display="flex"
+            flexDirection="column"
+            sx={{ background: "#FFFF", borderRadius: 6 }}
+            alignItems="center"
+            p={8}
           >
-            <ButtonPrimary fullWidth>Take me to the Herb!</ButtonPrimary>
+            <Box className={classes.iconVerify} mb={6}>
+              <SvgIcon component={VerifyIcon} fontSize="inherit"></SvgIcon>
+            </Box>
+            <Card variant="outlined" sx={{ padding: 3 }}>
+              <Typography fontSize="24px" fontWeight="500" textAlign="center">
+                Register Success
+              </Typography>
+              <CardContent>
+                <Typography color={"GrayText"}>
+                  Please verify your account by open your email, we've send to
+                  you right away!
+                </Typography>
+              </CardContent>
+            </Card>
+            <Box
+              width="100%"
+              mt={3}
+              component={Link}
+              to="/"
+              className={classes.link}
+            >
+              <ButtonPrimary fullWidth>Take me to the Herb!</ButtonPrimary>
+            </Box>
           </Box>
         </Box>
       </Box>

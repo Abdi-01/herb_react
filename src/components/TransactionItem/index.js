@@ -1,90 +1,127 @@
+import { Api } from "@mui/icons-material";
 import {
   Card,
-  Container,
   Divider,
-  Grid,
   Input,
   Stack,
+  TextareaAutosize,
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ButtonPrimary from "../Buttons/ButtonPrimary";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Box } from "@mui/system";
 import axios from "axios";
-import { API } from "../../constants/api";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { API } from "../../constants/api";
+import { API_URL } from "../../helper";
+import dateFormat from "../../helper/dateFormat";
+import ButtonPrimary from "../Buttons/ButtonPrimary";
+import TransactionDetailItem from "../TransactionDetailItem";
 
 function TransactionItem(props) {
   const userGlobal = useSelector((state) => state.userGlobal);
 
   const [open, setOpen] = React.useState(false);
-  const [message, setMessage] = React.useState({
-    title: "",
-    desc: "",
+  const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
+
+  const [transDetail, setTransDetail] = useState();
+
+  const [srcFile, setSrcFile] = useState({});
+  const [dataFile, setDataFile] = useState({
+    notesPayment: props.notes,
   });
 
+  const handleConfirm = () => {
+    setOpen(true);
+    setOpen3(false);
+  };
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleConfirm = () => {
-    setOpen(true);
+  const handleConfirm2 = () => {
+    setOpen2(true);
+    fetchTranscDetail();
+  };
+  const handleClose2 = () => {
+    setOpen2(false);
   };
 
-  const [customProduct, setCustomProduct] = useState({
-    addProductName: "",
-    addProductDesc: "",
-  });
+  const handleConfirm3 = () => {
+    setOpen3(true);
+  };
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
 
-  const [addImage, setAddImage] = useState({
-    addFile: null,
-    addFileName: null,
-  });
+  const handleConfirm4 = () => {
+    setOpen4(true);
+  };
+  const handleClose4 = () => {
+    setOpen4(false);
+  };
 
-  const btnAddImage = (e) => {
+  const fetchTranscDetail = () => {
+    axios
+      .get(`${API_URL}/transactions/detail`, {
+        params: {
+          id: props.transactionID,
+        },
+      })
+      .then((res) => {
+        setTransDetail(res.data);
+        // console.log(transDetail);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const inputHandler = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    setDataFile({
+      ...dataFile,
+      [name]: value,
+    });
+  };
+
+  const getPaymentProof = () => {};
+
+  const addImage = (e) => {
     if (e.target.files[0]) {
-      setAddImage({
-        ...addImage,
+      setSrcFile({
+        ...srcFile,
         addFileName: e.target.files[0].name,
         addFile: e.target.files[0],
       });
-
       let preview = document.getElementById("imgpreview");
       preview.src = URL.createObjectURL(e.target.files[0]);
     }
   };
 
-  const customProductBtnHandler = () => {
-    if (addImage.addFile) {
+  const uploadImage = () => {
+    if (dataFile) {
       let formData = new FormData();
-      formData.append(
-        "data",
-        JSON.stringify({
-          custom_product_name: customProduct.addProductName,
-          custom_product_desc: customProduct.addProductDesc,
-        })
-      );
-      formData.append("file", addImage.addFile);
+
+      let obj = {
+        notesPayment: dataFile.notesPayment,
+      };
+      formData.append("data", JSON.stringify(obj));
+      formData.append("file", srcFile.addFile);
       axios
-        .patch(`${API}/${userGlobal.id}`, formData)
+        .patch(`${API}/transactions/update/${props.transactionID}`, formData)
         .then((res) => {
           alert(res.data.message);
-          setCustomProduct({
-            addProductName: "",
-            addProductDesc: "",
-          });
-          setAddImage({
-            ...addImage,
-            addFile: "",
-            addFileName: "",
-          });
+          setOpen(false);
         })
         .catch((err) => {
           console.log(err);
@@ -92,16 +129,20 @@ function TransactionItem(props) {
     }
   };
 
-  const refreshContent = () => {
-    setCustomProduct({
-      ...customProduct,
-      addProductName: "",
-      addProductDesc: "",
-    });
-    setAddImage({
-      ...addImage,
-      addFile: null,
-      addFileName: null,
+  const renderTransDetail = () => {
+    return transDetail?.map((item) => {
+      return (
+        <TransactionDetailItem
+          key={item.transactiondetail_id}
+          image={`${API}/${item.product_img}`}
+          priceperunit={item.price_per_unit}
+          priceperstock={item.price_per_stock}
+          quantity={item.quantity}
+          dose={item.dose}
+          unit={item.unit}
+          name={item.product_name}
+        />
+      );
     });
   };
 
@@ -127,7 +168,7 @@ function TransactionItem(props) {
             </Box>
             <Box>
               <Typography>
-                Transaction Date : {props.transactionDate}
+                Transaction Date : {dateFormat(props.transactionDate)}
               </Typography>
             </Box>
           </Box>
@@ -154,10 +195,98 @@ function TransactionItem(props) {
               alignItems="center"
             >
               <Typography>Doctor Prescription</Typography>
-              {props.hasPrescription ? <Button>View Image</Button> : null}
+              {props.imgprescription ? (
+                <>
+                  <Button onClick={handleConfirm4}>View</Button>
+                  <Dialog
+                    open={open4}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <Typography px={2} mt={4}>
+                      Prescription : Transaction ID - {props.transactionID}
+                    </Typography>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <Box>
+                          <Box>
+                            <>
+                              <div className="image_preview mb-5">
+                                <img
+                                  id="imgpreview"
+                                  src={`${API}/${props.hasPrescription}`}
+                                  alt=""
+                                  width="100%"
+                                />
+                              </div>
+                              <Typography mb={1}>Prescription Notes</Typography>
+                              <Card variant="outlined" sx={{ padding: 2 }}>
+                                <Typography>{props.prescnotes}</Typography>
+                              </Card>
+                            </>
+                          </Box>
+                        </Box>
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose4} autoFocus>
+                        Close
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </>
+              ) : null}
             </Box>
-            <Box display="flex" alignItems="center">
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
               <Typography> Payment Proof</Typography>
+              {props.imgproof ? (
+                <>
+                  <Button onClick={handleConfirm3}> View</Button>
+                  <Dialog
+                    open={open3}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <Typography px={2} mt={4}>
+                      Payment Proof : Transaction ID - {props.transactionID}
+                    </Typography>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        <Box>
+                          <Box>
+                            <>
+                              <div className="image_preview mb-5">
+                                <img
+                                  id="imgpreview"
+                                  src={`${API}/${props.imgproof}`}
+                                  alt=""
+                                  width="100%"
+                                />
+                              </div>
+                            </>
+                          </Box>
+                        </Box>
+                      </DialogContentText>
+                      <Typography mb={1}>Payment Notes</Typography>
+                      <Card variant="outlined" sx={{ padding: 2 }}>
+                        <Typography>{props.notes}</Typography>
+                      </Card>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleConfirm} autoFocus>
+                        Change payment proof
+                      </Button>
+                      <Button onClick={handleClose3} autoFocus>
+                        Close
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </>
+              ) : null}
             </Box>
             <Box
               display="flex"
@@ -165,7 +294,7 @@ function TransactionItem(props) {
               justifyContent="space-between"
             >
               <Typography> Payment Status</Typography>
-              <Typography fontWeight={700}> Unpaid</Typography>
+              <Typography fontWeight={700}> {props.status}</Typography>
             </Box>
           </Box>
         </Box>
@@ -175,58 +304,91 @@ function TransactionItem(props) {
           justifyContent="space-between"
           p={2}
         >
-          <Button LinkComponent={Link} to={props.detail}>
-            Transaction details
-          </Button>
+          <Button onClick={handleConfirm2}>Transaction details</Button>
+          <Dialog
+            open={open2}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <Typography p={4}>
+              Transaction Details : ID - {props.transactionID}
+            </Typography>
+            <Typography px={4}>
+              Total Payment : Rp.{props.totalPrice}
+            </Typography>
+
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <Box>
+                  <Box>
+                    <>{renderTransDetail()}</>
+                  </Box>
+                </Box>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose2} autoFocus>
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Box display="flex" alignItems="center">
-            <ButtonPrimary onClick={handleConfirm}>
-              Confirm Payment
-            </ButtonPrimary>
+            {!props.imgproof ? (
+              <>
+                <ButtonPrimary onClick={handleConfirm}>
+                  Upload Payment Proof
+                </ButtonPrimary>
+              </>
+            ) : null}
             <Dialog
               open={open}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title">{message.title}</DialogTitle>
+              <Typography px={2} mt={2}>
+                Upload Proof : Transaction ID - {props.transactionID}
+              </Typography>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                   <Box>
                     <Box>
                       <>
-                        <div className="image_preview mb-5">
-                          <img id="imgpreview" alt="" width="100%" />
-                        </div>
+                        <Box className="image_preview mb-5">
+                          <img
+                            id="imgpreview"
+                            alt=""
+                            width="100%"
+                            src={`${API}/${props.imgproof}`}
+                          />
+                        </Box>
                       </>
                     </Box>
                   </Box>
                 </DialogContentText>
               </DialogContent>
-              <DialogActions>
-                <Stack direction="row" alignItems="center" spacing={2}>
-                  <label htmlFor="contained-button-file">
-                    <Input
-                      onChange={btnAddImage}
-                      accept="image/*"
-                      id="contained-button-file"
-                      multiple
-                      type="file"
-                    />
-                  </label>
-                </Stack>
-                {/* <label htmlFor="ProductDesc">Notes:</label>
-                <textarea
-                  value={customProduct.addProductDesc}
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <TextareaAutosize
+                  value={dataFile.notesPayment}
+                  name="notesPayment"
+                  placeholder="Notes for payment proof"
+                  style={{ width: 450 }}
+                  minRows={3}
                   onChange={inputHandler}
-                  type="text"
-                  className="form-control"
-                  name="addProductDesc"
-                  id="ProductDesc"
-                  rows="4"
-                  cols="50"
-                /> */}
-
+                />
+              </Box>
+              <DialogActions>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    onChange={addImage}
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                  />
+                </label>
+                <Stack direction="row" alignItems="center" spacing={2}></Stack>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={customProductBtnHandler} autoFocus>
+                <Button onClick={uploadImage} autoFocus>
                   Upload
                 </Button>
               </DialogActions>

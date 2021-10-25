@@ -1,24 +1,24 @@
-import React from 'react';
-import { Box, Container, Divider } from '@material-ui/core';
-import styled from 'styled-components';
-import Carousel from 'react-elastic-carousel';
-import happy_fam from '../../assets/images/happy_fam.jpeg';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import hipster from '../../assets/images/hipster.png';
-import hoody from '../../assets/images/hoody.png';
-import old from '../../assets/images/old.png';
-import mom from '../../assets/images/mom.png';
-import slow1 from '../../assets/images/slow1.jpeg';
-import slow2 from '../../assets/images/slow2.jpeg';
-import slow5 from '../../assets/images/slow5.jpeg';
-import slow4 from '../../assets/images/slow4.jpeg';
-import earth from '../../assets/images/earth.jpg';
-import organic from '../../assets/images/organic.png';
+import React from "react";
+import { Box, Container, Divider } from "@material-ui/core";
+import styled from "styled-components";
+import Carousel from "react-elastic-carousel";
+import happy_fam from "../../assets/images/happy_fam.jpeg";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
+import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
+import hipster from "../../assets/images/hipster.png";
+import hoody from "../../assets/images/hoody.png";
+import old from "../../assets/images/old.png";
+import mom from "../../assets/images/mom.png";
+import slow1 from "../../assets/images/slow1.jpeg";
+import slow2 from "../../assets/images/slow2.jpeg";
+import slow5 from "../../assets/images/slow5.jpeg";
+import slow4 from "../../assets/images/slow4.jpeg";
+import earth from "../../assets/images/earth.jpg";
+import organic from "../../assets/images/organic.png";
 
-import './home.css';
+import "./home.css";
 
 const Nav = styled.div`
   align-items: center;
