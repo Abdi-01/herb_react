@@ -86,14 +86,8 @@ function AppRoute() {
           <Route component={CustomOrder} path="/customorder" />
           <Route component={Sale} path="/sale" />
           <Route exact path="/products" component={Products} />
-          {/* <Route exact path="/transaction" component={Transaction} />
-          <Route
-            exact
-            path="/transaction-history"
-            component={TransactionHistory}
-          /> */}
-          {/* <Route exact path="/profiles/:username" component={Profile} /> */}
           <Route exact path="/cart" component={Cart} />
+          {/* landing page */}
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>
