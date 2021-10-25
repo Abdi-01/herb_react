@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import TransactionHistoryItem from "../../components/TransactionHistoryItem";
+import TransactionItem from "../../components/TransactionItem";
 import { API } from "../../constants/api";
 
 function TransactionHistory() {
@@ -41,7 +42,7 @@ function TransactionHistory() {
   const renderTransactionData = () => {
     return transactionData.transaction.map((item) => {
       return (
-        <TransactionHistoryItem
+        <TransactionItem
           key={item.transaction_id}
           transactionID={item.transaction_id}
           transactionDate={item.transaction_date}
@@ -49,7 +50,12 @@ function TransactionHistory() {
           address={item.address}
           totalPrice={item.total_price}
           hasPrescription={item.prescription_img}
+          detail={item.transaction_id}
           imgproof={item.payment_proof}
+          imgprescription={item.prescription_img}
+          notes={item.notes_payment}
+          prescnotes={item.notes}
+          status={item.payment_status}
         />
       );
     });
@@ -66,11 +72,9 @@ function TransactionHistory() {
         <Box display="flex" flexDirection="column" alignItems="center" my={4}>
           <Card
             variant="elevation"
-            sx={{ width: 700, borderRadius: 6, padding: 4 }}
+            sx={{ borderRadius: 6, padding: 4 }}
             elevation={0}
           >
-            <Typography>Transactions history</Typography>
-
             {transactionData.transaction.length ? (
               <>
                 <CardContent>

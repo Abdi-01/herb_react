@@ -150,21 +150,6 @@ export default function BasicMenu() {
               <ListItemText>Transactions</ListItemText>
             </Box>
           </MenuItem>
-          <MenuItem dense>
-            <Box
-              display="flex"
-              alignItems="center"
-              component={Link}
-              sx={{ textDecoration: "none" }}
-              color="inherit"
-              to="/transaction-history"
-            >
-              <ListItemIcon>
-                <HistoryEduOutlinedIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Transactions History</ListItemText>
-            </Box>
-          </MenuItem>
           <Divider />
           <MenuItem dense onClick={handleLogout}>
             <Box

@@ -1,7 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Layout from '../components/Layout';
-import TransactionHistoryItem from '../components/TransactionHistoryItem';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Layout from "../components/Layout";
 // import Profile from "../pages/Profile";
 import {
   AdminDashboard,
@@ -16,21 +15,21 @@ import {
   Sale,
   SalesReport,
   AdminTransactionDetail,
-} from '../pages';
-import AdminTransactons from '../pages/AdminTransactions';
-import Forgot from '../pages/Auth/Forgot';
-import ForgotSuccess from '../pages/Auth/ForgotSuccess';
-import ForgotVerify from '../pages/Auth/ForgotVerify';
-import ForgotVerifySuccess from '../pages/Auth/ForgotVerifySuccess';
-import Login from '../pages/Auth/Login';
-import Register from '../pages/Auth/Register';
-import RegisterSuccess from '../pages/Auth/RegisterSuccess';
-import Verify from '../pages/Auth/Verify';
-import Cart from '../pages/Cart';
-import ChangePassword from '../pages/ChangePassword';
-import Home from '../pages/Home/Home';
-import Transaction from '../pages/Transaction/Transaction';
-import TransactionHistory from '../pages/Transaction/TransactionHistory';
+} from "../pages";
+import AdminTransactons from "../pages/AdminTransactions";
+import Forgot from "../pages/Auth/Forgot";
+import ForgotSuccess from "../pages/Auth/ForgotSuccess";
+import ForgotVerify from "../pages/Auth/ForgotVerify";
+import ForgotVerifySuccess from "../pages/Auth/ForgotVerifySuccess";
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
+import RegisterSuccess from "../pages/Auth/RegisterSuccess";
+import Verify from "../pages/Auth/Verify";
+import Cart from "../pages/Cart";
+import ChangePassword from "../pages/ChangePassword";
+import Home from "../pages/Home/Home";
+import Transaction from "../pages/Transaction";
+import TransactionHistory from "../pages/Transaction/TransactionHistory";
 
 function AppRoute() {
   return (

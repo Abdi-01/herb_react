@@ -1,20 +1,23 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import {
+  Avatar,
   Card,
   CardContent,
   Container,
   CssBaseline,
-  Divider,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
 import ButtonPrimary from "../components/Buttons/ButtonPrimary";
-import { changePassword } from "../redux/actions/auth";
+import { API } from "../constants/api";
 
 // Form validation rule
 const schema = yup.object().shape({
@@ -40,11 +43,26 @@ function ChangePassword(props) {
   });
 
   const userGlobal = useSelector((state) => state.userGlobal);
-  const dispatch = useDispatch();
-  const changePasswords = (data) => dispatch(changePassword(data));
 
   const onChangePassword = (data) => {
-    changePasswords(data);
+    // console.log(data.password);
+    // console.log(userGlobal.id);
+    axios
+      .patch(`${API}/auth/change-password`, {
+        password: data.password,
+        id: userGlobal.id,
+      })
+      .then((res) => {
+        alert(res.data.message);
+        props.history.push(`/profiles/${userGlobal.username}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const onBack = () => {
+    props.history.push(`/profiles/${userGlobal.username}`);
   };
 
   return (
@@ -58,7 +76,15 @@ function ChangePassword(props) {
           alignItems: "center",
         }}
       >
-        <Card variant="outlined">
+        <Card variant="elevation" elevation={0} sx={{ borderRadius: 6 }}>
+          <Box p={4} display="flex" alignItems="center">
+            <IconButton onClick={onBack}>
+              <Avatar sx={{ bgcolor: "#3E9C99" }}>
+                <ArrowBackIosOutlinedIcon />
+              </Avatar>
+            </IconButton>
+            <Typography ml={2}>Go Back</Typography>
+          </Box>
           <CardContent
             sx={{
               display: "flex",
@@ -66,19 +92,16 @@ function ChangePassword(props) {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" mt={4}>
               Change password
             </Typography>
             <Typography component="h1" variant="h5" fontSize="16px" mt={1}>
               Please choose a new password
             </Typography>
             <Box display="flex">
-              <Box sx={{ width: 400 }}>
-                <Typography>Menu Side</Typography>
-                <Divider />
-              </Box>
               <Box
                 p={5}
+                px={20}
                 component="form"
                 noValidate
                 sx={{ mt: 1, width: 800 }}

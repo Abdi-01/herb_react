@@ -37,7 +37,10 @@ function CartItem(props) {
             <Divider variant="middle" />
             <Box display="flex" flexDirection="column" justifyContent="center">
               <Typography fontWeight="600">{props.name}</Typography>
-              <Typography>Rp. {props.price * props.quantity}</Typography>
+              <Typography>Rp. {props.price}</Typography>
+              <Typography>
+                Sub Total : Rp. {props.price * props.quantity}
+              </Typography>
             </Box>
           </Box>
         </Box>

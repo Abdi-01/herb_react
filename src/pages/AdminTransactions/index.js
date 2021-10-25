@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TransactionCustomItem from "../../components/TransactionCustomItem";
@@ -59,19 +60,9 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
 function AdminTransactons() {
-  const [value, setValue] = useState(0);
   const [customTrans, setCustomTrans] = useState([]);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const userGlobal = useSelector((state) => state.userGlobal);
 
   useEffect(() => {
     fetchCustomTrans();
@@ -113,21 +104,17 @@ function AdminTransactons() {
           <SidebarNav>
             <SidebarWrap>
               <div>
-                <h6 className="text-white my-4">Dashboard</h6>
+                <h4 className="text-white my-4">
+                  <Link className="text-decoration-none text-white" to="/admin">
+                    Dashboard
+                  </Link>
+                </h4>
                 <h6 className="my-4">
                   <Link
                     to="/adminproducts"
-                    className="text-decoration-none text-white link_to"
+                    className="text-decoration-none text-white"
                   >
                     Manage Products
-                  </Link>
-                </h6>
-                <h6 className="text-white my-4">
-                  <Link
-                    to="/admin/transactions"
-                    className="text-decoration-none text-white link_to"
-                  >
-                    Transactions
                   </Link>
                 </h6>
                 <h6 className="my-4">
@@ -138,8 +125,30 @@ function AdminTransactons() {
                     Sales Report
                   </Link>
                 </h6>
-
-                <h6 className="text-white my-4">Manage Account</h6>
+                <h6 className="my-4">
+                  <Link
+                    to="/customrecord"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Custom Record
+                  </Link>
+                </h6>
+                <h6 className="text-white my-4">
+                  <Link
+                    to="/admin/transactions"
+                    className="text-decoration-none text-white link_to"
+                  >
+                    Serve Transactions
+                  </Link>
+                </h6>
+                <h6 className="text-white my-4">
+                  <Link
+                    className="text-decoration-none text-white"
+                    to={`/profiles/${userGlobal.username}`}
+                  >
+                    Manage Account
+                  </Link>
+                </h6>
               </div>
             </SidebarWrap>
           </SidebarNav>
@@ -147,40 +156,20 @@ function AdminTransactons() {
       </Box>
       <Box ml={35} px={8}>
         <Typography fontWeight={500} py={4} fontSize={34}>
-          Transactions
+          Serve transactions
         </Typography>
-        <Box sx={{ backgroundColor: "#FFFF", borderRadius: 6 }}>
-          <Box px={4} py={2}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="Manage Transactions" {...a11yProps(0)} />
-              <Tab label="Serve Transactions" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} />
-            </Tabs>
+
+        <Box
+          py={4}
+          sx={{ backgroundColor: "#FFFF", borderRadius: 6 }}
+          mx={-3}
+          mt={2}
+          height={600}
+        >
+          <Box style={{ maxHeight: 530, overflow: "auto" }} px={4} mr={2}>
+            {renderCustomTrans()}
           </Box>
         </Box>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Box
-            py={4}
-            sx={{ backgroundColor: "#FFFF", borderRadius: 6 }}
-            mx={-3}
-            mt={2}
-            height={600}
-          >
-            <Box style={{ maxHeight: 530, overflow: "auto" }} px={4} mr={2}>
-              {renderCustomTrans()}
-            </Box>
-          </Box>
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
       </Box>
     </Box>
   );
