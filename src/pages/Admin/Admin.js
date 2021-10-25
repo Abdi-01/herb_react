@@ -234,7 +234,7 @@ function Admin() {
           <Grid item xs={5} className="mx-4 my-2">
             <Card elevation={7} className="p-2">
               <h5 className="mb-3">
-                <Link className="text-decoration-none" to="/transactions">
+                <Link className="text-decoration-none" to="/admintransactions">
                   <strong>Transactions</strong>
                 </Link>
               </h5>

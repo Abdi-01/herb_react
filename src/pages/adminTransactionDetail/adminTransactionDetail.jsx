@@ -44,7 +44,7 @@ const TransactionDetail = (props) => {
       Axios.delete(`${API_URL}/transaction/delete/${deleteId}`)
         .then(() => {
           alert('Transaction has been deleted.');
-          props.history.push('/transactions');
+          props.history.push('/admintransactions');
         })
         .catch((err) => {
           alert(err);

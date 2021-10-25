@@ -7,7 +7,7 @@ import { fetchCart } from '../../redux/actions/cart';
 //styling
 import useStyles from './homestyles';
 import './homestyles.css';
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import styled from 'styled-components';
 // file directory
 import Product from './Product/Product';
@@ -49,7 +49,7 @@ const Products = () => {
 
   const [productsFetch, setProductsFetch] = useState({
     productList: [],
-    itemPerPage: 20,
+    itemPerPage: 25,
   });
 
   const [productsFilter, setProductsFilter] = useState({

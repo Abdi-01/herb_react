@@ -5,7 +5,7 @@
   float: right;
   width: 750px;
   height: 500px;
-  margin: 4%;
+  margin: 3.5%;
   border-radius: 5px;
   z-index: 4;
   box-shadow: 5px 5px 5px grey;
@@ -15,26 +15,26 @@
   position: absolute;
   width: 800px;
   height: 500px;
-  margin: 4% -20%;
-  float: right;
+  margin: 3% -30%;
+  float: left;
   border-radius: 25%;
 }
 
 .h1_main {
-  width: 850px;
-  margin: 10%;
+  width: 600px;
+  margin: 8%;
   font-family: 'Prata', serif;
   font-weight: 500;
   color: white;
-  font-size: 70px;
+  font-size: 65px;
   text-align: start;
   text-shadow: 5px 5px 5px grey;
   letter-spacing: 2px;
-  padding-top: 2%;
   z-index: 6;
 }
 
 .second_container {
+  margin-top: 10%;
   height: 190vh;
   width: 100%;
   background: white;
@@ -100,7 +100,7 @@
 }
 
 .third_container {
-  margin: 5% 7% 2%;
+  margin: 25% 7% 2%;
 }
 
 .h6_main {

@@ -104,8 +104,8 @@ const CustomOrder = () => {
     'We Will Soon Notify Your Oder Through Email',
   ];
   return (
-    <div className="product_custom_container d-flex flex-row">
-      <Card className="p-4 m-4">
+    <div className="product_custom_container d-flex flex-row justify-content-center">
+      <Card className="p-4 m-4 col-8">
         <Grid>
           <Container>
             <Container className="jumbotron p-4">
@@ -210,51 +210,53 @@ const CustomOrder = () => {
           </Container>
         </Grid>
       </Card>
-      <Card className="p-2 m-4 ">
-        <Grid>
-          <Container className=" justify-content-center">
-            <div className="p-4">
-              <h4>Please fill form below: </h4>
-            </div>
-            <div className="image_preview">
-              <img id="imgpreview" alt="" width="100%" />
-            </div>
-            <div>
-              <label htmlFor="img">Upload prescription here: </label>
-              <input
-                onChange={btnAddImage}
-                type="file"
-                className="form-control"
-                id="img"
-              />
-              <label htmlFor="ProductDesc">Notes:</label>
-              <textarea
-                value={customProduct.addProductDesc}
-                onChange={inputHandler}
-                type="text"
-                className="form-control"
-                name="addProductDesc"
-                id="ProductDesc"
-                rows="4"
-                cols="50"
-              />
-            </div>
-          </Container>
-          <Container>
-            <div className="modal-footer">
-              <button
-                onClick={addCustomProductBtnHandler}
-                className="btn btn-info text-white"
-              >
-                Submit
-              </button>
-              <button onClick={refreshContent} className="btn btn-danger">
-                Cancel
-              </button>
-            </div>
-          </Container>
-        </Grid>
-      </Card>
+      {userGlobal.id ? (
+        <Container className="m-2" style={{ paddingTop: '12%' }}>
+          <Grid>
+            <Container className="justify-content-center">
+              <div className="pt-4">
+                <h4>Please fill form below: </h4>
+              </div>
+              <div className="image_preview">
+                <img id="imgpreview" alt="" width="100%" />
+              </div>
+              <div>
+                <label htmlFor="img">Upload prescription here: </label>
+                <input
+                  onChange={btnAddImage}
+                  type="file"
+                  className="form-control"
+                  id="img"
+                />
+                <label htmlFor="ProductDesc">Notes:</label>
+                <textarea
+                  value={customProduct.addProductDesc}
+                  onChange={inputHandler}
+                  type="text"
+                  className="form-control"
+                  name="addProductDesc"
+                  id="ProductDesc"
+                  rows="4"
+                  cols="50"
+                />
+              </div>
+            </Container>
+            <Container>
+              <div className="modal-footer">
+                <button
+                  onClick={addCustomProductBtnHandler}
+                  className="btn btn-info text-white"
+                >
+                  Submit
+                </button>
+                <button onClick={refreshContent} className="btn btn-danger">
+                  Cancel
+                </button>
+              </div>
+            </Container>
+          </Grid>
+        </Container>
+      ) : null}
     </div>
   );
 };

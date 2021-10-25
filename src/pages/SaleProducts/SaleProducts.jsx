@@ -52,11 +52,13 @@ const SaleProducts = () => {
           height: '95vh',
           marginTop: '1vh',
           background: 'wheat',
+          borderRadius: '25px',
           padding: '5% 1%',
+          marginLeft: '1%',
         }}
       >
-        <h1>50% sale</h1>
-        <h4>For you and your loved ones.</h4>
+        <h1>50% sale off</h1>
+        <h6>For you and your loved ones.</h6>
       </Container>
       <Grid
         container

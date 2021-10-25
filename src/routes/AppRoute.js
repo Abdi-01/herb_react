@@ -12,14 +12,14 @@ import Verify from '../pages/Auth/Verify';
 import ChangePassword from '../pages/ChangePassword';
 import Profile from '../pages/Profile';
 import {
+  Products,
+  ProductDetail,
+  Sale,
+  CustomOrder,
   AdminDashboard,
   AdminProducts,
-  ProductDetail,
-  CustomOrder,
-  UserTransactions,
-  TransactionDetail,
-  Products,
-  Sale,
+  AdminTransactions,
+  adminTransactionDetail,
   Home,
 } from '../pages';
 import Transaction from '../pages/Transaction';
@@ -31,6 +31,7 @@ function AppRoute() {
     <Router>
       <Layout>
         <Switch>
+          {/* auth */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />\
           <Route exact path="/registered" component={RegisterSuccess} />
@@ -43,25 +44,13 @@ function AppRoute() {
             component={ForgotVerifySuccess}
           />
           <Route exact path="/forgot/verify/:token" component={ForgotVerify} />
+          {/* profile */}
           <Route
             exact
             path="/profiles/:username/password/change"
             component={ChangePassword}
           />
           <Route exact path="/profiles/:username" component={Profile} />
-          {/* ADMIN ROUTING */}
-          <Route component={AdminDashboard} path="/admin" />
-          <Route component={AdminProducts} path="/adminproducts" />
-          <Route component={UserTransactions} path="/transactions" />
-          <Route
-            component={TransactionDetail}
-            path="/transactiondetail/:transactiondetail_id"
-          />
-          {/* PRODUCTS ROUTING */}
-          <Route component={ProductDetail} path="/productdetail/:product_id" />
-          <Route component={CustomOrder} path="/customorder" />
-          <Route component={Sale} path="/sale" />
-          <Route exact path="/products" component={Products} />
           <Route exact path="/transaction" component={Transaction} />
           <Route
             exact
@@ -69,6 +58,20 @@ function AppRoute() {
             component={TransactionHistory}
           />
           <Route exact path="/cart" component={Cart} />
+          {/* ADMIN ROUTING */}
+          <Route component={AdminDashboard} path="/admin" />
+          <Route component={AdminProducts} path="/adminproducts" />
+          <Route component={AdminTransactions} path="/admintransactions" />
+          <Route
+            component={adminTransactionDetail}
+            path="/transactiondetail/:transactiondetail_id"
+          />
+          {/* PRODUCTS ROUTING */}
+          <Route component={ProductDetail} path="/productdetail/:product_id" />
+          <Route component={CustomOrder} path="/customorder" />
+          <Route component={Sale} path="/sale" />
+          <Route exact path="/products" component={Products} />
+          {/* landing page routing */}
           <Route exact path="/" component={Home} />
         </Switch>
       </Layout>
