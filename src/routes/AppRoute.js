@@ -59,7 +59,7 @@ function AppRoute() {
           <Route exact path="/transaction" component={Transaction} />
           <Route
             exact
-            path="/profiles/:username/profile/change"
+            path="/profiles/:username/change"
             component={EditModal}
           />
           <Route

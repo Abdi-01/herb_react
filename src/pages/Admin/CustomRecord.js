@@ -35,7 +35,7 @@ const CustomRecord = () => {
           <td>{val.product_name}</td>
           <td>{val.capacity_per_package}</td>
           <td>{val.unit}</td>
-          <td>{val.quantity}</td>
+          <td>{val.dose}</td>
           <td>Rp. {val.total_price}</td>
         </tr>
       )
@@ -63,7 +63,7 @@ const CustomRecord = () => {
                 <th>Product</th>
                 <th>Netto</th>
                 <th>Unit</th>
-                <th>Quantity</th>
+                <th>Dose</th>
                 <th>Total Price</th>
               </tr>
             </thead>

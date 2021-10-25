@@ -50,7 +50,7 @@ const SalesReport = () => {
           <td>{val.Date}</td>
           <td>{val.product_name}</td>
           <td>{val.quantity}</td>
-          <td>{val.total_price}</td>
+          <td>Rp. {val.total_price}</td>
         </tr>
       )
     })
