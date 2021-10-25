@@ -4,11 +4,9 @@ import { API } from "../../constants/api";
 export const loginUser = ({ account, password }) => {
   return (dispatch) => {
     axios
-      .get(`${API}/auth/login`, {
-        params: {
-          account: account,
-          password: password,
-        },
+      .post(`${API}/auth/login`, {
+        account: account,
+        password: password,
       })
       .then((res) => {
         if (res.data.dataLogin) {
@@ -120,13 +118,5 @@ export const forgotPassword = ({ account }) => {
       .catch((err) => {
         console.log(err);
       });
-  };
-};
-
-export const changePassword = ({ password }) => {
-  return (dispatch) => {
-    axios.patch(`${API}/auth/change-password`, {
-      password: password,
-    });
   };
 };
