@@ -1,0 +1,11 @@
+.footer-container {
+  border-top: 1.5px solid;
+  border-color: lightgray;
+  padding: 16px;
+}
+
+.footer-title {
+  text-align: center;
+  font-size: 14px;
+  color: rgb(155, 154, 154);
+}

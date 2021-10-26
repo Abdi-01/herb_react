@@ -1,0 +1,12 @@
+.admin_container {
+  position: block;
+  top: 0;
+  margin: 7px 2% 2% 14%;
+  justify-content: center;
+  align-items: center;
+}
+
+/* h6:hover {
+  color: black;
+  font-size: 20px;
+} */
