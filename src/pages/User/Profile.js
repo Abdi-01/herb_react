@@ -62,7 +62,6 @@ function Profile() {
         },
       })
       .then((res) => {
-        // console.log('fetch Trans : ', res.data);
         let dataTrans = res.data;
         setTransactionData({
           ...transactionData,
@@ -135,6 +134,12 @@ function Profile() {
               <Box mb={2}>
                 <Typography fontSize={14}>{userGlobal.city}</Typography>
               </Box>
+              <Box>
+                <Typography color="GrayText">Phone Number</Typography>
+              </Box>
+              <Box mb={2}>
+                <Typography fontSize={14}>{userGlobal.phone_number}</Typography>
+              </Box>
               <Box display="flex" justifyContent="space-between">
                 <Box>
                   <Box>
@@ -157,7 +162,7 @@ function Profile() {
             <Box px={4}>
               <Box
                 component={Link}
-                to={`/profiles/${userGlobal.username}/profile/change`}
+                to={`/profiles/${userGlobal.username}/change`}
                 sx={{ textDecoration: "none" }}
               >
                 <ButtonPrimary size="small" fullWidth>

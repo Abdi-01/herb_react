@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../../../helper";
 import Alert from "@mui/material/Alert";
 
-function EditModal() {
+function EditModal(props) {
   const userGlobal = useSelector((state) => state.userGlobal);
 
   const [editUser, setEditUser] = useState({
@@ -25,12 +25,6 @@ function EditModal() {
     addFile: "",
     addFileName: "",
   });
-
-  const successAlert = () => {
-    return (
-      <Alert severity="success">This is a success alert — check it out!</Alert>
-    );
-  };
 
   const dispatch = useDispatch();
   const getSessions = (data) => {
@@ -82,8 +76,8 @@ function EditModal() {
 
       Axios.patch(`${API_URL}/users/${userGlobal.id}`, formData)
         .then((res) => {
-          successAlert();
           getSessions();
+          props.history.push(`/profiles/${userGlobal.username}`);
         })
         .catch(() => {
           alert(`Terjadi Kesalahan`);
@@ -99,8 +93,8 @@ function EditModal() {
         age: editUser.editUserAge,
       })
         .then((res) => {
-          successAlert();
           getSessions();
+          props.history.push(`/profiles/${userGlobal.username}`);
         })
         .catch(() => {
           alert(`Terjadi Kesalahan`);
